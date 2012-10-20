@@ -1,0 +1,125 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0" is_locked="false">
+    <option name="myName" value="Project Default" />
+    <option name="myLocal" value="false" />
+    <inspection_tool class="CastToConcreteClass" level="WARNING" enabled="true" />
+    <inspection_tool class="CheckImageSize" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CheckNodeTest" level="WARNING" enabled="false" />
+    <inspection_tool class="CheckValidXmlInScriptTagBody" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="ClassReferencesSubclass" level="WARNING" enabled="true" />
+    <inspection_tool class="ClassWithoutToString" level="WARNING" enabled="true" />
+    <inspection_tool class="CssInvalidElementInspection" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="CyclomaticComplexityJS" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_limit" value="10" />
+    </inspection_tool>
+    <inspection_tool class="DeclareCollectionAsInterface" level="WARNING" enabled="true">
+      <option name="ignoreLocalVariables" value="false" />
+      <option name="ignorePrivateMethodsAndFields" value="false" />
+    </inspection_tool>
+    <inspection_tool class="DocumentWriteJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="FeatureEnvy" level="WARNING" enabled="true">
+      <option name="ignoreTestCases" value="false" />
+    </inspection_tool>
+    <inspection_tool class="FunctionWithMultipleLoopsJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="FunctionWithMultipleReturnPointsJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="HardwiredNamespacePrefix" level="WARNING" enabled="false" />
+    <inspection_tool class="HtmlDeprecatedTag" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="HtmlExtraClosingTag" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="myValues">
+        <value>
+          <list size="5">
+            <item index="0" class="java.lang.String" itemvalue="type" />
+            <item index="1" class="java.lang.String" itemvalue="wmode" />
+            <item index="2" class="java.lang.String" itemvalue="src" />
+            <item index="3" class="java.lang.String" itemvalue="width" />
+            <item index="4" class="java.lang.String" itemvalue="height" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="myValues">
+        <value>
+          <list size="5">
+            <item index="0" class="java.lang.String" itemvalue="embed" />
+            <item index="1" class="java.lang.String" itemvalue="nobr" />
+            <item index="2" class="java.lang.String" itemvalue="noembed" />
+            <item index="3" class="java.lang.String" itemvalue="comment" />
+            <item index="4" class="java.lang.String" itemvalue="script" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="ImplicitTypeConversion" level="WARNING" enabled="false">
+      <option name="BITS" value="1720" />
+      <option name="FLAG_EXPLICIT_CONVERSION" value="true" />
+      <option name="IGNORE_NODESET_TO_BOOLEAN_VIA_STRING" value="true" />
+    </inspection_tool>
+    <inspection_tool class="IndexZeroUsage" level="WARNING" enabled="false" />
+    <inspection_tool class="InnerHTMLJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="InstanceVariableOfConcreteClass" level="WARNING" enabled="true" />
+    <inspection_tool class="InstanceofChain" level="WARNING" enabled="true" />
+    <inspection_tool class="InstanceofInterfaces" level="WARNING" enabled="true" />
+    <inspection_tool class="InstanceofThis" level="WARNING" enabled="true" />
+    <inspection_tool class="JNIImplementations" level="WARNING" enabled="false" />
+    <inspection_tool class="LocalVariableOfConcreteClass" level="WARNING" enabled="true" />
+    <inspection_tool class="MagicNumber" level="WARNING" enabled="true">
+      <option name="m_ignoreInHashCode" value="true" />
+    </inspection_tool>
+    <inspection_tool class="MethodOnlyUsedFromInnerClass" level="WARNING" enabled="true">
+      <option name="ignoreMethodsAccessedFromAnonymousClass" value="false" />
+    </inspection_tool>
+    <inspection_tool class="MethodReturnOfConcreteClass" level="WARNING" enabled="true" />
+    <inspection_tool class="NativeJavaMethods" level="WARNING" enabled="false" />
+    <inspection_tool class="NestingDepthJS" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_limit" value="5" />
+    </inspection_tool>
+    <inspection_tool class="ObsoleteCollection" level="WARNING" enabled="true">
+      <option name="ignoreLibraryArguments" value="false" />
+    </inspection_tool>
+    <inspection_tool class="OverlyStrongTypeCast" level="WARNING" enabled="true">
+      <option name="ignoreInMatchingInstanceof" value="false" />
+    </inspection_tool>
+    <inspection_tool class="ParameterOfConcreteClass" level="WARNING" enabled="true" />
+    <inspection_tool class="ParametersPerFunctionJS" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_limit" value="5" />
+    </inspection_tool>
+    <inspection_tool class="PlatformDetectionJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PublicMethodNotExposedInInterface" level="WARNING" enabled="true" />
+    <inspection_tool class="RedundantTypeConversion" level="WARNING" enabled="false">
+      <option name="CHECK_ANY" value="true" />
+    </inspection_tool>
+    <inspection_tool class="RequiredAttributes" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="myAdditionalRequiredHtmlAttributes" value="" />
+    </inspection_tool>
+    <inspection_tool class="RubyConstAlreadyInitialized" level="WARNING" enabled="true" />
+    <inspection_tool class="RubyResolve" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="warnImplicitResults" value="false" />
+    </inspection_tool>
+    <inspection_tool class="StatementsPerFunctionJS" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_limit" value="30" />
+    </inspection_tool>
+    <inspection_tool class="StaticMethodOnlyUsedInOneClass" level="WARNING" enabled="true" />
+    <inspection_tool class="StaticVariableOfConcreteClass" level="WARNING" enabled="true" />
+    <inspection_tool class="SuppressionAnnotation" level="WARNING" enabled="true" />
+    <inspection_tool class="SystemOutErr" level="WARNING" enabled="true" />
+    <inspection_tool class="ThreadDumpStack" level="WARNING" enabled="true" />
+    <inspection_tool class="ThreeNegationsPerFunctionJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ThrowablePrintStackTrace" level="WARNING" enabled="true" />
+    <inspection_tool class="TypeMayBeWeakened" level="WARNING" enabled="true">
+      <option name="useRighthandTypeAsWeakestTypeInAssignments" value="true" />
+      <option name="useParameterizedTypeForCollectionMethods" value="true" />
+    </inspection_tool>
+    <inspection_tool class="UnusedCppSymbol" level="WARNING" enabled="false" />
+    <inspection_tool class="XHTMLIncompatabilitiesJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="XmlDuplicatedId" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="XmlUnboundNsPrefix" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="XmlWrongRootElement" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="XsltDeclarations" level="ERROR" enabled="false" />
+    <inspection_tool class="XsltTemplateInvocation" level="ERROR" enabled="false" />
+    <inspection_tool class="XsltUnusedDeclaration" level="WARNING" enabled="false" />
+  </profile>
+</component>
