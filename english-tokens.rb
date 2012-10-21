@@ -11,10 +11,6 @@ def attribute
 end
 
 
-def verb
-  tokens 'be', 'have', 'do', 'get', 'make', 'want', 'try', 'buy','take','apply','make','get','eat','drink','say','go','know','take','see','come','think','look','give','use','find','tell','ask','work','seem','feel','leave','call'
-end
-
 
 def be
   tokens 'is','be','was',':=','=','=='
@@ -43,6 +39,10 @@ def done
   ignore_rest_of_line
 end
 
+def let?
+  _? 'let' , 'set'
+end
+
 def let
   tokens 'let' , 'set'
 end
@@ -67,3 +67,13 @@ def the?
 end
 
 #/*otherKeywords 'and'||'as'||'back'||'beginning'||'but'||'by'||'contain'||'contains'||'copy'||'div'||'does'||'eighth'||'else'||'end'||'equal'||'equals'||'error'||'every'||'false'||'fifth'||'first'||'for'||'fourth'||'even' || 'front'||'get'||'given'||'global'||'if'||'ignoring' || 'is'||'it'||'its'||'last'||'local'||'me'||'middle'||'mod'||'my'||'ninth'||'not'||'sixth'||'some'||'tell'||'tenth'||'that'||'the'||'then'||'third'||'timeout'||'times'||'transaction'||'true'||'try'||'where'||'whoseuntil'||'while'||'prop'||'property'||'put'||'ref'||'reference'||'repeat'||'returning'||'script'||'second'||'set'||'seventh' */
+
+
+def verb
+  tokens 'be', 'have', 'do', 'get', 'make', 'want', 'try', 'buy','take','apply','make','get','eat','drink','say','go','know','take','see','come','think','look','give','use','find','tell','ask','work','seem','feel','leave','call','integrate','print',"eat"
+end
+
+
+def noun
+  tokens "bug","sandwich"
+end

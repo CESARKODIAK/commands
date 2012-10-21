@@ -1,46 +1,32 @@
 def root
-  action || statements
+  action || star{method_definition || block}
 end
 
-#module EnglishScript
-def ruby_action
-  _'ruby'
-  exec(action || quote)
-end
-
-def bash_action
-  __ 'bash' #,'execute'
-  any{ command = quote ||  statements || action }
-  %x{#{command}}
-end
-
-
-def statements
-  star{definition}||block
-  block
-		 star{
-       expression
-       newlines
-       } #... expression|| backtrack!
-end
 
 
 def block
-star{
-  expression
-  newlines
-}
+  star{
+    expression
+    newlines
+  }
 end
 #;//... expression| backtrack!
 
 
 def expression
-  any{action || if_then || once || loop}
+  any{
+    try{action} ||
+    try{if_then} ||
+    try{once}    ||
+    try{looper}
+  }
+  #one :action, :if_then ,:once , :looper
+  #any{action || if_then || once || looper}
 end
 
 
-def definition
-  @throwing=true
+def method_definition
+  #@@throwing=true
   method
   verb
   endNode?
@@ -48,8 +34,35 @@ def definition
   #''?
   newline
   block
+  #newlines?
   done
 end
+
+
+#module EnglishScript
+def ruby_action
+  _'ruby'
+  exec(action || quote)
+end
+
+
+def bash_action
+  __ 'bash' #,'execute'
+  @command = try{quote}
+  @command = rest_of_statement if not @command
+            #any{ try{  } ||  statements }
+  begin
+    puts "going to execute " + @command
+    result=%x{#{@command}}
+    puts "result:"
+    puts result
+    return result || true
+  rescue
+    puts "error executing bash_action"
+  end
+
+end
+
 
 def if_then_line
   _'if'
@@ -87,9 +100,29 @@ def once
 #	 verb number 'times' preposition nod -> "<verb> <preposition> <nod> for <number> times" 	*/
 #/*	 verb number 'times' preposition nod -> ^(number times (verb preposition nod)) # Tree ~= lisp	*/
 
+def verb_node
+  verb
+  nod
+end
+
+def spo
+  endNode
+  verb
+  nod
+end
+
  def action
    #	||'say' x=(.*) -> 'bash "say $quote"'
-     any{ bash_action ||set ||verb ||verb and nod ||endNode and verb and nod}
+   #one  :bash_action ,:setter ,:verb ,:verb_node , :spo
+   any{
+         try {bash_action} ||
+         try{setter}||
+         try {spo}||
+         try{verb_node} ||
+         try{verb}
+   }
+   newline?
+     #any{ bash_action ||setter ||verb ||verb and nod ||endNode and verb and nod}
  end
 
 def while_loop
@@ -138,17 +171,17 @@ def as_long_condition_block
   done
 end
 
-def loop
+def looper
   _? "repeat"
- any{while_loop || until_condition || times || while_condition || as_long_condition || as_long_condition_block}
+  one :while_loop ,:until_condition ,:times ,:while_condition ,:as_long_condition ,:as_long_condition_block
 end
 
 #/*	 let nod be nods */
-    def set
-let?
-the?
-maybe{tokens 'var','val','value of'}
-    variable
+def setter
+  let?
+  the?
+  maybe{tokens 'var','val','value of'}
+  variable
 be
 value
 # ||'to'
@@ -159,15 +192,17 @@ def variable
  word
 end
 
+
+def word
+  noun
+end
+
 def value
  nod
 end
 
 
 def arg
-  breakpoint
-  debug
-  pause
  preposition
  endNode # about sex
 end
@@ -216,7 +251,7 @@ end
 
 # todo  I hate to ...
 
-def  verbTo
+def verbTo
  auxiliary
  _ 's to'
 end
@@ -226,18 +261,46 @@ end
 
 def gerundium
 	verb
-token 'ing'
-     end
+  token 'ing'
+end
+
+
 def verbium
-comparison||verb and adverb  # be||have||
-    end
+  comparison||verb and adverb  # be||have||
+end
+
+def the_noun_that
+  the?
+  noun
+  star{selector}
+end
+
 def nod #options{generateAmbigWarnings=false}
-number ||quote || the? and noun and star{selector}
-    end
+    try{number} ||
+    try{quote} ||
+    try{the_noun_that}
+end
 
 #number      DIGIT+ ('.' DIGIT+)?
 def number
-  Integer || Real #s '34' # Integer || Real
+  real || integer  #s '34' # Integer || Real
+end
+
+def real
+  match=@@string.match(/^\d*.\d+/)
+  if match
+    @@string=@@string[match[0].length..-1].strip
+    #return rest @@string
+  end
+  #plus{tokens '1','2','3','4','5','6','7','8','9','0','.'}
+end
+
+def integer
+  match=@@string.match(/^\d+/)
+  if match
+    @@string=@@string[match[0].length..-1].strip
+  end
+  #plus{tokens '1','2','3','4','5','6','7','8','9','0'}
 end
 
 def endNode
@@ -254,9 +317,11 @@ endNode2
 end
 
 def selector
-any{where || that || token('of') and endNode || preposition and nod }
-  # ambivalent?  delete james from china
+# ambivalent?  delete james from china
+#any{where || that || token('of') and endNode || preposition and nod }
+  one :where,:that,try{token('of') and endNode},try{preposition and nod}
 end
+
 # preposition nod  # ambivalent?  delete james, from china delete (james from china)
 
 # (who) run like rabbits
@@ -278,9 +343,6 @@ def endNode2
   noun
 end
 
-def noun
-  tokens "bug"
-end
 
 # a nod can be a noun, a string, a number or a simple expression such as The President of the USA, birds in africa
 #/*nods
@@ -288,8 +350,3 @@ end
 #/*List
 #	 (nod ',')* nod 'and' nod */
 
-
-def start
-  a=ARGV[0] || "/Users/me/english-script/test.e"
-  parse IO.read(a)
-end
