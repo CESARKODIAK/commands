@@ -19,3 +19,7 @@ nix
 cypher
 cipher
 goose egg
+leer
+empty
+nirvana
+void

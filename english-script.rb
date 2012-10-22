@@ -12,8 +12,9 @@ end
 
 def block
   star{
-    expression
+    x=expression
     newlines
+    return x
   }
 end
 #;//... expression| backtrack!
@@ -94,7 +95,7 @@ end
 
 
 def once
- 'once'
+ _'once'
  condition
  _?'then'
  action
@@ -208,10 +209,6 @@ def setter
 #'initial'?	let? the? ('initial'||'var'||'val'||'value of')? variable (be||'to') value
 end
 
-def modifier
-  tokens 'initial','public','static','void','default','protected','private','constant','const'
-end
-
 def variable
   one_or_more{word}
 end
@@ -220,22 +217,32 @@ end
 def word
   #danger:greedy!!!
   return false if try{modifier}
-  return false if try{modifier}
-  match=@@string.match(/\w+[\d\w_]*/)
+  return false if starts_with? keywords
+  match=@@string.match(/^\s*\w+[\d\w_]*/)
   if(match)
-    @@string=@@string[match.length]
-    return @@current_value=match
+    @@string=@@string[match[0].length..-1].strip
+    @@current_value=match[0]
+    return match[0]
   end
   #fad35
   #unknown
   noun
 end
 
+  def no_keyword
+    raise NotMatching.new ("ShouldNotMatchKeyword") if starts_with? keywords
+    #raise ShouldNotMatchKeyword.new if starts_with? keywords
+  end
+
 def value
- variables_list?
- nill?
- nod?
- rest_of_line #danger! if x == 7 or y == 6   -> or .*
+ @@current_value=nil
+ no_keyword
+ any{
+ true_variable? ||
+ nill? ||
+ nod? ||
+ rest_of_line
+ }
 end
 
 
@@ -317,10 +324,10 @@ end
 
 def endNode
   any{
-    try{value}||
+      try{endNode2 and _'of' and endNode2}||
+      try{endNode2 and selector2 } ||
       try{endNode2} ||
-        try{endNode2 and selector2 } ||
-        try{endNode2 and _'of' and endNode2}
+      try{value}
     }
 end
 

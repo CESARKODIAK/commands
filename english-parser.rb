@@ -18,7 +18,7 @@ class Parser #< MethodInterception
   MaxRecursionReached= Class.new StandardError
   EndOfBlock= Class.new StandardError
   GivingUp= Class.new StandardError
-
+  ShouldNotMatchKeyword= Class.new StandardError
 def verbose info
   puts info if @@verbose
 end
@@ -46,7 +46,7 @@ end
 
 def token t
   checkEnd
-  if @@string.match(/^#{t}/)
+  if @@string.start_with? t
     @@current_value=@@string[0,t.length]
     @@string=@@string[t.length..-1].strip
     return true
@@ -56,21 +56,27 @@ def token t
   end
 end
 
-def tokens *tokens
-  return if checkEnd
+  def starts_with? tokenz
+    for t in tokenz
+      return true if @@string.start_with?(t)
+    end
+    return false
+  end
 
-  #match=@@string.match("^#{t}")
-  #if match
-  #  @@string=@@string[match[0].length..-1].strip
-  for t in tokens.flatten
-    if @@string.start_with? t
+
+def tokens *tokenz
+  return if checkEnd
+  tokenz.flatten!
+  tokenz.flatten!
+  for t in tokenz
+    if @@string.start_with?(t)
       @@current_value=@@string[0,t.length]
       @@string=@@string[t.length..-1].strip
       #checkEnd
       return @@current_value
     end
   end
-  raise NotMatching.new(tokens.to_s) #if @@throwing
+  raise NotMatching.new(tokenz.to_s) #if @@throwing
   return false
 end
 
@@ -106,6 +112,7 @@ def no_rollback!
 end
 
 def do_rollback
+  puts caller.count
   @@rollback[caller.count]!="NO"   # -1?
 end
 
@@ -186,11 +193,10 @@ def try(&block)
     verbose e
     string_pointer if @@verbose
     #caller.index(last_try caller)]
-    rollback=@@rollback[caller.count]!="NO"
     #puts @@rollback[caller.count]
     #puts caller.count
     #puts rollback
-    if not rollback
+    if not do_rollback
       puts @@rollback[caller.count]
       puts caller.count
       error e
@@ -232,10 +238,9 @@ def star(&block)
     while true
       break if @@string=="" or @@string==last_string
       last_string=@@string
-      rest=yield
-      break if not rest
-      matched=last_string[0.. last_string.length- rest.length-1].strip if rest
-      good<< matched if matched
+      match=yield
+      break if not match or match.empty?
+      good<< match
       throw " too many occurrences of "+ to_source(block) if current>max and @@throwing
     end
   rescue NotMatching => e
@@ -250,7 +255,7 @@ def star(&block)
     #warn e
   end
 
-  @@string=oldString if not good
+  @@string=oldString if good.empty?
   @@throwing=was_throwing
 
   return good
@@ -296,6 +301,7 @@ def error e
   puts e.backtrace
   puts e.class.to_s+" "+e.message.to_s
   string_pointer
+  show_tree rescue puts "no tree"
     exit
   end
 end
@@ -397,7 +403,7 @@ end
 #Parser.new.test*
 #Parser.new.test_any
 
-Parser.new.test
+#Parser.new.test
 Parser.new.start
 #Parser.new.parse "hello why does the world end"
 #Parser.new.parse "hello why does the world car"
