@@ -1,9 +1,26 @@
 #!/usr/bin/env ruby
 
-#@verbose=true
-@verbose=false
+require_relative "MethodInterception"
+require_relative "english-tokens"
+require_relative "english-script"
+require_relative "parser-test"
+
+class Parser #< MethodInterception
+
+@@verbose=true
+#@verbose=false
+#@@very_verbose=false
+@@very_verbose=true
+
+  NotMatching = Class.new StandardError
+  EndOfDocument = Class.new StandardError
+  EndOfLine= Class.new StandardError
+  MaxRecursionReached= Class.new StandardError
+  EndOfBlock= Class.new StandardError
+  GivingUp= Class.new StandardError
+
 def verbose info
-  puts info if @verbose
+  puts info if @@verbose
 end
 
 #gem 'debugger'
@@ -17,21 +34,20 @@ end
 #gem 'ruby-debug', :platforms => :ruby_18
 #gem 'ruby-debug19', :platforms => :ruby_19, :require => 'ruby-debug'
 
-NotMatching = Class.new StandardError
-EndOfDocument = Class.new StandardError
-
-def maybe &block
-  return yield rescue true
-end
+#def maybe &block
+#  return yield rescue true
+#end
 
 
 def checkEnd
-  raise EndOfDocument.new if @@string.empty?
+  #raise EndOfDocument.new if @@string.empty? # no:try,try,try
+  return @@string.empty?
 end
 
 def token t
   checkEnd
   if @@string.match(/^#{t}/)
+    @@current_value=@@string[0,t.length]
     @@string=@@string[t.length..-1].strip
     return true
   else
@@ -40,24 +56,22 @@ def token t
   end
 end
 
-def rest x
-  x
-  #todo
-  #x.index(";")
-end
-
 def tokens *tokens
-  checkEnd
-  for t in tokens
-    match=@@string.match(/^#{t}/)
-    if match
-      @@string=@@string[match[0].length..-1].strip
+  return if checkEnd
+
+  #match=@@string.match("^#{t}")
+  #if match
+  #  @@string=@@string[match[0].length..-1].strip
+  for t in tokens.flatten
+    if @@string.start_with? t
+      @@current_value=@@string[0,t.length]
+      @@string=@@string[t.length..-1].strip
       #checkEnd
-      return rest @@string
+      return @@current_value
     end
   end
-  verbose "expected any of "+tokens.to_s
   raise NotMatching.new(tokens.to_s) #if @@throwing
+  return false
 end
 
 # shortcut
@@ -70,16 +84,39 @@ def _ x
 end
 
 def _? *x
-  maybe{tokens x}
+  try{tokens x}
+end
+
+
+def last_try stack
+  for s in stack
+    if s.match("`try'")
+      return s
+    end
+  end
+end
+
+@@rollback=[]
+def no_rollback!
+  #@@rollback[last_try caller] =false
+  #depth=caller.index(last_try caller)
+  for i in 0..(caller.count)
+    @@rollback[i] ="NO"
+  end
+end
+
+def do_rollback
+  @@rollback[caller.count]!="NO"   # -1?
 end
 
 @@throwing=true #[]
 @@level=0
 def any(&block)
   checkEnd
-  @@level = @@level+1
+
   last_try=0
-  throw "Max recursion reached #{to_source block}" if @@level>20
+  #throw "Max recursion reached #{to_source block}" if @@level>20
+  raise MaxRecursionReached.new(to_source block) if caller.count>50
   was_throwing=@@throwing
   @@throwing=false
   #@@throwing[@@level]=false
@@ -99,12 +136,13 @@ def any(&block)
     puts e.message
     #error e
   end
-  @@string=oldString
+  @@string=oldString if do_rollback
   @@throwing=was_throwing
   #@@throwing[@@level]=true
-  @@level=@@level-1
+  #@@level=@@level-1
+  verbose "Succeeded with any #{to_source block}" if result
   return result if result
-  string_pointer if @verbose
+  string_pointer if @@verbose
   raise NotMatching.new(to_source block)
   #throw "Not matching #{to_source block}"
 end
@@ -129,42 +167,54 @@ def quote
 end
 
 def to_source x
+  return @@last_pattern if @@last_pattern
   #proc=block.to_source(:strip_enclosure => true) rescue "Sourcify::MultipleMatchingProcsPerLineError"
-  IO.readlines(x.source_location[0])[x.source_location[1]-1]
+  IO.readlines(x.source_location[0])[x.source_location[1]-1]#+(x.source_location.to_s)
 end
 
 def try(&block)
-  checkEnd
+  return if checkEnd
   old=@@string
+  @@original_string=@@string if @@original_string.empty?
   begin
-    return yield
-  rescue
-    verbose "Not matching #{to_source block}"
-    string_pointer if @verbose
+    x = yield
+    #rollback=@@rollback[caller.count]="YES" #Succeeded
+    rollback=@@rollback[caller.count..-1]="YES" #Succeeded
+    return x
+  rescue NotMatching => e
+    verbose "Tried #{to_source block}"
+    verbose e
+    string_pointer if @@verbose
+    #caller.index(last_try caller)]
+    rollback=@@rollback[caller.count]!="NO"
+    #puts @@rollback[caller.count]
+    #puts caller.count
+    #puts rollback
+    if not rollback
+      puts @@rollback[caller.count]
+      puts caller.count
+      error e
+      error "NO ROLLBACK, GIVING UP!!!"
+      show_tree rescue puts "no tree"
+      exit
+      #raise GivingUp.new
+    end
+  rescue => e
+    error e
+    exit
   end
-  @@string=old
+  @@string=old #if rollback
   return false
 end
 
+  def plus(&block)
+    yield
+    star{yield}
+  end
 
 def one_or_more(&block)
-  checkEnd
-  max=100
-  current=0
-  good=[]
-  # begin
-  while true
-    #old=@@string
-    matched=yield
-    good<<matched if matched
-    break if not matched
-    current=current+1
-    throw(" too many occurrences of "+ to_source(block)) if current>max and @@throwing
-  end
-  throw "no occurrence of "+ to_source(block) if current==0 and @@throwing
-  return good
-  # rescue
-  # end
+  yield
+  star{yield}
 end
 
 def star(&block)
@@ -177,19 +227,27 @@ def star(&block)
   good=[]
   # begin
   oldString=@@string
+  last_string=""
   begin
     while true
-      break if @@string==""
-      matched=yield
-      good<<matched if matched
-      break if not matched
+      break if @@string=="" or @@string==last_string
+      last_string=@@string
+      rest=yield
+      break if not rest
+      matched=last_string[0.. last_string.length- rest.length-1].strip if rest
+      good<< matched if matched
       throw " too many occurrences of "+ to_source(block) if current>max and @@throwing
     end
   rescue NotMatching => e
-    verbose e
+    if @@very_verbose and not good
+      verbose "NotMatching star "+ e.to_s
+      #verbose "expected any of "+tokens.to_s if tokens and tokens.count>0
+      string_pointer if @@verbose
+    end
   rescue => e
-    warn e
-    to_source(block)
+    error e
+    error "error in star "+ to_source(block)
+    #warn e
   end
 
   @@string=oldString if not good
@@ -213,16 +271,33 @@ end
 
 def string_pointer
   offset=@@original_string.length-@@string.length
-  from=offset>10?offset-10 :0
+  from=offset-80
+  to=offset+80
+  from=0 if(from<0)
+
+  newline_i=@@original_string.rindex("\n",offset)
+  if(newline_i and newline_i<offset and newline_i-from<80)
+    from=newline_i+1
+  end
+
+  newline_i=@@original_string.index("\n",offset)
+  if(newline_i and newline_i<to and newline_i>=offset)
+    to=newline_i
+  end
   #puts @@string
-  puts @@original_string[from..offset+10]
-  puts "          ^^^         "
+  puts @@original_string[from..to]
+  puts " "*(offset-from) + "^^^"
 end
+
 def error e
-  puts e.message
+  puts e if e.is_a? String
+  if e.is_a? Exception
+  puts e.class.to_s+" "+e.message.to_s
   puts e.backtrace
-  puts e.message
+  puts e.class.to_s+" "+e.message.to_s
   string_pointer
+    exit
+  end
 end
 
 
@@ -244,49 +319,6 @@ def parse string
   end
 end
 
-def newline?
-  return true if @@string==""
-  maybe{tokens "\n","\r",";",":","..." ,"<EOF>"}
-end
-
-
-def newline
-  return true if @@string==""
-  tokens "\n","\r",";",":" #,"\.\.\." ,"<EOF>" # << dont consume!
-end
-
-def newlines
-  one_or_more{newline}
-end
-
-def NL
-  tokens "\n","\r"
-end
-
-
-def NLs
-  tokens "\n","\r"
-end
-
-
-# grammar : 'hello' QUESTION ('does'| QUESTION)* 'the world'? VERB
-def test_root
-  #token "hello"
-  #question
-  #star{
-  #  try{token 'does'} || try{question}
-  #}
-  #_? 'the world'
-  #verb
-  puts "Parsed successfully!"
-end
-
-require_relative "english-tokens"
-require_relative "english-script"
-
-def rest_of_statement
-  return @@string.gsub(/;.*/," ").gsub(/\n.*/," ").gsub(/\r.*/," ").gsub(/ done.*/," ").strip
-end
 
 def one *matches
   oldString=@@string
@@ -297,81 +329,75 @@ def one *matches
       result =send(match) if match.is_a? Symbol
       return result #if result
     rescue NotMatching =>e
-      verbose match.to_s
-      verbose " NotMatching "
-      #verbose e.to_s # HUH???
+      verbose "NotMatching one "+match.to_s+"("+e.to_s+")"
+      #raise GivingUp.new
+      error e if not do_rollback
     rescue => e
       error e
     end
   end
-  @@string=oldString
-  puts "Should have matched one of "+matches.to_s
+  @@string=oldString if do_rollback
+  verbose "Should have matched one of "+matches.to_s if @@throwing
   raise NotMatching.new
   #throw "Should have matched one of "+matches
 end
 
-def aa
-  puts "aa"
-end
-def bb
-  raise NotMatching.new(test)
-  #throw NotMatching.new NOT rescued!!!
-end
-def cc
-  puts "cc"
-  return "cc"
-end
-def dd
-  puts "dd"
-  throw "dd"
-end
 
-def test_any
-  one :aa,:bb,:cc
-  any{
-    try{puts "a"}
-    try{puts "b"}
-    try{raise NotMatching.new}
-    try{puts "c"}
-    try{throw "b"}
-    try{puts "b"}
-  }
 
+@@last_pattern=nil
+def method_missing(sym, *args, &block)  # <- NoMethodError use node.blah to get blah!
+  syms=sym.to_s
+  cut=syms[0..-2]
+  #return send(cut) if(syms.end_with?"!")
+  if(syms.end_with?"?")
+    old_last=@@last_pattern
+    @@last_pattern=cut
+    x= try{send(cut)} if args.count==0
+    x= try{send(cut,args)} if args.count>0
+    @@last_pattern=old_last
+    return x
+  end
+  return star{send(cut,args)} if(syms.end_with?"!")
+  #return star{send(cut)} if(syms.end_with?"*")
+  #return plus{send(cut)} if(syms.end_with?"+")
+  super(sym, *args, &block)
 end
 
+  def *(a)
+    puts a
+  end
 
-def test_action
-  @@string="eat a sandwich; done"
-  #@@string="bash 'ls'"
-  #verb and nod
-  action
-  assert(!@@string.match("sandwich"))
+
+  def start
+    a=ARGV[0] || "/Users/me/english-script/test.e"
+    #test_any
+    #test_action
+    #test_expression
+    #test_method
+    parse IO.read(a)
+    show_tree rescue puts "no tree"
+  end
+
+  @@tree=[]
+  def start_tree_node
+    @@tree<<caller[0]
+  end
+  def add_tree_node
+    @@tree<<caller[0]
+  end
+
+
+
 end
 
-def test_method
-  @@string="how to print: eat a sandwich; done"
-  x=method_definition
-  puts x
-  #any{method_definition}
-end
+#Parser.new.test±
+#Parser.new.test•
+#Parser.new.test∆
+#Parser.new.test!
+#Parser.new.test*
+#Parser.new.test_any
 
-def test_expression
-  @@string="eat a sandwich;"
-  x=action
-  puts x
-end
-
-
-def start
-  a=ARGV[0] || "/Users/me/english-script/test.e"
-  #test_any
-  #test_action
-  #test_expression
-  test_method
-  #parse IO.read(a)
-end
-
-
-start
-#parse "hello why does the world end"
-#parse "hello why does the world car"
+Parser.new.test
+Parser.new.start
+#Parser.new.parse "hello why does the world end"
+#Parser.new.parse "hello why does the world car"

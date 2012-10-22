@@ -1,5 +1,11 @@
+class Parser #< MethodInterception
 def root
-  action || star{method_definition || block}
+  try{method_definition}
+  try{action}
+  star{
+    try{method_definition}
+    try{block}
+    }
 end
 
 
@@ -24,18 +30,19 @@ def expression
   #any{action || if_then || once || looper}
 end
 
-
 def method_definition
   #@@throwing=true
   method
   verb
-  endNode?
+  try{endNode}
   star{arg}
   #''?
-  newline
+  start_block
+  no_rollback!
   block
   #newlines?
   done
+  add_tree_node
 end
 
 
@@ -48,8 +55,8 @@ end
 
 def bash_action
   __ 'bash' #,'execute'
-  @command = try{quote}
-  @command = rest_of_statement if not @command
+  @command = try{quote}  # danger bash "hi">echo
+  @command = rest_of_line if not @command
             #any{ try{  } ||  statements }
   begin
     puts "going to execute " + @command
@@ -115,11 +122,11 @@ end
    #	||'say' x=(.*) -> 'bash "say $quote"'
    #one  :bash_action ,:setter ,:verb ,:verb_node , :spo
    any{
-         try {bash_action} ||
          try{setter}||
          try {spo}||
          try{verb_node} ||
-         try{verb}
+         try{verb} ||
+         try {bash_action}
    }
    newline?
      #any{ bash_action ||setter ||verb ||verb and nod ||endNode and verb and nod}
@@ -127,27 +134,34 @@ end
 
 def while_loop
   _'while'
+  no_rollback!
   condition
   newline
   block
   done
 end
-
-def until_condition
+#
+#def until_condition
+#  action
+#  _'until'
+#  condition
+#end
+#
+#def while_condition
+#  action
+#  _'while'
+#  condition
+#end
+#
+#def as_long_condition
+#  action
+#  _'as long'
+#  condition
+#end
+#
+def looped_action
   action
-  _'until'
-  condition
-end
-
-def while_condition
-  action
-  _'while'
-  condition
-end
-
-def as_long_condition
-  action
-  _'as long'
+  __ 'as long','while','until'
   condition
 end
 
@@ -158,6 +172,7 @@ def times
 end
 
 
+# todo : node cache : skip action(X) -> _'forever'  if action was (not) parsed before
 def forever
   action
   _'forever'
@@ -172,35 +187,63 @@ def as_long_condition_block
 end
 
 def looper
+  _? "do"
   _? "repeat"
-  one :while_loop ,:until_condition ,:times ,:while_condition ,:as_long_condition ,:as_long_condition_block
+  one :while_loop ,:looped_action,:times,:as_long_condition_block,:forever
 end
+#  until_condition ,:while_condition ,:as_long_condition
 
 #/*	 let nod be nods */
 def setter
   let?
   the?
-  maybe{tokens 'var','val','value of'}
+  modifier?
+  try{tokens 'var ','val ','value of '}
+  modifier?
   variable
-be
-value
+  be
+  no_rollback!
+  value
 # ||'to'
 #'initial'?	let? the? ('initial'||'var'||'val'||'value of')? variable (be||'to') value
 end
 
+def modifier
+  tokens 'initial','public','static','void','default','protected','private','constant','const'
+end
+
 def variable
- word
+  one_or_more{word}
 end
 
 
 def word
+  #danger:greedy!!!
+  return false if try{modifier}
+  return false if try{modifier}
+  match=@@string.match(/\w+[\d\w_]*/)
+  if(match)
+    @@string=@@string[match.length]
+    return @@current_value=match
+  end
+  #fad35
+  #unknown
   noun
 end
 
 def value
- nod
+ variables_list?
+ nill?
+ nod?
+ rest_of_line #danger! if x == 7 or y == 6   -> or .*
 end
 
+
+  def nod #options{generateAmbigWarnings=false}
+    try{number} ||
+    try{quote} ||
+    try{the_noun_that}
+  end
 
 def arg
  preposition
@@ -224,10 +267,6 @@ end
 
 def that
 that_do || that_are
-end
-
-def endNode?
-  maybe{endNode}
 end
 
 def gerund
@@ -275,36 +314,14 @@ def the_noun_that
   star{selector}
 end
 
-def nod #options{generateAmbigWarnings=false}
-    try{number} ||
-    try{quote} ||
-    try{the_noun_that}
-end
-
-#number      DIGIT+ ('.' DIGIT+)?
-def number
-  real || integer  #s '34' # Integer || Real
-end
-
-def real
-  match=@@string.match(/^\d*.\d+/)
-  if match
-    @@string=@@string[match[0].length..-1].strip
-    #return rest @@string
-  end
-  #plus{tokens '1','2','3','4','5','6','7','8','9','0','.'}
-end
-
-def integer
-  match=@@string.match(/^\d+/)
-  if match
-    @@string=@@string[match[0].length..-1].strip
-  end
-  #plus{tokens '1','2','3','4','5','6','7','8','9','0'}
-end
 
 def endNode
-    endNode2 #|| endNode2 selector2 ||  endNode2 'of' endNode2 ||
+  any{
+    try{value}||
+      try{endNode2} ||
+        try{endNode2 and selector2 } ||
+        try{endNode2 and _'of' and endNode2}
+    }
 end
 
 def selector2
@@ -333,7 +350,8 @@ end
 
 
 def comparison
-  verb_comparison||comparation
+  try{verb_comparison}||
+      try{comparation}
 end
 
 
@@ -341,12 +359,48 @@ def endNode2
   the?
   star{adjective}
   noun
+  #any{
+  #  try{noun}
+  #  try{variable}
+  #  }
 end
-
 
 # a nod can be a noun, a string, a number or a simple expression such as The President of the USA, birds in africa
 #/*nods
 #	 nod||List 	*/
 #/*List
 #	 (nod ',')* nod 'and' nod */
+
+  def any_line
+    @@string=@@string.gsub(".*?\n","")
+  end
+
+  def ruby_block
+    block_depth=0
+  star{
+    raise EndOfBlock.new if(@@string.strip.start_with?"end") and block_depth==0
+    any_line
+  }
+  end
+
+  def ruby_def
+    start_tree_node
+    _"def"
+    method=word
+    try{arg=word;}
+    star{_","; arg=word;}
+    newline
+    ruby_block
+    #-- # // Some Ruby coat goes here
+    newline
+    _"end"
+    add_tree_node
+  end
+
+
+  def start_block
+    try{newline} ||
+    try{tokens "{","first you ","second you ","then you ","finally you ",":"}
+  end
+end
 
