@@ -2,24 +2,38 @@ class Parser < MethodInterception
 ##################/
 # Lexemes = simple words
 ##################
+  @@OK="OK"
+
+  def initialize
+    #pronouns +  TODO!!! keywords-pronouns has "I"!?
+    @keywords=prepositions+be_words+true_comparitons+fillers+nill_words+done_words+auxiliary_verbs+conjunctions #+otherKeywords
+  end
+
+  def keywords
+    @keywords
+  end
+
+  def question_words
+    ["when","why","where", "what", "who","which", "whose", "whom", "how"]#,"what's","how's","why's", "when's","who's",
+  end
 
   def prepositions
-    ['in','above','after','against','apart from','around','as','aside from','at','before','behind','below',
-                 'beneath','beside','between','considering','from','instead of','into','on','onto','out of','over',
-                 'since','through','thru','to','with','without']
+    ['above','after','against','apart from','around','as','aside from','at','before','behind','below',
+                 'beneath','beside','between','beyond','by','considering','down','during','for','from','in',
+                 'instead of','inside','into','like','near','on','onto','out of','over', 'outside',
+                 'since','through','thru','to','till','with','up','upon','under','underneath','versus', 'via','with',
+                 'within','without','toward','towards']
   end
 
 
 #'but',
   def all_prepositions
-    ['aboard','about','above','across','after','against','along','amid','among','anti','around',
-                        'as',
+    ['aboard','about','above','across','after','against','along','amid','among','anti','around','as',
                      'at','before','behind','below','beneath','beside','besides','between','beyond','by',
                      'concerning' ,'considering','despite','down','during','except','excepting','excluding','following',
                      'for','from','in','inside','into','like','minus','near','of','off','on','onto','opposite',
-                     'outside', 'over','past','per','plus','re','regarding','round','save','sans','since','than',
-                     'through','thru',
-                     'thruout','throughout','to','till',
+                     'outside', 'over','past','per','pro','plus','re','regarding','round','save','sans','since','than',
+                     'through','thru','thruout','throughout','to','till',
                      'toward','towards','under','underneath','unlike','until','up','upon','versus', 'via','with',
                      'within','without']
   end
@@ -102,15 +116,10 @@ class Parser < MethodInterception
                   'end','equal','equals','error','every','false','fifth','first','for','fourth','even','front','get',
                   'given','global','if','ignoring' ,'is','it','its','last','local','me','middle','mod','my',
                   'ninth', 'not','sixth','some','tell','tenth','then','third','timeout','times',
-                  'transaction','true','try','where','whoseuntil','while','prop','property','put','ref','reference',
+                  'transaction','true','try','where','whose','until','while','prop','property','put','ref','reference',
                   'repeat','returning','script','second','set','seventh']
   end
 
-
-  def keywords
-    prepositions+be_words+true_comparitons+fillers+
-        nill_words+done_words+pronouns+auxiliary_verbs+conjunctions #+otherKeywords
-  end
 
   def nill
     tokens nill_words
@@ -137,9 +146,10 @@ class Parser < MethodInterception
     tokens? 'not'
     try{adverb} #'quite','nearly','almost','definitely','by any means','without a doubt'
     tokens true_comparitons
+    no_rollback!
     tokens? 'and','or','xor','nor'
     tokens? true_comparitons
-    _?'than'
+    _?'than','then' #_?'then' ;}
   end
 
   def either_or
@@ -172,8 +182,14 @@ class Parser < MethodInterception
     #  @@string=@@string[1]
     #  pop '}'
     #end
+    #return true if checkEndOfLine
+    return "OK" if checkNewline
     tokens done_words
-    ignore_rest_of_line
+    #rescue EndOfLine =>x
+    #  puts x
+    #end
+    #return true
+    #ignore_rest_of_line
   end
 
   def let?
@@ -187,7 +203,7 @@ class Parser < MethodInterception
 
 
   def question
-    tokens 'how', 'where','why','what','who','whom'
+    tokens question_words
   end
 
 
@@ -239,11 +255,22 @@ class Parser < MethodInterception
     try{newline}
   end
 
+  def checkNewline
+    if @@string.blank?
+      @@line_number=@@line_number+1
+      return @@OK if @@line_number>=@@lines.count
+      #raise EndOfDocument.new if @@line_number==@@lines.count
+      @@string=@@lines[@@line_number];
+      @@original_string=@@string
+      return @@OK
+    end
+  end
+
   def newline
-    return true if @@string==''
-    #,'end','done' NOT OPTIONAL!
-    tokens "\.\n","\. ","\n","\r\n",";" #,'\.\.\.' ,'<EOF>' # << dont consume!
-    #tokens '.\n','. ','\n','\r',';' #,'\.\.\.' ,'<EOF>' # << dont consume!
+    return @@OK if checkNewline==@@OK
+    found=tokens "\.\n","\. ","\n","\r\n",";" #,'\.\.\.' ,'end','done' NO!! OPTIONAL!
+    return @@OK if checkNewline==@@OK # get new line
+    return found
   end
 
   def newlines
@@ -269,8 +296,9 @@ class Parser < MethodInterception
 
   def rest_of_line
     return @@current_value=@@string if not @@string.match(/(.*?)\n/)
-    @@current_value=@@string.match(/(.*?)\n/)[1].strip
+    @@current_value=@@string.match(/(.*?)\n/)[1]
     @@string=@@string[@@current_value.length..-1]
+    @@current_value.strip!
     return @@current_value
   end
 
@@ -287,7 +315,7 @@ class Parser < MethodInterception
   end
 
   def variables_list
-    return ['x','y','z','a','i','I']
+    return ['x','y','z','a','i']
   end
 
   def true_variable
@@ -295,15 +323,49 @@ class Parser < MethodInterception
   end
 
   def noun
+    no_keyword
     #return true if true_variable
     #@@string=@@string[2]if(@@string.start_with?('s ')) #plural, todo
-    tokens  'bug','sandwich','integrable-function','function','steps','step','size','I' #careful with function!
+    tokens  'bug','sandwich','integrable-function','function','steps','step','size' #careful with function!
+  end
+
+  def special_verbs
+    ['evaluate','eval']
+  end
+
+  @@verbs=nil
+  @@verbs2=[ 'be', 'have', 'do', 'get', 'make', 'want', 'try', 'buy','take','apply','make','get','eat','drink',
+                'say',
+             'go','know','take','see','come','think','look','give','use','find','tell','ask','work','seem','feel',
+             'leave','call','integrate','print','eat','test']
+
+
+  def app_path
+    File.expand_path(File.dirname(__FILE__)).to_s
+  end
+  def dictionary_path
+    app_path + "word-lists/"
+  end
+
+  def call_is_verb
+  test=@@string.match(/^\s*(\w+)/)[1] rescue nil
+  return false if not test
+  command=app_path+"/is_verb "+test
+  puts command
+  found_verb=%x[#{command}]
+  found_verb="" if found_verb=="NO VERB"
+  raise NotMatching.new "no verb" if found_verb.blank?
+  @@string=@@string.strip[found_verb.length..-1] if found_verb
+  puts "found_verb "+found_verb.to_s
+  found_verb
   end
 
   def verb
-    tokens 'be', 'have', 'do', 'get', 'make', 'want', 'try', 'buy','take','apply','make','get','eat','drink','say',
-           'go','know','take','see','come','think','look','give','use','find','tell','ask','work','seem','feel',
-           'leave','call','integrate','print','eat'
+    #if not @@verbs
+    #  @@verbs=IO.readlines(dictionary_path + "/english.verbs.list")
+    #end
+    #found_verb= tokens @@verbs,special_verbs
+    @@current_value=call_is_verb
   end
 
   def modifier

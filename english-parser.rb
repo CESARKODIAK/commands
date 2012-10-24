@@ -1,399 +1,434 @@
-#!/usr/bin/env ruby
-
 require_relative "MethodInterception"
 require_relative "english-tokens"
-require_relative "english-script"
 require_relative "parser-test"
+require_relative "power-parser"
 
-class Parser #< MethodInterception
+class EnglishParser < Parser #< MethodInterception
 
-@@verbose=true
-#@verbose=false
-#@@very_verbose=false
-@@very_verbose=true
-
-  NotMatching = Class.new StandardError
-  EndOfDocument = Class.new StandardError
-  EndOfLine= Class.new StandardError
-  MaxRecursionReached= Class.new StandardError
-  EndOfBlock= Class.new StandardError
-  GivingUp= Class.new StandardError
-  ShouldNotMatchKeyword= Class.new StandardError
-def verbose info
-  puts info if @@verbose
+  def root
+  try{method_definition}
+  try{action}
+  star{
+    try{method_definition}
+    try{block}
+    }
 end
 
-#gem 'debugger'
-#gem 'ruby-debug19', :require => 'ruby-debug'
-#require 'ruby-debug'
-#require 'debugger'
-#gem 'ParseTree' ruby 1.9 only :{
-#require 'sourcify' #http://stackoverflow.com/questions/5774916/print-the-actual-ruby-code-of-a-block BAD
-#require 'method_source'
 
-#gem 'ruby-debug', :platforms => :ruby_18
-#gem 'ruby-debug19', :platforms => :ruby_19, :require => 'ruby-debug'
 
-#def maybe &block
-#  return yield rescue true
+def block
+  star{
+    x=expression
+    newlines
+    x
+  }
+end
+#;//... expression| backtrack!
+
+def expression
+  x=any{
+    try{action}|| #better debug!
+    try{if_then} ||
+    try{once}    ||
+    try{looper}
+  }
+  x
+  #one :action, :if_then ,:once , :looper
+  #any{action || if_then || once || looper}
+end
+
+def method_definition
+  #@@throwing=true
+  method
+  verb
+  try{endNode}
+  star{arg}
+  #''?
+  start_block
+  no_rollback!
+  block
+  #newlines?
+  x=done
+  #add_tree_node
+end
+
+
+#module EnglishScript
+def ruby_action
+  _'ruby'
+  exec(action || quote)
+end
+
+
+def bash_action
+  must_contain 'bash'
+  remove_tokens 'execute','command','commandline','run','shell','shellscript','script','bash'
+  @command = try{quote}  # danger bash "hi">echo
+  @command = rest_of_line if not @command
+            #any{ try{  } ||  statements }
+  begin
+    puts "going to execute " + @command
+    result=%x{#{@command}}
+    puts "result:"
+    puts result
+    return result || true
+  rescue
+    puts "error executing bash_action"
+  end
+
+end
+
+
+def if_then_line
+  _'if'
+  condition
+  _'then'
+  action
+end
+
+def if_then_block
+If
+condition
+_?'then'
+newline
+block
+done
+end
+
+def if_then  # ( options {greedy=false } )
+  if_then_line || if_then_block
+#	|| action If condition newline
+end
+
+
+def once
+ _'once'
+ condition
+ _?'then'
+ action
+#	|| action 'as soon as' condition
+#	|| action 'once' condition
+#	|| 'as soon as' condition 'then'? action
+ end
+
+#/*n_times
+#	 verb number 'times' preposition nod -> "<verb> <preposition> <nod> for <number> times" 	*/
+#/*	 verb number 'times' preposition nod -> ^(number times (verb preposition nod)) # Tree ~= lisp	*/
+
+def verb_node
+  verb
+  nod
+end
+
+def spo
+  endNode
+  verb
+  nod
+end
+
+  def method_call
+    #verb_node
+    verb
+    nod?
+    star{arg}
+  end
+
+ def action
+   #	||'say' x=(.*) -> 'bash "say $quote"'
+   #one  :bash_action ,:setter ,:verb ,:verb_node , :spo
+   result=any{ #action
+         try{setter}||
+         try {spo}||
+         try{method_call} ||
+         try{verb_node} ||
+         try{verb} ||
+         try {bash_action}
+   }
+     #any{ bash_action ||setter ||verb ||verb and nod ||endNode and verb and nod}
+   newline? #cut rest, BUT:
+   return result
+ end
+
+def while_loop
+  _'while'
+  no_rollback!
+  condition
+  start_block
+  no_rollback! 13 # arbitrary value ! :{
+  block
+  done
+end
+#
+#def until_condition
+#  action
+#  _'until'
+#  condition
 #end
-
-
-def checkEnd
-  #raise EndOfDocument.new if @@string.empty? # no:try,try,try
-  return @@string.empty?
-end
-
-def token t
-  checkEnd
-  if @@string.start_with? t
-    @@current_value=@@string[0,t.length]
-    @@string=@@string[t.length..-1].strip
-    return true
-  else
-    verbose "expected "+t # if @@throwing
-    raise NotMatching.new(t)
-  end
-end
-
-  def starts_with? tokenz
-    for t in tokenz
-      return true if @@string.start_with?(t)
-    end
-    return false
-  end
-
-
-def tokens *tokenz
-  return if checkEnd
-  tokenz.flatten!
-  tokenz.flatten!
-  for t in tokenz
-    if @@string.start_with?(t)
-      @@current_value=@@string[0,t.length]
-      @@string=@@string[t.length..-1].strip
-      #checkEnd
-      return @@current_value
-    end
-  end
-  raise NotMatching.new(tokenz.to_s) #if @@throwing
-  return false
-end
-
-# shortcut
-def __ *x
-  tokens x
-end
-
-def _ x
-  token x
-end
-
-def _? *x
-  try{tokens x}
-end
-
-
-def last_try stack
-  for s in stack
-    if s.match("`try'")
-      return s
-    end
-  end
-end
-
-@@rollback=[]
-def no_rollback!
-  #@@rollback[last_try caller] =false
-  #depth=caller.index(last_try caller)
-  for i in 0..(caller.count)
-    @@rollback[i] ="NO"
-  end
-end
-
-def do_rollback
-  puts caller.count
-  @@rollback[caller.count]!="NO"   # -1?
-end
-
-@@throwing=true #[]
-@@level=0
-def any(&block)
-  checkEnd
-
-  last_try=0
-  #throw "Max recursion reached #{to_source block}" if @@level>20
-  raise MaxRecursionReached.new(to_source block) if caller.count>50
-  was_throwing=@@throwing
-  @@throwing=false
-  #@@throwing[@@level]=false
-  oldString=@@string
-  begin
-    result=yield
-    return result
-  rescue EndOfDocument
-    puts "EndOfDocument"
-  rescue EndOfLine
-    puts "EndOfLine"
-  rescue NotMatching
-    puts "NotMatching"
-    #retry
-  rescue => e
-    verbose "Error in #{to_source block}"
-    puts e.message
-    #error e
-  end
-  @@string=oldString if do_rollback
-  @@throwing=was_throwing
-  #@@throwing[@@level]=true
-  #@@level=@@level-1
-  verbose "Succeeded with any #{to_source block}" if result
-  return result if result
-  string_pointer if @@verbose
-  raise NotMatching.new(to_source block)
-  #throw "Not matching #{to_source block}"
-end
-
-def quote
-  checkEnd
-  if @@string[0]=="'"
-    to=@@string[1..-1].index("'")
-    quote_content=@@string[1..to];
-    @@string= @@string[to+2..-1].strip
-    return quote_content
-  end
-  if @@string[0]=='"'
-    to=@@string[1..-1].index('"')
-    quote_content=@@string[1..to];
-    @@string= @@string[to..-1].strip
-    return quote_content
-  end
-  raise NotMatching.new("no quote")
-  #throw "no quote" if @@throwing
-  return false
-end
-
-def to_source x
-  return @@last_pattern if @@last_pattern
-  #proc=block.to_source(:strip_enclosure => true) rescue "Sourcify::MultipleMatchingProcsPerLineError"
-  IO.readlines(x.source_location[0])[x.source_location[1]-1]#+(x.source_location.to_s)
-end
-
-def try(&block)
-  return if checkEnd
-  old=@@string
-  @@original_string=@@string if @@original_string.empty?
-  begin
-    x = yield
-    #rollback=@@rollback[caller.count]="YES" #Succeeded
-    rollback=@@rollback[caller.count..-1]="YES" #Succeeded
-    return x
-  rescue NotMatching => e
-    verbose "Tried #{to_source block}"
-    verbose e
-    string_pointer if @@verbose
-    #caller.index(last_try caller)]
-    #puts @@rollback[caller.count]
-    #puts caller.count
-    #puts rollback
-    if not do_rollback
-      puts @@rollback[caller.count]
-      puts caller.count
-      error e
-      error "NO ROLLBACK, GIVING UP!!!"
-      show_tree rescue puts "no tree"
-      exit
-      #raise GivingUp.new
-    end
-  rescue => e
-    error e
-    exit
-  end
-  @@string=old #if rollback
-  return false
-end
-
-  def plus(&block)
-    yield
-    star{yield}
-  end
-
-def one_or_more(&block)
-  yield
-  star{yield}
-end
-
-def star(&block)
-  checkEnd
-  was_throwing=@@throwing
-  @@throwing=true
-
-  max=100
-  current=0
-  good=[]
-  # begin
-  oldString=@@string
-  last_string=""
-  begin
-    while true
-      break if @@string=="" or @@string==last_string
-      last_string=@@string
-      match=yield
-      break if not match or match.empty?
-      good<< match
-      throw " too many occurrences of "+ to_source(block) if current>max and @@throwing
-    end
-  rescue NotMatching => e
-    if @@very_verbose and not good
-      verbose "NotMatching star "+ e.to_s
-      #verbose "expected any of "+tokens.to_s if tokens and tokens.count>0
-      string_pointer if @@verbose
-    end
-  rescue => e
-    error e
-    error "error in star "+ to_source(block)
-    #warn e
-  end
-
-  @@string=oldString if good.empty?
-  @@throwing=was_throwing
-
-  return good
-  # rescue
-  # end
-end
-
-
-# use _?
-#def maybe token
-#  return token token rescue true
+#
+#def while_condition
+#  action
+#  _'while'
+#  condition
 #end
-
-
-def ignore_rest_of_line
-  @@string.gsub!(/.*?\n/,"\n")
+#
+#def as_long_condition
+#  action
+#  _'as long'
+#  condition
+#end
+#
+def looped_action
+  action
+  __ 'as long','while','until'
+  condition
 end
 
-def string_pointer
-  offset=@@original_string.length-@@string.length
-  from=offset-80
-  to=offset+80
-  from=0 if(from<0)
-
-  newline_i=@@original_string.rindex("\n",offset)
-  if(newline_i and newline_i<offset and newline_i-from<80)
-    from=newline_i+1
-  end
-
-  newline_i=@@original_string.index("\n",offset)
-  if(newline_i and newline_i<to and newline_i>=offset)
-    to=newline_i
-  end
-  #puts @@string
-  puts @@original_string[from..to]
-  puts " "*(offset-from) + "^^^"
-end
-
-def error e
-  puts e if e.is_a? String
-  if e.is_a? Exception
-  puts e.class.to_s+" "+e.message.to_s
-  puts e.backtrace
-  puts e.class.to_s+" "+e.message.to_s
-  string_pointer
-  show_tree rescue puts "no tree"
-    exit
-  end
+def times
+  action
+  number
+  _'times'
 end
 
 
-def warn e
-  puts e.message
+# todo : node cache : skip action(X) -> _'forever'  if action was (not) parsed before
+def forever
+  action
+  _'forever'
+end
+
+def as_long_condition_block
+  _'as long as'
+  condition
+  newline
+  block
+  done
+end
+
+def looper
+  _? "do"
+  _? "repeat"
+  one :while_loop ,:looped_action,:times,:as_long_condition_block,:forever
+end
+#  until_condition ,:while_condition ,:as_long_condition
+
+#/*	 let nod be nods */
+def setter
+  let?
+  the?
+  modifier?
+  try{tokens 'var ','val ','value of '}
+  modifier?
+  variable
+  be
+  no_rollback!
+  value
+  newline?
+# ||'to'
+#'initial'?	let? the? ('initial'||'var'||'val'||'value of')? variable (be||'to') value
+end
+
+def variable
+  one_or_more{word}
 end
 
 
-@@original_string=""
-@@string=""
-def parse string
-  puts "parsing"
-  begin
-    @@original_string=string
-    @@string=string
-    root
-  rescue => e
-    error e
+def word
+  #danger:greedy!!!
+  no_keyword
+  raise EndOfDocument.new if @@string.blank?
+  #return false if starts_with? keywords
+  match=@@string.match(/^\s*\w+[\d\w_]*/)
+  if(match)
+    @@string=@@string[match[0].length..-1].strip
+    @@current_value=match[0].strip
+    return match[0]
   end
+  #fad35
+  #unknown
+  noun
+end
+
+  def no_keyword
+    #raise KeywordNotExpected.new if starts_with? (keywords-pronouns) #pronouns allowed
+    raise NotMatching.new ("ShouldNotMatchKeyword") if starts_with? keywords
+    #raise ShouldNotMatchKeyword.new if starts_with? keywords
+  end
+
+def value
+ @@current_value=nil
+ no_keyword
+ any{
+   quote?||
+ true_variable? ||
+ nill? ||
+ nod? ||
+ rest_of_line
+ }
 end
 
 
-def one *matches
-  oldString=@@string
-  for match in matches
-    begin
-      @@string=oldString
-      return match if match and not match.is_a? Symbol
-      result =send(match) if match.is_a? Symbol
-      return result #if result
-    rescue NotMatching =>e
-      verbose "NotMatching one "+match.to_s+"("+e.to_s+")"
-      #raise GivingUp.new
-      error e if not do_rollback
-    rescue => e
-      error e
-    end
+  def nod #options{generateAmbigWarnings=false}
+    try{number} ||
+    try{quote} ||
+    try{the_noun_that}
   end
-  @@string=oldString if do_rollback
-  verbose "Should have matched one of "+matches.to_s if @@throwing
-  raise NotMatching.new
-  #throw "Should have matched one of "+matches
+
+def arg
+ preposition
+ endNode # about sex
+end
+
+# things that stink
+#, things that move backwards
+def that_do
+  token 'that'
+  verbium
+  endNode?
+end
+
+
+def that_are
+_'that'
+be
+gerund
+end
+
+def that
+that_do || that_are
+end
+
+def gerund
+	 'stinking'
+end
+
+def where
+	token 'where'
+  condition
+end
+
+def condition
+  endNode
+  comparison
+  endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
+end
+
+def auxiliary
+  'want'||'like'||'hate'
+end
+
+# todo  I hate to ...
+
+def verbTo
+ auxiliary
+ _ 's to'
 end
 
 
 
-@@last_pattern=nil
-def method_missing(sym, *args, &block)  # <- NoMethodError use node.blah to get blah!
-  syms=sym.to_s
-  cut=syms[0..-2]
-  #return send(cut) if(syms.end_with?"!")
-  if(syms.end_with?"?")
-    old_last=@@last_pattern
-    @@last_pattern=cut
-    x= try{send(cut)} if args.count==0
-    x= try{send(cut,args)} if args.count>0
-    @@last_pattern=old_last
-    return x
-  end
-  return star{send(cut,args)} if(syms.end_with?"!")
-  #return star{send(cut)} if(syms.end_with?"*")
-  #return plus{send(cut)} if(syms.end_with?"+")
-  super(sym, *args, &block)
+
+def gerundium
+	verb
+  token 'ing'
 end
 
-  def *(a)
-    puts a
+
+def verbium
+  comparison||verb and adverb  # be||have||
+end
+
+def the_noun_that
+  the?
+  noun
+  star{selector}
+end
+
+
+def endNode
+  any{
+      try{endNode2 and _'of' and endNode2}||
+      try{endNode2 and selector2 } ||
+      try{endNode2} ||
+      try{value}
+    }
+end
+
+def selector2
+__ 'that','who'
+star{adverb}
+verb
+_'s'
+preposition
+endNode2
+end
+
+def selector
+# ambivalent?  delete james from china
+#any{where || that || token('of') and endNode || preposition and nod }
+  one :where,:that,try{token('of') and endNode},try{preposition and nod}
+end
+
+# preposition nod  # ambivalent?  delete james, from china delete (james from china)
+
+# (who) run like rabbits
+def verb_comparison
+ star{adverb}
+ verb
+ preposition
+end
+
+
+def comparison
+  try{verb_comparison}||
+      try{comparation}
+end
+
+
+def endNode2
+  the?
+  star{adjective}
+  noun
+  #any{
+  #  try{noun}
+  #  try{variable}
+  #  }
+end
+
+# a nod can be a noun, a string, a number or a simple expression such as The President of the USA, birds in africa
+#/*nods
+#	 nod||List 	*/
+#/*List
+#	 (nod ',')* nod 'and' nod */
+
+  def any_line
+    @@string=@@string.gsub(".*?\n","")
+  end
+
+  def ruby_block
+    block_depth=0
+  star{
+    raise EndOfBlock.new if(@@string.strip.start_with?"end") and block_depth==0
+    any_line
+  }
+  end
+
+  def ruby_def
+    start_tree_node
+    _"def"
+    method=word
+    try{arg=word;}
+    star{_","; arg=word;}
+    newline
+    ruby_block
+    #-- # // Some Ruby coat goes here
+    newline
+    _"end"
+    add_tree_node
   end
 
 
-  def start
-    a=ARGV[0] || "/Users/me/english-script/test.e"
-    #test_any
-    #test_action
-    #test_expression
-    #test_method
-    parse IO.read(a)
-    show_tree rescue puts "no tree"
+  def start_block
+    any{try{newline} ||try{tokens "do","{","first you ","second you ","then you ","finally you ",":"}}
   end
-
-  @@tree=[]
-  def start_tree_node
-    @@tree<<caller[0]
-  end
-  def add_tree_node
-    @@tree<<caller[0]
-  end
-
-
-
 end
 
 #Parser.new.test±
@@ -403,7 +438,14 @@ end
 #Parser.new.test*
 #Parser.new.test_any
 
-#Parser.new.test
-Parser.new.start
 #Parser.new.parse "hello why does the world end"
 #Parser.new.parse "hello why does the world car"
+
+#p "o"
+#breakpoint
+#debugger
+
+
+EnglishParser.new.test
+#EnglishParser.new.tokens
+#EnglishParser.new.start

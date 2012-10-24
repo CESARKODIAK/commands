@@ -1,5 +1,19 @@
 class Parser
-def aa
+
+
+# grammar : 'hello' QUESTION ('does'| QUESTION)* 'the world'? VERB
+  def test_root
+    #token "hello"
+    #question
+    #star{
+    #  try{token 'does'} || try{question}
+    #}
+    #_? 'the world'
+    #verb
+    puts "Parsed successfully!"
+  end
+
+  def aa
   puts "aa"
 end
 def bb
@@ -16,7 +30,7 @@ def dd
 end
 
 def test_any
-  @@string="a b c d"
+  s "a b c d"
   one :aa,:bb,:cc
   any{
     try{puts "a"}
@@ -31,22 +45,46 @@ end
 
 
 def test_action
-  @@string="eat a sandwich; done"
-  #@@string="bash 'ls'"
+  s "eat a sandwich; done"
+  #s "bash 'ls'"
   #verb and nod
   action
   assert(!@@string.match("sandwich"))
 end
 
-def test_method
-  @@string="how to print: eat a sandwich; done"
+def test_methods
+  test_method2
+  test_method3
+  test_method4
+end
+
+  def test_method
+  s "how to integrate a bug do test done"
+  x=method_definition
+end
+
+  def test_method2
+  s "how to print: eat a sandwich; done"
   x=method_definition
   puts x
   #any{method_definition}
-end
+  end
+
+  def test_method3
+    s "how to integrate a bug\ntest\nok"
+    x=method_definition
+  end
+
+  def test_method4
+    s "how to integrate a bug
+      test
+    ok"
+    x=method_definition
+  end
+
 
 def test_expression
-  @@string="eat a sandwich;"
+  s "eat a sandwich;"
   x=action
   puts x
 end
@@ -55,44 +93,86 @@ def raise_test
   raise "test"
 end
 
+def test_block
+  s "let the initial value of I be x;\nstep size is the length of the interval,
+divided by the number of steps\nvar x = 8;"
+  block
+end
+  def test_quote
+    s 'msg = "heee"'
+    setter
+  end
+
+  def test_while
+    allow_rollback
+    s "while i is smaller or less then y do
+ evaluate the function at point I
+ add the result to the sum
+ increase I by the step size
+done"
+    looper
+  end
+
+def test_setter3
+  s "step size is the length of the interval, divided by the number of steps"
+  setter
+end
 
 def test_setter2
-  @@string="var x = 8;"
+  s "var x = 8;"
   setter
 end
 
 def test_setter
-  @@string="let the initial value of I be x"
+  s "let the initial value of I be x"
   setter
 end
 
 def test_looper
-  @@string="while i is smaller or less then y do\nyawn\nend"
+  s "while i is smaller or less then y do\nyawn\nend"
   looper
 end
 
+  def s string
+    allow_rollback
+    @@lines=string.split("\n")
+    @@string=@@lines[0]
+    #@@string=string
+    @@original_string=@@string
+  end
+
+  def test_method_call
+  s "evaluate the function at point I"
+  #method_call
+    action
+  end
+
+  def test_verb
+    s "help"
+    verb
+  end
   def test
     begin
-    test_setter2
+      #test_verb
+      #test_setter2
+      #test_setter3
+      test_method3
+      s "a bug"
+      x=endNode
+      star{arg}
+      test_block
+      test_quote
+      test_while
+      test_methods
+      test_method_call
+
     #  test_looper
-    puts "PARSED successfully!"
-      show_tree rescue puts "no tree"
+      show_tree
+    puts "++++++++++++++++++\nPARSED successfully!"
     rescue => e
       error e
     end
   end
 
-
-# grammar : 'hello' QUESTION ('does'| QUESTION)* 'the world'? VERB
-  def test_root
-    #token "hello"
-    #question
-    #star{
-    #  try{token 'does'} || try{question}
-    #}
-    #_? 'the world'
-    #verb
-    puts "Parsed successfully!"
-  end
 
 end

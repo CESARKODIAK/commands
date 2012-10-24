@@ -1,3 +1,15 @@
+ how to move a file from a to B
+  bash mv a B
+  done
+
+to delete a file
+ execute bash command "rm $file"
+end
+
+how to integrate a bug
+test
+ok
+
 how to integrate a function from x to y:
 default steps be 100
 step size is the length of the interval, divided by the number of steps
@@ -11,6 +23,7 @@ while i is smaller or less then y do
 done
 
 finally return the sum divided by the number of steps
+
 // OK
 # OK
 /* OK */
@@ -22,17 +35,14 @@ yet */
 function blip   a
 function blip bb a
 function fake bb a
-how to integrate a bug
-test
-ok
-	
+
 /* reductions:*/
 let the initial value of i be x =» i=x
 default x be y -> x=y if x is not set
 untrueyou
 class x = z;
 bla = true
-tr b a q w e r t y i o p 
+tr b a q w e r t y i o p
 var x = 8;
 msg = "heee"
 
