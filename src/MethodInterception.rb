@@ -24,10 +24,12 @@ module MethodInterception
      "the_noun_that","nod",
      "star",
      "rest_of_line","setter",
-     "root","action","parse","number","allow_rollback",
+     "action","parse","number","allow_rollback",
      "test_setter","try_action","method_missing","endNode2","no_rollback!","raiseEnd",
      "string_pointer","verbose","try","checkEnd","to_source","rest","keywords",
-     "starts_with?", "be_words","no_keyword","prepositions","variables_list","the?","app_path"] #"call_is_verb",
+     "starts_with?", "be_words","no_keyword","prepositions","variables_list","the?","app_path",
+    "constants"
+    ] #"call_is_verb",
   end
 
   def keepers
@@ -110,8 +112,6 @@ module MethodInterception
     base.extend ClassMethods
   end
   module ClassMethods
-    @@use_tree=false
-    @@use_tree=true # DO NOT use while developing!
     @@__last_methods_added=[]
 
     def method_added name
@@ -122,15 +122,18 @@ module MethodInterception
       @@__last_methods_added = [name, with, without]
       define_method with do |*args, &block|
         before_each_method name
-        val=send without, *args, &block
-        after_each_method name
+        ret=send without, *args, &block
+        after_each_method name #sets @current_value nil!
         #begin rescue  doesn't work
-        return val
+        return ret
       end
       alias_method without, name
       alias_method name, with
       @@__last_methods_added = nil
     end
+
+    @@use_tree=false
+    @@use_tree=true # DO NOT use while developing!
   end
 end
 

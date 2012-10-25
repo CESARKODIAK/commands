@@ -2,335 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6940660a-2420-4886-b36b-1a1f8dc6722d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/0&#13;" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ANTLRDemo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/AntlrTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Escript.g.bak" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Escript.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/EscriptParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Exp.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ExpLexer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ExpParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Exp__testrig.st" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/T.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/T2.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJ.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJLexer$DFA2.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJLexer.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJLexer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJParser.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJ_T2.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJ_T2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TLexer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TLexer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TParser.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/T_lexer.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/__Test__.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10.zip" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-ant/src/main/java/beaver/comp/run/AntTask.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/Action.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/Configuration.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/ParserGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/ParsingTables.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/State.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/io/SrcReader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/run/Make.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/run/Options.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/util/BitSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/util/IntArray.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/util/Log.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/Grammar.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/GrammarBuilder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/GrammarSymbol.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/NonTerminal.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/Production.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/Terminal.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/Declaration.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/GrammarTreeRoot.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/Node.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/Rule.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/TreeWalker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/parser/GrammarParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/parser/GrammarScanner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/Action.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/Parser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/ParsingTables.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/Scanner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/Symbol.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/beaver.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/etc/GrammarScanner.flex" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/etc/beaver.grammar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/build.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/BagOfSyntaxErrors.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/Test.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/java.flex" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/java12.grammar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/unicode.flex" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/Calculator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/Expr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/expr.flex" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/expr.grammar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/Calculator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/Printer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/BinExpr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/DivExpr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/ErrExpr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/Expr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/MinusExpr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/MultExpr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/NegExpr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/Node.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/NumExpr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/PlusExpr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/TreeWalker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/expr.flex" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/expr.grammar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/path/Run.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/path/path.l" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/lib/beaver-ant.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/lib/beaver-cc.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/lib/beaver-rt.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/english.verbs.list" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/english.words.sqlite3.db" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/english_verbs.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/english_verbsParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0.tar.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/bin/javacc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjdoc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjrun" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjtree" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/bin/lib/javacc.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/CORBA-IDL/IDL.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/CORBA-IDL/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/CalcGUI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/CalcInput.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/ProducerConsumer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/TokenCollector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/CalcGUI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/CalcInput.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/CharCollector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/MyLexer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTAddNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTAndNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTAssignment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBitwiseAndNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBitwiseComplNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBitwiseOrNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBitwiseXorNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBlock.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTCompilationUnit.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTDivNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTEQNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTFalseNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTGENode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTGTNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTId.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTIfStatement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTIntConstNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTLENode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTLTNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTModNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTMulNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTNENode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTNotNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTOrNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTReadStatement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTStatementExpression.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTSubtractNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTTrueNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTVarDeclaration.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTWhileStatement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTWriteStatement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/MyNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/Node.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/SPL.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/SPL.jjt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/fact.spl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/odd.spl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/sqrt.spl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/ASTMyID.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/ASTMyOtherID.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/Eg4DumpVisitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/eg1.jjt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/eg2.jjt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/eg3.jjt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/eg4.jjt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaCCGrammar/JavaCC.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/Java1.5.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/JavaGenerics.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/MyToken.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/Test.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Java1.0.2.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Java1.0.2LS.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Java1.1.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Java1.1noLA.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/OPTIMIZING" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Test.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example1.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example10.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example2.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example3.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example4.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example5.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example6.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example7.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example8.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example9.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/MailProcessing/Digest.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/MailProcessing/Faq.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/MailProcessing/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/MailProcessing/sampleMailFile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/Globals.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/IdsFile.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/Java1.1.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/MapFile.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/Obfuscator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/input/package1/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/input/package2/Incr.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/maps" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/nochangeids" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/useids" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/IdList.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/NL_Xlator.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/Simple1.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/Simple2.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/Simple3.jj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/ASTCompilationUnit.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/ASTSpecialBlock.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/SimpleNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/ToyJava.jjt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/divide.toy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/AddAcceptVisitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/Java1.1.jjt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/SimpleNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/UnparseVisitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/Escript.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/Exp.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/ExpLexer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/ExpParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/Test.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/TestLexer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/TestParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/__Test__.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/__Test___template.st" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ruby-fail/DONT_USE_RUBY_TARGET" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ruby-fail/T.tokens" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ruby-fail/TLexer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ruby-fail/TParser.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/samples" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/tests/feed.e" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/tests/set.e" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/user_context&#13;" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/0.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/C.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/CPP.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Escript.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/EscriptLexer.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Exp.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Exp.grammar.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Java.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Math.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/T.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/T.lexer.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/T2.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TJ.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TLexer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/TParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/T_lexer.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/T_lexer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/Test.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-ant/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/asts.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/doc.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/how2run.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/recovery.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/scanners.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/spec.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/path/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/path/path.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/beaver-0.9.10/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/build.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/english_verbs.g" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/java-test.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/bin/javacc.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjdoc.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjtree.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/CharStream.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/JJDoc.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/JJTree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/JavaCC.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/JavaCC.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/apiroutines.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/commandline.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/docindex.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/errorrecovery.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/features.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/installhelp.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/javaccgrm.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/javaccreleasenotes.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/jjdocreleasenotes.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/jjtreeREADME.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/jjtreeintro.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/jjtreereleasenotes.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/lexertips.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/lookahead.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/mailinglist.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/simpleREADME.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/support.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/doc/tokenmanager.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/CORBA-IDL/Hello.idl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/EscriptLexer.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/EscriptParser.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/ExpLexer.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/ExpParser.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/output/__Test___input.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ruby-fail/TLexer.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/ruby-fail/TParser.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/test.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/word-lists/english.connectors.txt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Annotations.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MethodInterception.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/english-parser.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/english-tokens.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/parser-test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/power-parser.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Java1.6.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.e" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.rb" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/exceptions.rb" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/FrauenVornamen.txt.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/FrauenVornamen.txt.bak.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/MaennerVornamen.txt.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/MaennerVornamen.txt.bak.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/MaennerVornamenEinzeln.txt.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/MaennerVornamenEinzeln.txt.bak.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/celebrities.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/celebrities.txt.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/word-lists/firstnames.csv.bak" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/parser-test.rb" afterPath="$PROJECT_DIR$/test/test-parser.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/word-lists/is_verb" afterPath="$PROJECT_DIR$/word-lists/is_verb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/runConfigurations/english.xml" afterPath="$PROJECT_DIR$/.idea/runConfigurations/english.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/English-script.iml" afterPath="$PROJECT_DIR$/English-script.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/test.e" afterPath="$PROJECT_DIR$/examples/test.e" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MethodInterception.rb" afterPath="$PROJECT_DIR$/src/MethodInterception.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/english-parser.rb" afterPath="$PROJECT_DIR$/src/english-parser.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/english-tokens.rb" afterPath="$PROJECT_DIR$/src/english-tokens.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/node.rb" afterPath="$PROJECT_DIR$/src/node.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/power-parser.rb" afterPath="$PROJECT_DIR$/src/power-parser.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/word-lists/english.nouns.list" afterPath="$PROJECT_DIR$/word-lists/english.nouns.list" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/word-lists/is_verb.c" afterPath="$PROJECT_DIR$/word-lists/is_verb.c" />
     </list>
     <ignored path="english.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1907,10 +1600,82 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="parser-test.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/parser-test.rb">
+      <file leaf-file-name="test-parser.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test-parser.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="172" column="0" selection-start="2634" selection-end="2634" vertical-scroll-proportion="-3.6909091">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="power-parser.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/power-parser.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="73" column="0" selection-start="1576" selection-end="1576" vertical-scroll-proportion="-4.181818">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="exceptions.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/exceptions.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="42" selection-start="365" selection-end="365" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.e" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/test.e">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="node.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/node.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="8" selection-start="236" selection-end="236" vertical-scroll-proportion="0.4304348">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="english-parser.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/english-parser.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="445" column="0" selection-start="7394" selection-end="7394" vertical-scroll-proportion="-11.269231">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="english-tokens.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/english-tokens.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="261" column="12" selection-start="8698" selection-end="8698" vertical-scroll-proportion="-9.192307">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="extensions.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/extensions.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MethodInterception.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MethodInterception.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="136" column="0" selection-start="3699" selection-end="3699" vertical-scroll-proportion="-18.307692">
               <folding />
             </state>
           </provider>
@@ -1945,6 +1710,14 @@
         <option value="$PROJECT_DIR$/../node.rb" />
         <option value="$PROJECT_DIR$/English-script.iml" />
         <option value="$PROJECT_DIR$/test/parser-test.rb" />
+        <option value="$PROJECT_DIR$/examples/test.e" />
+        <option value="$PROJECT_DIR$/test/test-parser.rb" />
+        <option value="$PROJECT_DIR$/src/exceptions.rb" />
+        <option value="$PROJECT_DIR$/src/english-tokens.rb" />
+        <option value="$PROJECT_DIR$/src/english-parser.rb" />
+        <option value="$PROJECT_DIR$/src/power-parser.rb" />
+        <option value="$PROJECT_DIR$/src/MethodInterception.rb" />
+        <option value="$PROJECT_DIR$/src/node.rb" />
       </list>
     </option>
   </component>
@@ -2047,6 +1820,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="examples" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -2089,7 +1876,7 @@
       <recent name="$PROJECT_DIR$/test" />
     </key>
   </component>
-  <component name="RunManager" selected="Ruby.english">
+  <component name="RunManager" selected="Ruby.test">
     <configuration default="true" type="RakeRunConfigurationType" factoryName="Rake">
       <module name="" />
       <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -2305,7 +2092,7 @@
       <method />
     </configuration>
     <configuration default="false" name="test" type="RubyRunConfigurationType" factoryName="Ruby" singleton="true">
-      <module name="" />
+      <module name="English-script" />
       <RUBY_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
       <RUBY_RUN_CONFIG NAME="WORK DIR" VALUE="" />
       <RUBY_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="true" />
@@ -2318,7 +2105,7 @@
           <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
         </COVERAGE_PATTERN>
       </EXTENSION>
-      <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$PROJECT_DIR$/test.rb" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$PROJECT_DIR$/test/test-parser.rb" />
       <RUBY_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
       <RunnerSettings RunnerId="RubyDebugRunner" />
       <ConfigurationWrapper RunnerId="RubyDebugRunner" />
@@ -2370,14 +2157,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1414" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.49681783" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.4506762" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12330946" sideWeight="0.6522399" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12330946" sideWeight="0.34244496" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37585422" sideWeight="0.75616544" order="10" side_tool="false" content_ui="tabs" x="265" y="482" width="1913" height="583" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12330946" sideWeight="0.38116932" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12330946" sideWeight="0.19969627" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41381928" sideWeight="0.75616544" order="10" side_tool="false" content_ui="tabs" x="265" y="482" width="1913" height="583" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44267273" sideWeight="0.23866348" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2386,7 +2174,6 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.4506762" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2501,9 +2288,65 @@
         <state line="0" column="0" selection-start="0" selection-end="485" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/parser-test.rb">
+    <entry file="file://$PROJECT_DIR$/src/extensions.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/test.e">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-parser.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="172" column="0" selection-start="2634" selection-end="2634" vertical-scroll-proportion="-3.6909091">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/exceptions.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="42" selection-start="365" selection-end="365" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/power-parser.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="0" selection-start="1576" selection-end="1576" vertical-scroll-proportion="-4.181818">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/english-parser.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="445" column="0" selection-start="7394" selection-end="7394" vertical-scroll-proportion="-11.269231">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/english-tokens.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="261" column="12" selection-start="8698" selection-end="8698" vertical-scroll-proportion="-9.192307">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MethodInterception.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="0" selection-start="3699" selection-end="3699" vertical-scroll-proportion="-18.307692">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/node.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="8" selection-start="236" selection-end="236" vertical-scroll-proportion="0.4304348">
           <folding />
         </state>
       </provider>

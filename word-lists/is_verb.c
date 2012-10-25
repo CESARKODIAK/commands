@@ -1,8 +1,9 @@
 #include <string.h>
 #include <stdio.h>
 
-int
-main (int argc, char *argv[])
+// gcc is_verb.c -o is_verb
+
+int main (int argc, char *argv[])
 {
 	char* basepath=argv[0];// 
 	char* verbs_file="english.verbs.list";
@@ -13,7 +14,7 @@ main (int argc, char *argv[])
 	strcpy (path,basepath);
 	char *last_slash = strrchr(path, '/');
 	*(last_slash + 1) = '\0';//  PRESERVE_LAST_SLASH
-	strcat (path,"word-lists/");
+	// strcat (path,"word-lists/");
 	strcat (path,verbs_file);
 	// printf(argv[1]);
 	// printf("Opening File %s\n", path);
@@ -39,6 +40,6 @@ while (fgets(verb, sizeof (verb), infile) != NULL) {
 		 return 1;
 		}
 }
-		printf("NO VERB");
+		// printf("NO VERB");
 return -1;
 }

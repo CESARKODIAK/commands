@@ -6,26 +6,19 @@
 #require_relative "english-script"
 
 class Parser #<MethodInterception
+  include Exceptions
 
-  @verbose=true
-#@verbose=false
-#@very_verbose=false
-  @very_verbose=true
 
   def initialize
     super # needs to be called by hand!
+    #@verbose=true
+          @verbose=false
+    #@very_verbose=true
+          @very_verbose=false
     @rollback=[]
+    @line_number=0
   end
 
-
-  NotMatching = Class.new StandardError
-  EndOfDocument = Class.new StandardError
-  EndOfLine= Class.new StandardError
-  MaxRecursionReached= Class.new StandardError
-  EndOfBlock= Class.new StandardError
-  GivingUp= Class.new StandardError
-  ShouldNotMatchKeyword= Class.new StandardError
-  KeywordNotExpected= Class.new StandardError
 
   def verbose info
     puts info if @verbose
@@ -52,7 +45,7 @@ class Parser #<MethodInterception
     if @string.blank?
       raise EndOfDocument.new if @line_number==@lines.count
       @string=@lines[++@line_number];
-      #raise EndOfLine.new
+      raise EndOfLine.new
     end
   end
 
@@ -62,7 +55,8 @@ class Parser #<MethodInterception
   end
 
   def token t
-    checkEnd
+    return nil if checkEnd
+    #raiseEnd
     if @string.start_with? t
       @current_value=@string[0,t.length].strip
       @string=@string[t.length..-1].strip
@@ -74,8 +68,9 @@ class Parser #<MethodInterception
   end
 
   def starts_with? tokenz
+    return if checkEnd
     for t in tokenz
-      if @string.start_with?(t)
+      if @string.start_with?(t+" ")
         return true
       end
     end
@@ -175,15 +170,15 @@ class Parser #<MethodInterception
   end
 
   def check_rollback_allowed
-    puts caller.count
+    #puts caller.count
     @rollback[caller.count]!="NO"   # -1?
   end
 
   @throwing=true #[]
   @level=0
   def any(&block)
-    checkEnd
-
+    #raiseEnd
+    return if checkEnd
     last_try=0
     #throw "Max recursion reached #{to_source block}" if @level>20
     raise MaxRecursionReached.new(to_source block) if caller.count>80
@@ -193,7 +188,7 @@ class Parser #<MethodInterception
     oldString=@string
     begin
       result=yield
-      raise NotMatching.new(to_source block) if not result
+      raise NoResult.new(to_source block) if not result
       return result
     rescue EndOfDocument
       verbose "EndOfDocument"
@@ -219,7 +214,8 @@ class Parser #<MethodInterception
   end
 
   def quote
-    checkEnd
+    raiseEnd
+    #return if checkEnd
     if @string[0]=="'"
       to=@string[1..-1].index("'")
       @current_value=@string[1..to];
@@ -261,7 +257,9 @@ class Parser #<MethodInterception
       verbose "Tried #{to_source block}"
       verbose e
       string_pointer if @verbose
-      (@nodes-old_nodes).each{|n| n.valid=false}
+      (@nodes-old_nodes).each{|n|
+        n.destroy
+      } #n.valid=false;
 
       #caller.index(last_try caller)]
       #puts @rollback[caller.count]
@@ -270,9 +268,10 @@ class Parser #<MethodInterception
       if not check_rollback_allowed
         puts @rollback[caller.count]
         puts caller.count
-        error e
+        show_tree #Not reached
+        verbose e
+        string_pointer
         error "NO ROLLBACK, GIVING UP!!!"
-        show_tree
         exit
         #raise GivingUp.new
       end
@@ -288,13 +287,25 @@ class Parser #<MethodInterception
     return false
   end
 
-  def plus(&block)
-    yield
-    star{yield}
-  end
   def one_or_more(&block)
     yield
     star{yield}
+  end
+
+  def many(&block)
+    while true
+      begin
+        comment?
+        result=yield
+        if not result #or @string==""
+          error "Syntax error"
+          string_pointer
+          exit
+        end
+      rescue =>e
+        error e
+      end
+    end
   end
 
   def star(&block)
@@ -464,12 +475,14 @@ class Parser #<MethodInterception
 
 
   def start
-    a=ARGV[0] || "/Users/me/english-script/test.e"
+    a=ARGV[0] ||  app_path+"/../examples/test.e"
     #test_any
     #test_action
     #test_expression
     #test_method
-    parse IO.read(a)
+    @lines=IO.readlines(a)
+    parse @lines[0]
+    #parse IO.read(a)
     show_tree
   end
 
@@ -480,6 +493,15 @@ class Parser #<MethodInterception
 
   def add_tree_node
     @tree<<caller[0]
+  end
+
+
+  def app_path
+    File.expand_path(File.dirname(__FILE__)).to_s
+  end
+
+  def dictionary_path
+    app_path + "word-lists/"
   end
 
 end

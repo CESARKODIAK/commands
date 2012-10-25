@@ -7,6 +7,7 @@ class Node
   attr_accessor :valid
 
   def show_node
+    #true
     @valid and @nodes.empty? and @value or not @nodes.empty? # if node.valid
   end
 
@@ -15,7 +16,7 @@ class Node
   end
 
   def good_value
-    return @name.to_s if not nodes.empty?
+    return @name.to_s if not @nodes.empty?
     return @name.to_s + ":" + @value.to_s
   end
 
@@ -24,8 +25,8 @@ class Node
   end
 
   def destroy
-    @parent.nodes.delete(self) if @parent
     @valid=false
+    @parent.nodes.delete(self) if @parent
   end
 
   def initialize args={}

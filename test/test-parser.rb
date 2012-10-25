@@ -1,11 +1,6 @@
-require_relative "english-parser"
+require_relative "../src/english-parser"
 
 class ParserTest<EnglishParser
-
-  def initialize
-    super # need to be called by hand!?!
-  end
-
 # grammar : 'hello' QUESTION ('does'| QUESTION)* 'the world'? VERB
   def test_root
     #token "hello"
@@ -54,7 +49,7 @@ def test_action
   #s "bash 'ls'"
   #verb and nod
   action
-  assert(!@@string.match("sandwich"))
+  assert(!@string.match("sandwich"))
 end
 
 def test_methods
@@ -140,10 +135,10 @@ end
 
   def s string
     allow_rollback
-    @@lines=string.split("\n")
-    @@string=@@lines[0]
-    #@@string=string
-    @@original_string=@@string
+    @lines=string.split("\n")
+    @string=@lines[0]
+    #@string=string
+    @original_string=@string
   end
 
   def test_method_call
@@ -156,12 +151,27 @@ end
     s "help"
     verb
   end
+
+  def test_comment
+    s "#ok"
+    expression
+    s "z3=13 //ok"
+    expression
+    s "z4=23 -- ok"
+    expression
+    s "z5=33 # ok"
+    expression
+    s "z6=/* dfsfds */3 "
+  end
+
+
   def test
     begin
       #test_verb
       #test_setter2
       #test_setter3
       test_method3
+      test_comment
       s "a bug"
       x=endNode
       star{arg}
@@ -170,7 +180,6 @@ end
       test_while
       test_methods
       test_method_call
-
     #  test_looper
       show_tree
     puts "++++++++++++++++++\nPARSED successfully!"
@@ -179,5 +188,7 @@ end
     end
   end
 
-
 end
+
+ParserTest.new.test
+

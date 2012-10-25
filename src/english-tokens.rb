@@ -1,18 +1,33 @@
+require_relative "MethodInterception"
+require_relative "exceptions"
+
 module EnglishParserTokens #< MethodInterception
+  include MethodInterception
+  include Exceptions
 
 ##################/
 # Lexemes = simple words
 ##################
-  @OK="OK"
+
 
   def initialize
     super
     #pronouns +  TODO!!! keywords-pronouns has "I" (for I in [1..2])!?
-    @keywords=prepositions+be_words+true_comparitons+fillers+nill_words+done_words+auxiliary_verbs+conjunctions #+otherKeywords
+    @NEWLINE="NEWLINE"
+    @keywords=prepositions+modifiers+be_words+true_comparitons+fillers+nill_words+done_words+auxiliary_verbs+
+        conjunctions+type_keywords+otherKeywords
   end
 
   def keywords
-    @keywords
+    @keywords # precalculated
+  end
+
+  def type_keywords
+    ["class","interface","module","type"]
+  end
+
+  def constants
+    ["true","false","yes","no","1","0"]
   end
 
   def question_words
@@ -71,7 +86,9 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def auxiliary_verbs
-    ['be','can','could','have','may','might','must','shall','should','will','would']
+    #['isnt','isn\'t','is not','wasn\'t','was not',]
+      ['is','be','was','cannot','can not','can','could','has', 'have','had','may','might','must','shall','should',
+      'will','would']
   end
 
   def pronouns
@@ -109,7 +126,7 @@ module EnglishParserTokens #< MethodInterception
 
   def done_words
     ['}','ok','OK','O.K.','alright','alrighty','that\'s it',"I'm done","i'm done", 'fine','fini','done',
-               'end','all set','finished','finish','fin','ende','the end','over and out','over','qed',"<end>"]# NL+ # NL verbium?]
+               'all set','finished','finish','fin','ende','the end','end','over and out','over','qed',"<end>"]# NL+ # NL verbium?]
   end
 
 
@@ -120,6 +137,21 @@ module EnglishParserTokens #< MethodInterception
                   'ninth', 'not','sixth','some','tell','tenth','then','third','timeout','times',
                   'transaction','true','try','where','whose','until','while','prop','property','put','ref','reference',
                   'repeat','returning','script','second','set','seventh']
+  end
+
+
+  @verbs=nil #remove:
+  @verbs2=[ 'be', 'have', 'do', 'get', 'make', 'want', 'try', 'buy','take','apply','make','get','eat','drink',
+            'say',
+            'go','know','take','see','come','think','look','give','use','find','tell','ask','work','seem','feel',
+            'leave','call','integrate','print','eat','test']
+
+  def modifiers
+    ['initial','public','static','void','default','protected','private','constant','const']
+  end
+
+  def modifier
+    tokens modifiers
   end
 
 
@@ -162,11 +194,6 @@ module EnglishParserTokens #< MethodInterception
     tokens? 'or','nor'
     comparation?
     value
-  end
-
-
-  def have
-    tokens 'has','had','have'
   end
 
 
@@ -232,6 +259,7 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def real
+    raiseEnd
     match=@string.match(/^\d*.\d+/)
     if match
       @current_value=@string[0..match[0].length]
@@ -252,70 +280,6 @@ module EnglishParserTokens #< MethodInterception
   end
 
 
-
-  def newline?
-    try{newline}
-  end
-
-  def checkNewline
-    if @string.blank?
-      @line_number=@line_number+1
-      return @OK if @line_number>=@lines.count
-      #raise EndOfDocument.new if @line_number==@lines.count
-      @string=@lines[@line_number];
-      @original_string=@string
-      return @OK
-    end
-  end
-
-  def newline
-    return @OK if checkNewline==@OK
-    found=tokens "\.\n","\. ","\n","\r\n",";" #,'\.\.\.' ,'end','done' NO!! OPTIONAL!
-    return @OK if checkNewline==@OK # get new line
-    return found
-  end
-
-  def newlines
-    #one_or_more{newline}
-    star{newline}
-  end
-
-  def NL
-    tokens '\n','\r'
-  end
-
-
-  def NLs
-    tokens '\n','\r'
-  end
-
-
-  def rest_of_statement
-    @current_value=@string.match(/(.*?)([\r\n;]|done)/)[1].strip
-    @string=@string[@current_value.length..-1]
-    return @current_value
-  end
-
-  def rest_of_line
-    return @current_value=@string if not @string.match(/(.*?)\n/)
-    @current_value=@string.match(/(.*?)\n/)[1]
-    @string=@string[@current_value.length..-1]
-    @current_value.strip!
-    return @current_value
-  end
-
-  def comment_block
-    token '/*'
-    @string.gsub('.*?\*\/','')
-    #token '*/'
-    add_tree_node
-  end
-
-  def comment
-    tokens '--','//','#'
-    add_tree_node
-  end
-
   def variables_list
     return ['x','y','z','a','i']
   end
@@ -327,51 +291,48 @@ module EnglishParserTokens #< MethodInterception
   def noun
     no_keyword
     #return true if true_variable
+    #tokens  'bug','sandwich','integrable-function','function','steps','step','size' #careful with function!
     #@string=@string[2]if(@string.start_with?('s ')) #plural, todo
-    tokens  'bug','sandwich','integrable-function','function','steps','step','size' #careful with function!
+    @current_value=call_is_noun
   end
 
   def special_verbs
     ['evaluate','eval']
   end
 
-  @verbs=nil
-  @verbs2=[ 'be', 'have', 'do', 'get', 'make', 'want', 'try', 'buy','take','apply','make','get','eat','drink',
-                'say',
-             'go','know','take','see','come','think','look','give','use','find','tell','ask','work','seem','feel',
-             'leave','call','integrate','print','eat','test']
-
-
-  def app_path
-    File.expand_path(File.dirname(__FILE__)).to_s
-  end
-  def dictionary_path
-    app_path + "word-lists/"
-  end
 
   def call_is_verb
   test=@string.match(/^\s*(\w+)/)[1] rescue nil
   return false if not test
-  command=app_path+"/is_verb "+test
-  puts command
+  command=app_path+"/../word-lists/is_verb "+test
+  #puts command
   found_verb=%x[#{command}]
-  found_verb="" if found_verb=="NO VERB"
   raise NotMatching.new "no verb" if found_verb.blank?
   @string=@string.strip[found_verb.length..-1] if found_verb
   puts "found_verb "+found_verb.to_s
   found_verb
   end
 
+  def call_is_noun
+    test=@string.match(/^\s*(\w+)/)[1] rescue nil
+    return false if not test
+    command=app_path+"/../word-lists/is_noun "+test
+    found_noun=%x[#{command}]
+    raise NotMatching.new "no noun" if found_noun.blank?
+    raise NotMatching.new "B.A.D. acronym noun" if found_noun==found_noun.upcase
+    @string=@string.strip[found_noun.length..-1] if found_noun
+    puts "found_noun "+found_noun.to_s
+    found_noun
+  end
+
   def verb
+    except=auxiliary_verbs
+    no_keyword except
     #if not @verbs
     #  @verbs=IO.readlines(dictionary_path + "/english.verbs.list")
     #end
     #found_verb= tokens @verbs,special_verbs
     @current_value=call_is_verb
-  end
-
-  def modifier
-    tokens 'initial','public','static','void','default','protected','private','constant','const'
   end
 
 end

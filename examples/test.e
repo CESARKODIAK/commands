@@ -1,6 +1,12 @@
+bla = true
+var x = 8;
+msg = "heee"
+//class x = z;
+
+
  how to move a file from a to B
   bash mv a B
-  done
+ done
 
 to delete a file
  execute bash command "rm $file"
@@ -46,3 +52,4 @@ tr b a q w e r t y i o p
 var x = 8;
 msg = "heee"
 
+tr b a q w e r t y i o p
