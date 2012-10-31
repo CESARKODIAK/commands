@@ -164,9 +164,46 @@ end
     s "z6=/* dfsfds */3 "
   end
 
+  def test_js
+    s "js alert('hi')"
+    #javascript
+    root
+    puts @javascript
+  end
+
+  def test_ruby_method_call
+    test_ruby_def
+    p "NOW CALL via english"
+    s "call ruby_block_test"
+    ruby_method_call
+  end
+
+  def test_ruby_def
+    s "def ruby_block_test
+  puts 'ooooo'
+end"
+    ruby_def
+    # ^^ defines:
+    ruby_block_test
+  end
+
+  def test_ruby
+    s "def ruby_block_test
+  puts 'ooooo'
+end"
+    execute_ruby_block
+    # ^^ defines:
+    ruby_block_test
+  end
 
   def test
+    puts "Starting tests!"
     begin
+      #test_ruby
+      #test_ruby_def
+      test_ruby_method_call
+      exit
+      test_js
       #test_verb
       #test_setter2
       #test_setter3

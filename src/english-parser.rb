@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require_relative "MethodInterception"
 require_relative "english-tokens"
 require_relative "power-parser"
@@ -6,14 +7,43 @@ class EnglishParser < Parser
   include MethodInterception
   include EnglishParserTokens # module
 
+  def initialize
+    super
+    @javascript=""
+    @context=""
+    @ruby_methods=[]
+  end
+
   def root
     many{
       try{action} ||
       try{method_definition} ||
-      try{block}
+      try{block}||
+      try{context}
     }
   end
 
+  def context
+    _"context"
+    @context= word
+    NL
+    block
+    done
+  end
+
+  def javascript
+    __ @context=="javascript"? "script" :"java script","javascript","js"
+    no_rollback! 10
+    @javascript+=rest_of_line+";"
+    newline?
+    return @javascript
+    #block and done if not @javascript
+  end
+
+  def script_block
+    _"<script>"
+    read_until "</script>"
+  end
 
 
   def block
@@ -27,9 +57,8 @@ class EnglishParser < Parser
 
   def expression
     x=any{
-      comment
       return @NEWLINE if checkNewline
-      try{action}|| #better debug!
+          try{action}||
           try{if_then} ||
           try{once}    ||
           try{looper}
@@ -67,7 +96,7 @@ class EnglishParser < Parser
     remove_tokens 'execute','command','commandline','run','shell','shellscript','script','bash'
     @command = try{quote}  # danger bash "hi">echo
     @command = rest_of_line if not @command
-                           #any{ try{  } ||  statements }
+    #any{ try{  } ||  statements }
     begin
       puts "going to execute " + @command
       result=%x{#{@command}}
@@ -128,6 +157,18 @@ class EnglishParser < Parser
     nod
   end
 
+  def ruby_method_call
+    tokens? "call","execute","run","start","evaluate","invoke"
+    ruby_method=tokens @ruby_methods
+    args=rest_of_line
+    begin
+    eval(ruby_method+" "+args)
+    rescue
+      puts "error calling "+ruby_method+" "+args
+      puts $!
+    end
+  end
+
   def method_call
     #verb_node
     verb
@@ -139,12 +180,14 @@ class EnglishParser < Parser
     #	||'say' x=(.*) -> 'bash "say $quote"'
     #one  :bash_action ,:setter ,:verb ,:verb_node , :spo
     result=any{ #action
+      try {javascript} ||
+      try {bash_action} ||
       try{setter}||
           try {spo}||
+          try{ruby_method_call} ||
           try{method_call} ||
           try{verb_node} ||
-          try{verb} ||
-          try {bash_action}
+          try{verb}
     }
     #any{ bash_action ||setter ||verb ||verb and nod ||endNode and verb and nod}
     newline? #cut rest, BUT:
@@ -237,7 +280,8 @@ class EnglishParser < Parser
   def word
     #danger:greedy!!!
     no_keyword
-    raise EndOfDocument.new if @string.blank?
+    raiseNewLine
+    #raise EndOfDocument.new if @string.blank?
     #return false if starts_with? keywords
     match=@string.match(/^\s*\w+[\d\w_]*/)
     if(match)
@@ -414,37 +458,65 @@ class EnglishParser < Parser
 #/*List
 #	 (nod ',')* nod 'and' nod */
 
-  def any_line
-    @string=@string.gsub(".*?\n","")
+  def any_ruby_line
+    line=@string
+    @string=@string.gsub(/.*/,"")
+    checkNewline
+    line
   end
+
+  def execute_ruby_block
+    #require 'evil'
+    lines=ruby_block
+    result=eval(lines.join("\n"))
+    p result
+    #result=class_eval(lines.join("\n"))
+    #p result
+    #A.instance_method(:m).force_bind(B.new).call
+    #ruby_block_test
+  end
+
 
   def ruby_block
     block_depth=0
+    lines=[]
     star{
       raise EndOfBlock.new if(@string.strip.start_with?"end") and block_depth==0
-      any_line
+      line=any_ruby_line
+      lines<<line
+      line
     }
+    lines<<"end" #todo: in any_ruby_line
+    lines
   end
 
   def ruby_def
-    start_tree_node
     _"def"
+    lines=["def "+@string]
     method=word
     try{arg=word;}
+    try{_"="; defaulter=word}
     star{_","; arg=word;}
     newline
-    ruby_block
+    lines+=ruby_block
     #-- # // Some Ruby coat goes here
-    newline
+    newline?
     _"end"
-    add_tree_node
+    begin
+    eval lines.join("\n")
+      @ruby_methods<<method
+    rescue
+      puts "error in ruby_def block"
+      puts $!
+      puts lines
+    end
+    lines
   end
 
 
   def start_block
-    any{
-      try{newline}||
-      try{tokens "do","{","first you ","second you ","then you ","finally you ",":"}}
+    return @OK if checkNewline
+    try{tokens "do","{","first you ","second you ","then you ","finally you ",":"}
   end
 
 
@@ -453,7 +525,12 @@ class EnglishParser < Parser
     try{newline}
   end
 
+  def raiseNewLine
+    raise EndOfLine.new if @string.blank?
+  end
+
   def checkNewline
+    comment if not @string.blank?
     if @string.blank?
       @line_number=@line_number+1
       return @NEWLINE if @line_number>=@lines.count
@@ -494,7 +571,11 @@ class EnglishParser < Parser
   end
 
   def rest_of_line
-    return @current_value=@string if not @string.match(/(.*?)\n/)
+    if not @string.match(/(.*?)\n/)
+      @current_value=@string
+      @string=nil
+      return @current_value
+    end
     @current_value=@string.match(/(.*?)\n/)[1]
     @string=@string[@current_value.length..-1]
     @current_value.strip!
@@ -509,12 +590,22 @@ class EnglishParser < Parser
   end
 
   def comment
+    raiseEnd if @string==nil
     @string.gsub!( / -- .*/,'');
     @string.gsub!( /\/\/.*/,''); # todo
     @string.gsub!( /#.*/,'');
-    checkNewline
+    checkNewline if @string.blank?
   end
 
+  def start
+    super
+    result= "<script>"+ @javascript+"</script>"
+    result
+  end
+
+  def get_javascript
+    @javascript
+  end
 
 end
 
@@ -535,4 +626,4 @@ end
 
 #EnglishParser.new.test
 #EnglishParser.new.tokens
-#EnglishParser.new.start
+EnglishParser.new.start if not ARGV.blank?

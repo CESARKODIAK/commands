@@ -3,6 +3,14 @@ var x = 8;
 msg = "heee"
 //class x = z;
 
+context svg
+  set color to red
+
+ how to create a circle
+ add svg '<circle cx="$width" cy="$height" r="$radius" stroke="black" stroke-width="2" fill="$color" id="circle"/>'
+ end
+
+end context svg
 
  how to move a file from a to B
   bash mv a B

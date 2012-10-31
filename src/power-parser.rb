@@ -11,11 +11,12 @@ class Parser #<MethodInterception
 
   def initialize
     super # needs to be called by hand!
-    #@verbose=true
-          @verbose=false
-    #@very_verbose=true
-          @very_verbose=false
+          #@verbose=true
+    @verbose=false
+    #      @very_verbose=true
+    @very_verbose=false
     @rollback=[]
+    @tree=[]
     @line_number=0
   end
 
@@ -78,8 +79,8 @@ class Parser #<MethodInterception
   end
 
   def tokens *tokenz
-    #raiseEnd
-    return if checkEnd
+    raiseEnd
+    #return if checkEnd
     @string=@string.gsub(/([^\w ])/," \\1 ").strip+" "
     for t in tokenz.flatten
       return true if(t=="\n" and @string.empty?)
@@ -166,7 +167,7 @@ class Parser #<MethodInterception
   end
 
   def allow_rollback
-      @rollback=[]
+    @rollback=[]
   end
 
   def check_rollback_allowed
@@ -177,8 +178,8 @@ class Parser #<MethodInterception
   @throwing=true #[]
   @level=0
   def any(&block)
-    #raiseEnd
-    return if checkEnd
+    raiseEnd
+    #return if checkEnd
     last_try=0
     #throw "Max recursion reached #{to_source block}" if @level>20
     raise MaxRecursionReached.new(to_source block) if caller.count>80
@@ -253,7 +254,7 @@ class Parser #<MethodInterception
         @string=old
       end
       return result
-    rescue NotMatching => e
+    rescue NotMatching,EndOfLine => e
       verbose "Tried #{to_source block}"
       verbose e
       string_pointer if @verbose
@@ -278,7 +279,7 @@ class Parser #<MethodInterception
     rescue EndOfDocument => e
       verbose "EndOfDocument"
       raise e
-      #return true
+        #return true
     rescue => e
       error e
       exit
@@ -296,8 +297,12 @@ class Parser #<MethodInterception
     while true
       begin
         comment?
+        old_tree=@nodes.clone
         result=yield
-        if not result #or @string==""
+        #puts "------------------"
+        #puts @nodes-old_tree
+        break if @string.blank?
+        if not result  #or @string==""
           error "Syntax error"
           string_pointer
           exit
@@ -338,8 +343,8 @@ class Parser #<MethodInterception
     rescue EndOfDocument =>e
       #raise e
       verbose "EndOfDocument"
-      #break
-      #return false
+        #break
+        #return false
     rescue => e
       error e
       error "error in star "+ to_source(block)
@@ -480,20 +485,16 @@ class Parser #<MethodInterception
     #test_action
     #test_expression
     #test_method
-    @lines=IO.readlines(a)
+    if(File.exists?a)
+      @lines=IO.readlines(a)
+    else
+      @lines=a.split("\n")
+    end
     parse @lines[0]
     #parse IO.read(a)
     show_tree
   end
 
-  @tree=[]
-  def start_tree_node
-    @tree<<caller[0]
-  end
-
-  def add_tree_node
-    @tree<<caller[0]
-  end
 
 
   def app_path

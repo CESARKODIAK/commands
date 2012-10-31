@@ -7,7 +7,7 @@ module MethodInterception
 
   def initialize
     super # needs to be called by hand!
-    @tree=true#[]
+    #@tree=[]
     @nodes=[]
     @tokens=[]
     @new_nodes=[] #  remove after try failed
@@ -20,7 +20,8 @@ module MethodInterception
     #"newline","newlines","newline?",
     #test_setter Should never be set ("")!?
     #"token","tokens",
-    ["_","_?","tokens", "any","initialize",         "one_or_more","expression",             "endNode",
+    ["_","_?","tokens","ignore","initialize","bad", "any","initialize",         "one_or_more","expression",
+ "endNode",
      "the_noun_that","nod",
      "star",
      "rest_of_line","setter",
@@ -99,7 +100,7 @@ module MethodInterception
   # not called on error, good
   def after_each_method name
     if not bad name
-      @current_node.valid=true #if @current_value
+      @current_node.valid=true if @current_value or not @current_node.nodes.blank?
       @current_node.value=@current_value if @current_node.is_leaf
       @nodes.pop
       @current_node=@nodes[-1]
@@ -111,10 +112,14 @@ module MethodInterception
   def self.included(base)
     base.extend ClassMethods
   end
+
   module ClassMethods
+
     @@__last_methods_added=[]
 
     def method_added name
+
+      return true if name.to_s=="initialize"
       return if not @@use_tree
       return if @@__last_methods_added && @@__last_methods_added.include?(name)
       with = :"#{name}_with_before_each_method"
@@ -133,7 +138,7 @@ module MethodInterception
     end
 
     @@use_tree=false
-    @@use_tree=true # DO NOT use while developing!
+    #@@use_tree=true # DO NOT use while developing!
   end
 end
 
