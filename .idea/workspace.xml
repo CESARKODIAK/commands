@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6940660a-2420-4886-b36b-1a1f8dc6722d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/test.e" afterPath="$PROJECT_DIR$/examples/test.e" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MethodInterception.rb" afterPath="$PROJECT_DIR$/src/MethodInterception.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/english-parser.rb" afterPath="$PROJECT_DIR$/src/english-parser.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/english-tokens.rb" afterPath="$PROJECT_DIR$/src/english-tokens.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/power-parser.rb" afterPath="$PROJECT_DIR$/src/power-parser.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test-parser.rb" afterPath="$PROJECT_DIR$/test/test-parser.rb" />
     </list>
     <ignored path="english.iws" />
@@ -1603,10 +1598,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="english-parser.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="english-parser.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/english-parser.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="159" column="22" selection-start="2771" selection-end="2787" vertical-scroll-proportion="0.07919463">
+            <state line="497" column="53" selection-start="8490" selection-end="8490" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test-parser.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/test-parser.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="176" column="8" selection-start="2728" selection-end="2728" vertical-scroll-proportion="0.14496644">
               <folding />
             </state>
           </provider>
@@ -1616,15 +1620,6 @@
         <entry file="file://$PROJECT_DIR$/src/extensions.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test-parser.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test-parser.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="177" column="7" selection-start="2756" selection-end="2756" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -2131,7 +2126,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12490056" sideWeight="0.5436598" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12490056" sideWeight="0.03720577" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41381928" sideWeight="0.7466189" order="10" side_tool="false" content_ui="tabs" x="265" y="482" width="1913" height="583" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41381928" sideWeight="0.7466189" order="10" side_tool="false" content_ui="tabs" x="265" y="482" width="1913" height="583" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41381928" sideWeight="0.25059667" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2354,16 +2349,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-parser.rb">
+    <entry file="file://$PROJECT_DIR$/src/english-parser.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="7" selection-start="2756" selection-end="2756" vertical-scroll-proportion="0.0">
+        <state line="497" column="53" selection-start="8490" selection-end="8490" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/english-parser.rb">
+    <entry file="file://$PROJECT_DIR$/test/test-parser.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="22" selection-start="2771" selection-end="2787" vertical-scroll-proportion="0.07919463">
+        <state line="176" column="8" selection-start="2728" selection-end="2728" vertical-scroll-proportion="0.14496644">
           <folding />
         </state>
       </provider>

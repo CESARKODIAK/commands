@@ -174,13 +174,13 @@ end
   def test_ruby_method_call
     test_ruby_def
     p "NOW CALL via english"
-    s "call ruby_block_test"
+    s "call ruby_block_test 'yeah'"
     ruby_method_call
   end
 
   def test_ruby_def
-    s "def ruby_block_test
-  puts 'ooooo'
+    s "def ruby_block_test x='yuhu'
+  puts x
 end"
     ruby_def
     # ^^ defines:

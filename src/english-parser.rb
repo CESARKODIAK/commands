@@ -495,7 +495,7 @@ class EnglishParser < Parser
     lines=["def "+@string]
     method=word
     try{arg=word;}
-    try{_"="; defaulter=word}
+    try{_"="; defaulter=(quote? or word?)} # or ...!?
     star{_","; arg=word;}
     newline
     lines+=ruby_block
