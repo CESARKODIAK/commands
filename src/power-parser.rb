@@ -13,7 +13,7 @@ class Parser #<MethodInterception
     super # needs to be called by hand!
           #@verbose=true
     @verbose=false
-    #      @very_verbose=true
+          #@very_verbose=true
     @very_verbose=false
     @rollback=[]
     @tree=[]
@@ -44,7 +44,7 @@ class Parser #<MethodInterception
   @lines=[]
   def raiseEnd
     if @string.blank?
-      raise EndOfDocument.new if @line_number==@lines.count
+      raise EndOfDocument.new if @line_number>=@lines.count
       @string=@lines[++@line_number];
       raise EndOfLine.new
     end
@@ -189,7 +189,10 @@ class Parser #<MethodInterception
     oldString=@string
     begin
       result=yield
-      raise NoResult.new(to_source block) if not result
+      if not result
+      @string=oldString
+      raise NoResult.new(to_source block)
+      end
       return result
     rescue EndOfDocument
       verbose "EndOfDocument"

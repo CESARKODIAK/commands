@@ -131,7 +131,7 @@ module EnglishParserTokens #< MethodInterception
 
 
   def otherKeywords
-    ['and','as','back','beginning','but','by','contain','contains','copy','div','does','eighth','else',
+    ['and','as','back','beginning','but','by','contain','contains','copy','def','div','does','eighth','else',
                   'end','equal','equals','error','every','false','fifth','first','for','fourth','even','front','get',
                   'given','global','if','ignoring' ,'is','it','its','last','local','me','middle','mod','my',
                   'ninth', 'not','sixth','some','tell','tenth','then','third','timeout','times',
@@ -312,7 +312,7 @@ module EnglishParserTokens #< MethodInterception
   found_verb=%x[#{command}]
   raise NotMatching.new "no verb" if found_verb.blank?
   @string=@string.strip[found_verb.length..-1] if found_verb
-  puts "found_verb "+found_verb.to_s
+  verbose "found_verb "+found_verb.to_s
   found_verb
   end
 
@@ -324,7 +324,7 @@ module EnglishParserTokens #< MethodInterception
     raise NotMatching.new "no noun" if found_noun.blank?
     raise NotMatching.new "B.A.D. acronym noun" if found_noun==found_noun.upcase
     @string=@string.strip[found_noun.length..-1] if found_noun
-    puts "found_noun "+found_noun.to_s
+    verbose "found_noun "+found_noun.to_s
     found_noun
   end
 

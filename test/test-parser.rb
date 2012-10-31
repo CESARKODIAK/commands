@@ -187,6 +187,18 @@ end"
     ruby_block_test
   end
 
+  def test_ruby_all
+    s "
+def ruby_block_test x='yuhu'
+  puts x
+end
+call ruby_block_test 'yeah'
+"
+    root
+    # ^^ defines:
+
+  end
+
   def test_ruby
     s "def ruby_block_test
   puts 'ooooo'
@@ -201,7 +213,8 @@ end"
     begin
       #test_ruby
       #test_ruby_def
-      test_ruby_method_call
+      #test_ruby_method_call
+      test_ruby_all
       exit
       test_js
       #test_verb

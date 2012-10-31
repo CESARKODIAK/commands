@@ -12,11 +12,14 @@ class EnglishParser < Parser
     @javascript=""
     @context=""
     @ruby_methods=[]
+    @OK="OK"
   end
 
   def root
     many{
+      newline? ||
       try{action} ||
+      try{ruby_def} ||
       try{method_definition} ||
       try{block}||
       try{context}
@@ -162,11 +165,14 @@ class EnglishParser < Parser
     ruby_method=tokens @ruby_methods
     args=rest_of_line
     begin
-    eval(ruby_method+" "+args)
+    result=eval(ruby_method+" "+args)
     rescue
-      puts "error calling "+ruby_method+" "+args
-      puts $!
+      error "error calling "+ruby_method+" "+args
+      error $!
     end
+    checkNewline
+    #raiseEnd
+    return @OK # don't return nil!
   end
 
   def method_call
@@ -263,11 +269,12 @@ class EnglishParser < Parser
     modifier?
     try{tokens 'var ','val ','value of '}
     modifier?
-    variable
+    var=variable
     be
     no_rollback!
     value
     newline?
+    var
 # ||'to'
 #'initial'?	let? the? ('initial'||'var'||'val'||'value of')? variable (be||'to') value
   end
@@ -492,6 +499,7 @@ class EnglishParser < Parser
 
   def ruby_def
     _"def"
+    no_rollback!
     lines=["def "+@string]
     method=word
     try{arg=word;}
@@ -505,11 +513,13 @@ class EnglishParser < Parser
     begin
     eval lines.join("\n")
       @ruby_methods<<method
+      verbose method +"  defied successfully !"
     rescue
-      puts "error in ruby_def block"
-      puts $!
-      puts lines
+      error "error in ruby_def block"
+      error lines
+      error $!
     end
+    newline?
     lines
   end
 
