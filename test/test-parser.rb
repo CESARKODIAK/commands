@@ -199,6 +199,11 @@ call ruby_block_test 'yeah'
 
   end
 
+  def test_ruby_variables
+    s "x=7;puts x;"
+    root
+  end
+
   def test_ruby
     s "def ruby_block_test
   puts 'ooooo'
@@ -208,13 +213,23 @@ end"
     ruby_block_test
   end
 
+  def test_algebra
+    s "2* ( 3 + 10 ) "
+    #s "2*(3+10)"
+    puts "Parse #{@string} as algebra?"
+    puts algebra
+    #puts eval good_node_values @root if @root #== @string
+  end
+
   def test
     puts "Starting tests!"
     begin
+      test_algebra
       #test_ruby
       #test_ruby_def
       #test_ruby_method_call
-      test_ruby_all
+      #test_ruby_variables
+      #test_ruby_all
       exit
       test_js
       #test_verb

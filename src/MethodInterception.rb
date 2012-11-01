@@ -50,6 +50,15 @@ module MethodInterception
   end
 
 
+  def good_node_values node
+    result=""
+    result=node.value if node.show_node and node.value
+    for n in node.nodes
+      result+=good_node_values n
+    end
+    result
+  end
+
   def flat_tree  node
     puts node.good_value if node.show_node and node.value
     for n in node.nodes
@@ -138,7 +147,7 @@ module MethodInterception
     end
 
     @@use_tree=false
-    #@@use_tree=true # DO NOT use while developing!
+    @@use_tree=true # DO NOT use while developing!
   end
 end
 

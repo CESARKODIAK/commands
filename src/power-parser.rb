@@ -1,20 +1,14 @@
 #!/usr/bin/env ruby
-#gem 'breakpoint'
-#require 'breakpoint'
-#require 'breakpoint185'
-
-#require_relative "english-script"
 
 class Parser #<MethodInterception
   include Exceptions
-
-
   def initialize
     super # needs to be called by hand!
-          #@verbose=true
+    #@verbose=true
     @verbose=false
           #@very_verbose=true
-    @very_verbose=false
+    #@very_verbose=false
+    @very_verbose=@verbose
     @rollback=[]
     @tree=[]
     @line_number=0
@@ -160,10 +154,20 @@ class Parser #<MethodInterception
     end
   end
 
+  def caller_name
+    for i in 0..(caller.count)
+      next if not caller[i].match(/parser/)
+      name=caller[i].match(/`(.*)'/)[1]
+      return name if caller[i].index("parser")
+    end
+  end
+
+
   def no_rollback! n=0
     for i in 0..(caller.count+n)
       @rollback[i] ="NO"
     end
+    @method=caller#_name
   end
 
   def allow_rollback
@@ -270,10 +274,10 @@ class Parser #<MethodInterception
       #puts caller.count
       #puts rollback
       if not check_rollback_allowed
-        puts @rollback[caller.count]
-        puts caller.count
+        #puts
+        #puts @method.join("\n")
         show_tree #Not reached
-        verbose e
+        error e
         string_pointer
         error "NO ROLLBACK, GIVING UP!!!"
         exit

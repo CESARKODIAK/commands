@@ -11,7 +11,8 @@ class EnglishParser < Parser
     super
     @javascript=""
     @context=""
-    @ruby_methods=[]
+    @variables={}
+    @ruby_methods=["puts","print"]
     @OK="OK"
   end
 
@@ -32,6 +33,21 @@ class EnglishParser < Parser
     NL
     block
     done
+  end
+
+  def bracelet
+    _"("
+    algebra
+    _")"
+  end
+
+  def algebra
+    any{variable? or number? or bracelet?}
+    star{
+    tokens "+","*","-","/"
+    no_rollback!
+    any{variable? or number? or bracelet?}
+    }
   end
 
   def javascript
@@ -160,14 +176,26 @@ class EnglishParser < Parser
     nod
   end
 
+  def substitute_variables args
+    args=" "+args+" "
+    for variable in @variables.keys
+      args.gsub!(/ #{variable} /,@variables[variable])
+    end
+    args
+  end
+
   def ruby_method_call
-    tokens? "call","execute","run","start","evaluate","invoke"
-    ruby_method=tokens @ruby_methods
-    args=rest_of_line
+    call=tokens? "call","execute","run","start","evaluate","invoke"
+    no_rollback! if call # remove later
+    ruby_method=tokens? @ruby_methods
+    raise UndefinedRubyMethod.new word if not ruby_method
+    args=substitute_variables rest_of_line
     begin
-    result=eval(ruby_method+" "+args)
+      the_call=ruby_method+" "+args.to_s
+      result=eval(the_call)
+      verbose the_call+"  called successfully with result "+result.to_s
     rescue
-      error "error calling "+ruby_method+" "+args
+      error "error calling "+the_call
       error $!
     end
     checkNewline
@@ -272,7 +300,7 @@ class EnglishParser < Parser
     var=variable
     be
     no_rollback!
-    value
+    @variables[var]=value
     newline?
     var
 # ||'to'
@@ -326,6 +354,7 @@ class EnglishParser < Parser
           nod? ||
           rest_of_line
     }
+    @current_value.strip
   end
 
 

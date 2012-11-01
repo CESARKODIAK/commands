@@ -8,4 +8,5 @@ EndOfBlock=  Class.new NotMatching
 GivingUp= Class.new StandardError
 ShouldNotMatchKeyword=  Class.new NotMatching
 KeywordNotExpected=  Class.new NotMatching
+UndefinedRubyMethod=  Class.new NotMatching
 end
