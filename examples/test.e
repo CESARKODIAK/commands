@@ -6,11 +6,30 @@ msg = "heee"
 context svg
   set color to red
 
+how to draw a circle
+ default color be red
+ default radius equals 100 pixels
+ svg '<circle cx="$x" cy="$y" r="$radius" stroke="$border.color" fill="$color" />'
+done
+
+how to move to x y
+done
+
+ draw a blue circle with 50 pixels radius
+
+
  how to create a circle
- add svg '<circle cx="$width" cy="$height" r="$radius" stroke="black" stroke-width="2" fill="$color" id="circle"/>'
+    svg '<circle cx="$width" cy="$height" r="$radius" stroke="black" stroke-width="2" fill="$color" id="circle"/>'
  end
 
-end context svg
+  how to create a x times y square
+     svg '<circle cx="$x" cy="$y" r="$radius" stroke="black" stroke-width="2" fill="$color" id="circle"/>'
+  end
+
+
+ create a circle
+
+end # context svg
 
  how to move a file from a to B
   bash mv a B

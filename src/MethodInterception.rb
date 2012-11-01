@@ -20,21 +20,19 @@ module MethodInterception
     #"newline","newlines","newline?",
     #test_setter Should never be set ("")!?
     #"token","tokens",
-    ["_","_?","tokens","ignore","initialize","bad", "any","initialize",         "one_or_more","expression",
- "endNode",
-     "the_noun_that","nod",
-     "star",
-     "rest_of_line","setter",
-     "action","parse","number","allow_rollback",
+    ["_","_?","tokens","ignore","initialize","bad","checkNewline","newline","newline?","ruby_block_test",
+     "substitute_variables",  "raiseNewline",     "any",     "initialize",     "one_or_more",     "expression",
+     "endNode",     "the_noun_that","nod",     "star",     "rest_of_line","setter",     "action", "parse","number",
+     "allow_rollback",
      "test_setter","try_action","method_missing","endNode2","no_rollback!","raiseEnd",
      "string_pointer","verbose","try","checkEnd","to_source","rest","keywords",
      "starts_with?", "be_words","no_keyword","prepositions","variables_list","the?","app_path",
-    "constants"
+    "constants","comment","any_ruby_line"
     ] #"call_is_verb",
   end
 
   def keepers
-    ["token","tokens"]
+    ["token","tokens","word"]
   end
   def current_value= x
     @current_value=x
@@ -150,4 +148,3 @@ module MethodInterception
     @@use_tree=true # DO NOT use while developing!
   end
 end
-

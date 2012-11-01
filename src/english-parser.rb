@@ -2,6 +2,11 @@
 require_relative "MethodInterception"
 require_relative "english-tokens"
 require_relative "power-parser"
+require 'linguistics'
+require 'wordnet'
+#require 'wordnet-defaultdb'
+Linguistics.use( :en, :monkeypatch=> true )
+#http://99designs.com/tech-blog/ More magic
 
 class EnglishParser < Parser
   include MethodInterception
@@ -12,9 +17,29 @@ class EnglishParser < Parser
     @javascript=""
     @context=""
     @variables={}
-    @ruby_methods=["puts","print"]
+    @svg=[]
+    @ruby_methods=["puts","print","svg"]
     @OK="OK"
+
+    puts "goose".plural
+    puts "a dozen".parse_integer
+    #   Linguistics::EN.has_wordnet?
+    puts "bug".synsets.map(&:words).flatten.map(&:to_s).uniq
+    #puts "bad".hypernyms
+    #puts "bad".synset.hypernyms
+    #puts "bad".synset.synonyms
+    #puts "bad".synonyms
+
   end
+
+  def svg x
+    @svg<<x
+  end
+
+  #def svg
+  #  _"svg"
+  #  quote
+  #end
 
   def root
     many{
@@ -58,6 +83,8 @@ class EnglishParser < Parser
     return @javascript
     #block and done if not @javascript
   end
+
+
 
   def script_block
     _"<script>"
@@ -179,7 +206,8 @@ class EnglishParser < Parser
   def substitute_variables args
     args=" "+args+" "
     for variable in @variables.keys
-      args.gsub!(/ #{variable} /,@variables[variable])
+      args.gsub!(/\$#{variable}[^\w]/,@variables[variable])
+      args.gsub!(/[^\w]#{variable}[^\w]/,@variables[variable])
     end
     args
   end
@@ -200,7 +228,9 @@ class EnglishParser < Parser
     end
     checkNewline
     #raiseEnd
-    return @OK # don't return nil!
+    @current_value=ruby_method
+    #return @OK # don't return nil!
+    return ruby_method
   end
 
   def method_call
@@ -312,10 +342,10 @@ class EnglishParser < Parser
   end
 
 
-  def word
+  def word item=nil
     #danger:greedy!!!
     no_keyword
-    raiseNewLine
+    raiseNewline
     #raise EndOfDocument.new if @string.blank?
     #return false if starts_with? keywords
     match=@string.match(/^\s*\w+[\d\w_]*/)
@@ -354,7 +384,7 @@ class EnglishParser < Parser
           nod? ||
           rest_of_line
     }
-    @current_value.strip
+    @current_value#.strip
   end
 
 
@@ -435,6 +465,7 @@ class EnglishParser < Parser
 
 
   def endNode
+    return true if checkEnd
     any{
       try{
         endNode2
@@ -523,6 +554,7 @@ class EnglishParser < Parser
       line
     }
     lines<<"end" #todo: in any_ruby_line
+    @current_node.value=lines
     lines
   end
 
@@ -530,7 +562,8 @@ class EnglishParser < Parser
     _"def"
     no_rollback!
     lines=["def "+@string]
-    method=word
+    method=word "method"
+    #@current_node.value=method #has ruby_block leaf!
     try{arg=word;}
     try{_"="; defaulter=(quote? or word?)} # or ...!?
     star{_","; arg=word;}
@@ -564,7 +597,7 @@ class EnglishParser < Parser
     try{newline}
   end
 
-  def raiseNewLine
+  def raiseNewline
     raise EndOfLine.new if @string.blank?
   end
 
@@ -663,6 +696,6 @@ end
 #debugger
 
 
-#EnglishParser.new.test
 #EnglishParser.new.tokens
+EnglishParser.new.parse "x=7" if nil
 EnglishParser.new.start if not ARGV.blank?

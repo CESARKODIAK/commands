@@ -221,16 +221,39 @@ end"
     #puts eval good_node_values @root if @root #== @string
   end
 
+  def leave
+    show_tree
+    flat_tree @root
+    exit
+  end
+
+  def test_svg
+    svg '<circle cx="$x" cy="$y" r="$radius" stroke="$border.color" fill="$color" />'
+    parse "x=7"
+    parse "y=8"
+    parse "set the default radius to seventy"
+    s 'svg \'<circle cx="$x" cy="$y" r="$radius" stroke="$border.color" fill="$color" />\''
+  end
+
+  def test_english_numbers
+    raise "english_numbers!" if not ( "seventy-six".parse_integer == 76)
+    #require 'numbers_and_words'
+    #p   I18n.with_locale(:en) { 42.to_words }
+  end
+
   def test
     puts "Starting tests!"
     begin
-      test_algebra
+      #test_algebra
       #test_ruby
       #test_ruby_def
+      test_english_numbers
+
+      test_svg
       #test_ruby_method_call
       #test_ruby_variables
       #test_ruby_all
-      exit
+      leave
       test_js
       #test_verb
       #test_setter2

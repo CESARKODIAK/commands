@@ -12,6 +12,7 @@ class Parser #<MethodInterception
     @rollback=[]
     @tree=[]
     @line_number=0
+    @lines=[]
   end
 
 
@@ -430,11 +431,16 @@ class Parser #<MethodInterception
     begin
       @original_string=string
       @string=string
+      @lines=[string] if @lines.empty?
       root
     rescue => e
       error e
     end
     puts "PARSED SUCCESSFULLY!!"
+    show_tree
+    #puts @jav
+    puts @svg
+    exit
   end
 
 
@@ -499,7 +505,6 @@ class Parser #<MethodInterception
     end
     parse @lines[0]
     #parse IO.read(a)
-    show_tree
   end
 
 
