@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/23267/link-grammar/trunk/data/lt
+END
+4.0.knowledge
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/22850/link-grammar/trunk/data/lt/4.0.knowledge
+END
+4.0.batch
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/23010/link-grammar/trunk/data/lt/4.0.batch
+END
+4.0.dict
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/23010/link-grammar/trunk/data/lt/4.0.dict
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/22846/link-grammar/trunk/data/lt/Makefile.am
+END
+4.0.constituent-knowledge
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/!svn/ver/22851/link-grammar/trunk/data/lt/4.0.constituent-knowledge
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/23267/link-grammar/trunk/data/lt/.cvsignore
+END
+4.0.affix
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/22848/link-grammar/trunk/data/lt/4.0.affix
+END

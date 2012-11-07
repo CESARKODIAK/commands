@@ -1,0 +1,491 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/32285/link-grammar/trunk/link-grammar
+END
+print.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/31953/link-grammar/trunk/link-grammar/print.h
+END
+idiom.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/30876/link-grammar/trunk/link-grammar/idiom.c
+END
+constituents.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/31928/link-grammar/trunk/link-grammar/constituents.c
+END
+regex-morph.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/28220/link-grammar/trunk/link-grammar/regex-morph.h
+END
+build-disjuncts.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/30876/link-grammar/trunk/link-grammar/build-disjuncts.c
+END
+dictionary.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/32257/link-grammar/trunk/link-grammar/dictionary.c
+END
+link-includes.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/32029/link-grammar/trunk/link-grammar/link-includes.h
+END
+idiom.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/23030/link-grammar/trunk/link-grammar/idiom.h
+END
+constituents.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/32172/link-grammar/trunk/link-grammar/constituents.h
+END
+pp_linkset.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/30876/link-grammar/trunk/link-grammar/pp_linkset.c
+END
+build-disjuncts.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/27679/link-grammar/trunk/link-grammar/build-disjuncts.h
+END
+resources.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/30876/link-grammar/trunk/link-grammar/resources.c
+END
+analyze-linkage.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/32011/link-grammar/trunk/link-grammar/analyze-linkage.c
+END
+pp_linkset.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/23038/link-grammar/trunk/link-grammar/pp_linkset.h
+END
+pp_knowledge.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/30876/link-grammar/trunk/link-grammar/pp_knowledge.c
+END
+resources.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/29522/link-grammar/trunk/link-grammar/resources.h
+END
+massage.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/31953/link-grammar/trunk/link-grammar/massage.c
+END
+analyze-linkage.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/31953/link-grammar/trunk/link-grammar/analyze-linkage.h
+END
+pp_knowledge.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/25905/link-grammar/trunk/link-grammar/pp_knowledge.h
+END
+link-features.h.in
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/!svn/ver/23763/link-grammar/trunk/link-grammar/link-features.h.in
+END
+preparation.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/32204/link-grammar/trunk/link-grammar/preparation.c
+END
+massage.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/31953/link-grammar/trunk/link-grammar/massage.h
+END
+extract-links.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/30876/link-grammar/trunk/link-grammar/extract-links.c
+END
+preparation.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/32204/link-grammar/trunk/link-grammar/preparation.h
+END
+error.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/30876/link-grammar/trunk/link-grammar/error.c
+END
+jni-client.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/31928/link-grammar/trunk/link-grammar/jni-client.c
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/23537/link-grammar/trunk/link-grammar/.cvsignore
+END
+link-grammar.def
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/32204/link-grammar/trunk/link-grammar/link-grammar.def
+END
+extract-links.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/28985/link-grammar/trunk/link-grammar/extract-links.h
+END
+error.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/25196/link-grammar/trunk/link-grammar/error.h
+END
+jni-client.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/29132/link-grammar/trunk/link-grammar/jni-client.h
+END
+read-regex.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/27657/link-grammar/trunk/link-grammar/read-regex.c
+END
+read-regex.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/25952/link-grammar/trunk/link-grammar/read-regex.h
+END
+word-file.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/30876/link-grammar/trunk/link-grammar/word-file.c
+END
+prune.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/31955/link-grammar/trunk/link-grammar/prune.c
+END
+read-dict.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/32259/link-grammar/trunk/link-grammar/read-dict.c
+END
+word-file.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/25162/link-grammar/trunk/link-grammar/word-file.h
+END
+prune.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/27648/link-grammar/trunk/link-grammar/prune.h
+END
+string-set.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/30876/link-grammar/trunk/link-grammar/string-set.c
+END
+post-process.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/31922/link-grammar/trunk/link-grammar/post-process.c
+END
+malloc-dbg.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/23763/link-grammar/trunk/link-grammar/malloc-dbg.c
+END
+read-dict.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/32172/link-grammar/trunk/link-grammar/read-dict.h
+END
+and.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/31953/link-grammar/trunk/link-grammar/and.c
+END
+string-set.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/25661/link-grammar/trunk/link-grammar/string-set.h
+END
+spellcheck-hun.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/32284/link-grammar/trunk/link-grammar/spellcheck-hun.c
+END
+post-process.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/29853/link-grammar/trunk/link-grammar/post-process.h
+END
+disjuncts.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/31928/link-grammar/trunk/link-grammar/disjuncts.c
+END
+print-util.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/30876/link-grammar/trunk/link-grammar/print-util.c
+END
+and.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/31953/link-grammar/trunk/link-grammar/and.h
+END
+api.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/32028/link-grammar/trunk/link-grammar/api.c
+END
+disjuncts.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/25518/link-grammar/trunk/link-grammar/disjuncts.h
+END
+utilities.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/32030/link-grammar/trunk/link-grammar/utilities.c
+END
+print-util.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/24366/link-grammar/trunk/link-grammar/print-util.h
+END
+pp_lexer.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/30876/link-grammar/trunk/link-grammar/pp_lexer.c
+END
+api.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/30876/link-grammar/trunk/link-grammar/api.h
+END
+api-types.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/30876/link-grammar/trunk/link-grammar/api-types.h
+END
+utilities.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/32030/link-grammar/trunk/link-grammar/utilities.h
+END
+disjunct-utils.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/29511/link-grammar/trunk/link-grammar/disjunct-utils.c
+END
+spellcheck.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/32284/link-grammar/trunk/link-grammar/spellcheck.h
+END
+pp_lexer.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/25657/link-grammar/trunk/link-grammar/pp_lexer.h
+END
+disjunct-utils.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/28239/link-grammar/trunk/link-grammar/disjunct-utils.h
+END
+tokenize.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/32285/link-grammar/trunk/link-grammar/tokenize.c
+END
+count.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/32011/link-grammar/trunk/link-grammar/count.c
+END
+spellcheck-aspell.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/32284/link-grammar/trunk/link-grammar/spellcheck-aspell.c
+END
+prefix.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/31930/link-grammar/trunk/link-grammar/prefix.c
+END
+count.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/31955/link-grammar/trunk/link-grammar/count.h
+END
+tokenize.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/26178/link-grammar/trunk/link-grammar/tokenize.h
+END
+api-structures.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/32030/link-grammar/trunk/link-grammar/api-structures.h
+END
+prefix.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/31930/link-grammar/trunk/link-grammar/prefix.h
+END
+word-utils.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/30876/link-grammar/trunk/link-grammar/word-utils.c
+END
+link-grammar-java.def
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/!svn/ver/28730/link-grammar/trunk/link-grammar/link-grammar-java.def
+END
+word-utils.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/32172/link-grammar/trunk/link-grammar/word-utils.h
+END
+expand.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/27688/link-grammar/trunk/link-grammar/expand.c
+END
+expand.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/27686/link-grammar/trunk/link-grammar/expand.h
+END
+fast-match.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/31928/link-grammar/trunk/link-grammar/fast-match.c
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/32181/link-grammar/trunk/link-grammar/Makefile.am
+END
+structures.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/32010/link-grammar/trunk/link-grammar/structures.h
+END
+print.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/30876/link-grammar/trunk/link-grammar/print.c
+END
+fast-match.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/24307/link-grammar/trunk/link-grammar/fast-match.h
+END
+externs.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/27658/link-grammar/trunk/link-grammar/externs.h
+END
+regex-morph.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/29353/link-grammar/trunk/link-grammar/regex-morph.c
+END

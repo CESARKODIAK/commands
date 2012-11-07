@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/29545/link-grammar/trunk/link-grammar/minisat
+END
+Solver.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/Solver.h
+END
+Heap.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/Heap.h
+END
+Map.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/Map.h
+END
+Vec.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/Vec.h
+END
+BasicHeap.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/BasicHeap.h
+END
+BoxedVec.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/BoxedVec.h
+END
+SolverTypes.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/SolverTypes.h
+END
+Alg.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/Alg.h
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/24868/link-grammar/trunk/link-grammar/minisat/Makefile.am
+END
+Queue.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/Queue.h
+END
+Solver.C
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/29545/link-grammar/trunk/link-grammar/minisat/Solver.C
+END
+Sort.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/24787/link-grammar/trunk/link-grammar/minisat/Sort.h
+END

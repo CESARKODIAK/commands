@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/!svn/ver/28038/link-grammar/trunk/data/tools
+END
+dict-splitter.pl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/27564/link-grammar/trunk/data/tools/dict-splitter.pl
+END
+membership.pl
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/27674/link-grammar/trunk/data/tools/membership.pl
+END
+cluster-pop.pl
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/27650/link-grammar/trunk/data/tools/cluster-pop.pl
+END
+wiktionary.pl
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/27947/link-grammar/trunk/data/tools/wiktionary.pl
+END
+delete.pl
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/28038/link-grammar/trunk/data/tools/delete.pl
+END
+fix-len.pl
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/27560/link-grammar/trunk/data/tools/fix-len.pl
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/27564/link-grammar/trunk/data/tools/README
+END
+insert.pl
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/27560/link-grammar/trunk/data/tools/insert.pl
+END

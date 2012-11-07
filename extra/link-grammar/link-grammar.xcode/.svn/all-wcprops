@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/32174/link-grammar/trunk/link-grammar.xcode
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/32174/link-grammar/trunk/link-grammar.xcode/Makefile.am
+END
+project.pbxproj
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/!svn/ver/22565/link-grammar/trunk/link-grammar.xcode/project.pbxproj
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/22556/link-grammar/trunk/link-grammar.xcode/.cvsignore
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/32174/link-grammar/trunk/link-grammar.xcode/README
+END

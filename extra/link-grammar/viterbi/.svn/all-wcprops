@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/32230/link-grammar/trunk/viterbi
+END
+connect.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/32229/link-grammar/trunk/viterbi/connect.h
+END
+parser.cc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/32219/link-grammar/trunk/viterbi/parser.cc
+END
+parser.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/32216/link-grammar/trunk/viterbi/parser.h
+END
+atom.cc
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/32216/link-grammar/trunk/viterbi/atom.cc
+END
+atom.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/32216/link-grammar/trunk/viterbi/atom.h
+END
+viterbi.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/32171/link-grammar/trunk/viterbi/viterbi.h
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/31974/link-grammar/trunk/viterbi/README
+END
+vitest.cc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/32224/link-grammar/trunk/viterbi/vitest.cc
+END
+state.cc
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/32221/link-grammar/trunk/viterbi/state.cc
+END
+state.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/32220/link-grammar/trunk/viterbi/state.h
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/32214/link-grammar/trunk/viterbi/Makefile.am
+END
+connector-utils.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/32220/link-grammar/trunk/viterbi/connector-utils.cc
+END
+connect.cc
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/32230/link-grammar/trunk/viterbi/connect.cc
+END
+connector-utils.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/32220/link-grammar/trunk/viterbi/connector-utils.h
+END
+compile.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/32229/link-grammar/trunk/viterbi/compile.h
+END

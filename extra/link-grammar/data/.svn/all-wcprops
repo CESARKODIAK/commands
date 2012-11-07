@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/!svn/ver/32332/link-grammar/trunk/data
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/27570/link-grammar/trunk/data/Makefile.am
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/22570/link-grammar/trunk/data/.cvsignore
+END
