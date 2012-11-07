@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/32332/link-grammar/trunk/data/en
+END
+4.0.knowledge
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/31971/link-grammar/trunk/data/en/4.0.knowledge
+END
+4.0.batch
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/32294/link-grammar/trunk/data/en/4.0.batch
+END
+4.0.dict
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/32332/link-grammar/trunk/data/en/4.0.dict
+END
+4.0.constituent-knowledge
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/!svn/ver/22503/link-grammar/trunk/data/en/4.0.constituent-knowledge
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/28058/link-grammar/trunk/data/en/README
+END
+4.0.affix
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/32257/link-grammar/trunk/data/en/4.0.affix
+END
+4.0.fixes.batch
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/32331/link-grammar/trunk/data/en/4.0.fixes.batch
+END
+4.0.dict.m4
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/32332/link-grammar/trunk/data/en/4.0.dict.m4
+END
+tiny.dict
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/22503/link-grammar/trunk/data/en/tiny.dict
+END
+4.0.voa.batch
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/28351/link-grammar/trunk/data/en/4.0.voa.batch
+END
+4.0.enwiki.batch
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/28348/link-grammar/trunk/data/en/4.0.enwiki.batch
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/29306/link-grammar/trunk/data/en/Makefile.am
+END
+4.0.regex
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/32281/link-grammar/trunk/data/en/4.0.regex
+END
+4.0.biolg.batch
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/28058/link-grammar/trunk/data/en/4.0.biolg.batch
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/23267/link-grammar/trunk/data/en/.cvsignore
+END

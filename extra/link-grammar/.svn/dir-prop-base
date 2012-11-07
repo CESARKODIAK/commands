@@ -1,0 +1,34 @@
+K 10
+svn:ignore
+V 345
+missing
+ltmain.sh
+link-grammar.pc
+link-grammar.spec
+libtool
+install-sh
+depcomp
+configure
+config.sub
+config.status
+config.log
+config.guess
+autom4te.cache
+autogen.err
+aclocal.m4
+Makefile.in
+Makefile
+INSTALL
+NEWS
+build.xml
+.pc
+patches
+bin
+link-grammar-*.asc
+link-grammar-*.gz
+link-grammar-*.jar
+linkgrammar-*.jar
+link-grammar-*.md5
+svn-commit.tmp*
+
+END

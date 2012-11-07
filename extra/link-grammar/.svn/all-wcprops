@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/!svn/ver/32332/link-grammar/trunk
+END
+link-grammar.spec.in
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/22777/link-grammar/trunk/link-grammar.spec.in
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/29473/link-grammar/trunk/LICENSE
+END
+FindLinkGrammar.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/27715/link-grammar/trunk/FindLinkGrammar.cmake
+END
+AUTHORS
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/31989/link-grammar/trunk/AUTHORS
+END
+configure.in
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/32257/link-grammar/trunk/configure.in
+END
+ChangeLog
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/!svn/ver/32330/link-grammar/trunk/ChangeLog
+END
+link-grammar.pc.in
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/22776/link-grammar/trunk/link-grammar.pc.in
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/!svn/ver/32285/link-grammar/trunk/README
+END
+build.xml.in
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/32191/link-grammar/trunk/build.xml.in
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/!svn/ver/30882/link-grammar/trunk/TODO
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/30882/link-grammar/trunk/COPYING
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/31975/link-grammar/trunk/Makefile.am
+END
+MAINTAINERS
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/22752/link-grammar/trunk/MAINTAINERS
+END
+autogen.sh
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/!svn/ver/32173/link-grammar/trunk/autogen.sh
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/!svn/ver/23267/link-grammar/trunk/.cvsignore
+END

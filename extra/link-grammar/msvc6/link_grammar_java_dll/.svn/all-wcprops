@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/26369/link-grammar/trunk/msvc6/link_grammar_java_dll
+END
+link_grammar_java_dll.dsp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/!svn/ver/26369/link-grammar/trunk/msvc6/link_grammar_java_dll/link_grammar_java_dll.dsp
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/!svn/ver/25185/link-grammar/trunk/msvc6/link_grammar_java_dll/Makefile.am
+END

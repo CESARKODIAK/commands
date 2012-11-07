@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/!svn/ver/30801/link-grammar/trunk/man
+END
+link-parser.1
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/30801/link-grammar/trunk/man/link-parser.1
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/23536/link-grammar/trunk/man/Makefile.am
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/23267/link-grammar/trunk/man/.cvsignore
+END
