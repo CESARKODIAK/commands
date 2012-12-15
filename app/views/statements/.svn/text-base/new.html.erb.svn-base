@@ -1,0 +1,35 @@
+<h1>New statement</h1>
+
+<% form_for(@statement) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :subject %><br />
+    <%= f.text_field :subject %>
+  </p>
+  <p>
+    <%= f.label :predicate %><br />
+    <%= f.text_field :predicate %>
+  </p>
+  <p>
+    <%= f.label :object %><br />
+    <%= f.text_field :object %>
+  </p>
+  <p>
+    <%= f.label :context_id %><br />
+    <%= f.text_field :context_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :modifier %><br />
+    <%= f.text_field :modifier %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', statements_path %>

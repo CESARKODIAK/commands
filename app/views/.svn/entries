@@ -1,0 +1,62 @@
+10
+
+dir
+514
+http://pannous.net/svn/railsnet/app/views
+http://pannous.net/svn
+
+
+
+2009-07-03T21:02:16.008901Z
+513
+root
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+43acdf13-e857-0410-980f-a5b35eecf0de
+
+
+
+
+
+
+0
+
+contexts
+dir
+
+groups
+dir
+
+layouts
+dir
+
+nodes
+dir
+
+permissions
+dir
+
+rights
+dir
+
+statements
+dir
+
+users
+dir
+
+values
+dir
+

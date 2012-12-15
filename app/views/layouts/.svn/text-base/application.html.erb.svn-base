@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Ruby on Rails: Welcome aboard</title>
+    <%#= stylesheet_link_tag :index %>
+    <%= stylesheet_tag "index", {} %>
+    <script type="text/javascript" src="javascripts/prototype.js"></script>
+    <script type="text/javascript" src="javascripts/effects.js"></script>
+
+</head>
+<body>
+<div id="page">
+    <div id="sidebar">
+        <ul id="sidebar-items">
+            <li><%= link_to "contexts", "/contexts" %>
+            </li>
+            <li><%= link_to "users", "/users" %>
+            </li>
+            <li><%= link_to "groups", "/groups" %>
+            </li>
+            <li><%= link_to "nodes", "/nodes" %>
+            </li>
+            <li><%= link_to "permission", "/permission" %></li>
+        </ul>
+    </div>
+
+    <div id="content"><%= yield %>
+    </div>
+
+    <div id="footer">&nbsp;</div>
+</div>
+</body>
+</html>

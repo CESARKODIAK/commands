@@ -1,0 +1,33 @@
+<p>
+  <b>Subject:</b>
+  <%=h @statement.subject %>
+</p>
+
+<p>
+  <b>Predicate:</b>
+  <%=h @statement.predicate %>
+</p>
+
+<p>
+  <b>Object:</b>
+  <%=h @statement.object %>
+</p>
+
+<p>
+  <b>Context:</b>
+  <%=h @statement.context_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @statement.user_id %>
+</p>
+
+<p>
+  <b>Modifier:</b>
+  <%=h @statement.modifier %>
+</p>
+
+
+<%= link_to 'Edit', edit_statement_path(@statement) %> |
+<%= link_to 'Back', statements_path %>

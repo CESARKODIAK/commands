@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>English script</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "svg-utils" %>
+  <!--<script type="text/javascript" src="javascripts/svg-utils.js"></script>-->
+    <!--<script type="text/javascript" english-script="javascripts/prototype.js"></script>-->
+    <!--<script type="text/javascript" english-script="javascripts/effects.js"></script>-->
+</head>
+
+<body>
+
+<div id="page">
+    <div id="sidebar">
+        <ul id="sidebar-items">
+          <li><%= link_to "sandbox", "/sandbox" %>
+          </li>
+          <li><%= link_to "methods", "/functions" %>
+          </li>
+            <li><%= link_to "nodes", "/nodes" %>
+            </li>
+        </ul>
+    </div>
+
+    <div id="content"><%= yield %>
+    </div>
+
+    <div id="footer">&nbsp;</div>
+</div>
+</body>
+</html>

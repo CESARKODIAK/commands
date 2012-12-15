@@ -1,0 +1,33 @@
+<p>
+  <b>Node:</b>
+  <%=h @value.node_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%=h @value.value %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @value.user_id %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%=h @value.version %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @value.date %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%=h @value.kind %>
+</p>
+
+
+<%= link_to 'Edit', edit_value_path(@value) %> |
+<%= link_to 'Back', values_path %>

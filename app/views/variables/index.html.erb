@@ -1,0 +1,31 @@
+<h1>Listing variables</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Default</th>
+    <th>Context</th>
+    <th>Kind</th>
+    <th>Method</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @variables.each do |variable| %>
+  <tr>
+    <td><%= variable.name %></td>
+    <td><%= variable.default %></td>
+    <td><%= variable.context_id %></td>
+    <td><%= variable.kind_id %></td>
+    <td><%= variable.method_id %></td>
+    <td><%= link_to 'Show', variable %></td>
+    <td><%= link_to 'Edit', edit_variable_path(variable) %></td>
+    <td><%= link_to 'Destroy', variable, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Variable', new_variable_path %>

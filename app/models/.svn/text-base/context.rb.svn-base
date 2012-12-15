@@ -1,0 +1,12 @@
+class Context < Node
+  has_many :nodes
+# ^^ zu teuer
+
+  def self.My
+    return Context.first
+  end
+  def self.my
+    return Context.first
+  end
+end
+

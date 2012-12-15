@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/512/railsnet/app/views/values
+END
+new.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/524/railsnet/app/views/values/new.html.erb
+END
+show.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/512/railsnet/app/views/values/show.html.erb
+END
+edit.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/524/railsnet/app/views/values/edit.html.erb
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/512/railsnet/app/views/values/index.html.erb
+END

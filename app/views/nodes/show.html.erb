@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @node.name %>
+</p>
+
+<p>
+  <b>Context:</b>
+  <%= @node.context_id %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%= @node.kind_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @node.value %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%= @node.parent_id %>
+</p>
+
+<p>
+  <b>Valid:</b>
+  <%= @node.isvalid %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @node.user_id %>
+</p>
+
+<p>
+  <b>Parsed:</b>
+  <%= @node.parsed %>
+</p>
+
+<p>
+  <b>Executable:</b>
+  <%= @node.executable %>
+</p>
+
+
+<%= link_to 'Edit', edit_node_path(@node) %> |
+<%= link_to 'Back', nodes_path %>

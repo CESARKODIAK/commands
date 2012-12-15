@@ -1,0 +1,3 @@
+
+class Abstract < Node
+end

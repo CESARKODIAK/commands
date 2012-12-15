@@ -1,0 +1,39 @@
+<h1>Listing nodes</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Context</th>
+    <th>Kind</th>
+    <th>Value</th>
+    <th>Parent</th>
+    <th>Valid</th>
+    <th>User</th>
+    <th>Parsed</th>
+    <th>Executable</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @nodes.each do |node| %>
+  <tr>
+    <td><%= node.name %></td>
+    <td><%= node.context_id %></td>
+    <td><%= node.kind_id %></td>
+    <td><%= node.value %></td>
+    <td><%= node.parent_id %></td>
+    <td><%= node.isvalid %></td>
+    <td><%= node.user_id %></td>
+    <td><%#= node.parsed %></td>
+    <td><%#= node.executable %></td>
+    <td><%= link_to 'Show', node %></td>
+    <td><%= link_to 'Edit', edit_node_path(node) %></td>
+    <td><%= link_to 'Destroy', node, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Node', new_node_path %>

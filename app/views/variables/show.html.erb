@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @variable.name %>
+</p>
+
+<p>
+  <b>Default:</b>
+  <%= @variable.default %>
+</p>
+
+<p>
+  <b>Context:</b>
+  <%= @variable.context_id %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%= @variable.kind_id %>
+</p>
+
+<p>
+  <b>Method:</b>
+  <%= @variable.method_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_variable_path(@variable) %> |
+<%= link_to 'Back', variables_path %>
