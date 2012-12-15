@@ -2,348 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca916c65-060f-45e6-b6b2-df0c2cb5a26e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/sandbox_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sandbox/index.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/initializers/core_extensions.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/runConfigurations/english.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/0&#13;" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/0.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ANTLRDemo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/AntlrTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/C.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/CPP.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Escript.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Escript.g.bak" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Escript.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/EscriptLexer.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/EscriptParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Exp.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Exp.grammar.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Exp.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ExpLexer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ExpParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Exp__testrig.st" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Java.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Java1.6.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Math.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/T.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/T.lexer.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/T.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/T2.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/T2.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJ.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJ.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJLexer$DFA2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJLexer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJLexer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJParser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJ_T2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TJ_T2.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TLexer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TLexer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TLexer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TParser.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/TParser.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/T_lexer.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/T_lexer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/T_lexer.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/Test.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/__Test__.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-ant/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-ant/src/main/java/beaver/comp/run/AntTask.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/Action.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/Configuration.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/ParserGenerator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/ParsingTables.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/State.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/io/SrcReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/run/Make.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/run/Options.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/util/BitSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/util/IntArray.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/comp/util/Log.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/Grammar.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/GrammarBuilder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/GrammarSymbol.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/NonTerminal.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/Production.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/Terminal.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/Declaration.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/GrammarTreeRoot.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/Node.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/Rule.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/ast/TreeWalker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/parser/GrammarParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-cc/src/main/java/beaver/spec/parser/GrammarScanner.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/Action.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/Parser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/ParsingTables.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/Scanner.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/beaver-rt/src/main/java/beaver/Symbol.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/asts.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/beaver.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/doc.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/how2run.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/recovery.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/scanners.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/doc/spec.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/etc/GrammarScanner.flex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/etc/beaver.grammar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/BagOfSyntaxErrors.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/Test.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/java.flex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/java12.grammar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/comp/jls/unicode.flex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/Calculator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/Expr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/expr.flex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/eval/expr.grammar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/Calculator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/Printer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/BinExpr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/DivExpr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/ErrExpr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/Expr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/MinusExpr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/MultExpr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/NegExpr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/Node.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/NumExpr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/PlusExpr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/ast/TreeWalker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/expr.flex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/expr/tree/expr.grammar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/path/Run.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/path/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/path/path.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/examples/path/path.l" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/lib/beaver-ant.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/lib/beaver-cc.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/lib/beaver-rt.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/beaver-0.9.10/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/build.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/english.verbs.list" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/english.words.sqlite3.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/english_verbs.g" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/english_verbs.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/english_verbsParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/java-test.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0.tar.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/bin/javacc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/bin/javacc.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjdoc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjdoc.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjrun" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjtree" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/bin/jjtree.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/bin/lib/javacc.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/CharStream.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/JJDoc.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/JJTree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/JavaCC.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/JavaCC.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/apiroutines.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/commandline.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/docindex.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/errorrecovery.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/features.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/installhelp.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/javaccgrm.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/javaccreleasenotes.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/jjdocreleasenotes.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/jjtreeREADME.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/jjtreeintro.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/jjtreereleasenotes.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/lexertips.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/lookahead.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/mailinglist.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/simpleREADME.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/support.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/doc/tokenmanager.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/CORBA-IDL/Hello.idl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/CORBA-IDL/IDL.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/CORBA-IDL/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/CalcGUI.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/CalcInput.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/ProducerConsumer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/ParserVersion/TokenCollector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/CalcGUI.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/CalcInput.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/CharCollector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/MyLexer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/GUIParsing/TokenMgrVersion/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTAddNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTAndNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTAssignment.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBitwiseAndNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBitwiseComplNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBitwiseOrNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBitwiseXorNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTBlock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTCompilationUnit.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTDivNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTEQNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTFalseNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTGENode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTGTNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTId.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTIfStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTIntConstNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTLENode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTLTNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTModNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTMulNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTNENode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTNotNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTOrNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTReadStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTStatementExpression.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTSubtractNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTTrueNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTVarDeclaration.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTWhileStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/ASTWriteStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/MyNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/Node.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/SPL.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/SPL.jjt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/fact.spl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/odd.spl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Interpreter/sqrt.spl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/ASTMyID.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/ASTMyOtherID.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/Eg4DumpVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/eg1.jjt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/eg2.jjt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/eg3.jjt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JJTreeExamples/eg4.jjt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaCCGrammar/JavaCC.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/Java1.5.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/JavaGenerics.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/MyToken.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/Test.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/1.5/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Java1.0.2.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Java1.0.2LS.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Java1.1.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Java1.1noLA.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/OPTIMIZING" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/JavaGrammars/Test.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example1.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example10.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example2.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example3.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example4.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example5.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example6.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example7.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example8.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/Example9.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Lookahead/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/MailProcessing/Digest.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/MailProcessing/Faq.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/MailProcessing/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/MailProcessing/sampleMailFile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/Globals.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/IdsFile.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/Java1.1.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/MapFile.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/Obfuscator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/input/package1/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/input/package2/Incr.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/maps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/nochangeids" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Obfuscator/useids" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/IdList.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/NL_Xlator.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/Simple1.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/Simple2.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/SimpleExamples/Simple3.jj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/ASTCompilationUnit.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/ASTSpecialBlock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/SimpleNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/ToyJava.jjt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/Transformer/divide.toy" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/AddAcceptVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/Java1.1.jjt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/SimpleNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/javacc-5.0/examples/VTransformer/UnparseVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/Escript.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/EscriptLexer.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/EscriptParser.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/Exp.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/ExpLexer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/ExpLexer.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/ExpParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/ExpParser.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/Test.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/TestLexer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/TestParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/__Test__.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/__Test___input.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/output/__Test___template.st" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ruby-fail/DONT_USE_RUBY_TARGET" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ruby-fail/T.tokens" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ruby-fail/TLexer.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ruby-fail/TLexer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ruby-fail/TParser.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/ruby-fail/TParser.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/samples" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/test.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/tests/feed.e" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/tests/set.e" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/antlr/user_context&#13;" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/test-parser.rb" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Annotations.rb" afterPath="$PROJECT_DIR$/app/helpers/script/Annotations.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/MethodInterception.rb" afterPath="$PROJECT_DIR$/lib/english-script/MethodInterception.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/english-parser.rb" afterPath="$PROJECT_DIR$/lib/english-script/english-parser.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/english-tokens.rb" afterPath="$PROJECT_DIR$/lib/english-script/english-tokens.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/exceptions.rb" afterPath="$PROJECT_DIR$/lib/english-script/exceptions.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/extensions.rb" afterPath="$PROJECT_DIR$/lib/english-script/extensions.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/node.rb" afterPath="$PROJECT_DIR$/lib/english-script/treenode.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/power-parser.rb" afterPath="$PROJECT_DIR$/lib/english-script/power-parser.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/me.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/sinewave.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/english-script/Interpretation.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/test.e" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/parser_test.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/english-script.iml" afterPath="$PROJECT_DIR$/.idea/english-script.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sandbox_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sandbox_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/sandbox/index.html.erb" afterPath="$PROJECT_DIR$/app/views/sandbox/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/english-script/MethodInterception.rb" afterPath="$PROJECT_DIR$/lib/english-script/MethodInterception.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/english-script/english-parser.rb" afterPath="$PROJECT_DIR$/lib/english-script/english-parser.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/english-script/english-tokens.rb" afterPath="$PROJECT_DIR$/lib/english-script/english-tokens.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/english-script/extensions.rb" afterPath="$PROJECT_DIR$/lib/english-script/extensions.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/english-script/power-parser.rb" afterPath="$PROJECT_DIR$/lib/english-script/power-parser.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/english-script/treenode.rb" afterPath="$PROJECT_DIR$/lib/english-script/treenode.rb" />
     </list>
     <ignored path="english-script.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -360,95 +33,97 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
+  <component name="DatabaseView">
+    <flatten value="false" />
+    <groupTables value="false" />
+  </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="english-parser.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/english-script/english-parser.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="704" column="0" selection-start="12623" selection-end="12623" vertical-scroll-proportion="0.63414633">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="column.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.rvm/gems/ruby-1.9.3-p125/gems/activerecord-3.1.3/lib/active_record/connection_adapters/column.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="10" selection-start="1858" selection-end="1858" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="power-parser.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/english-script/power-parser.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="266" column="0" selection-start="5756" selection-end="5756" vertical-scroll-proportion="-9.461538">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MethodInterception.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/english-script/MethodInterception.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="146" column="17" selection-start="4076" selection-end="4076" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="english-tokens.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/english-script/english-tokens.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="181" column="0" selection-start="7285" selection-end="7285" vertical-scroll-proportion="-9.461538">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="exceptions.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/english-script/exceptions.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="sandbox_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/sandbox_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="51" selection-start="0" selection-end="1882" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="statement.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/statement.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="25" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="node.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/node.rb">
+          <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="callbacks.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.rvm/gems/ruby-1.9.3-p125/gems/activerecord-3.1.3/lib/active_record/callbacks.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="234" column="9" selection-start="10089" selection-end="10089" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="schema.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/schema.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="97" column="21" selection-start="3004" selection-end="3004" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/sandbox/index.html.erb">
+        <entry file="file://$PROJECT_DIR$/app/views/nodes/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="28" selection-start="347" selection-end="347" vertical-scroll-proportion="-4.5">
-              <folding>
-                <element signature="n#style#0;n#input#0;n#td#1;n#tr#0;n#table#0;n#form#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="28" column="11" selection-start="577" selection-end="577" vertical-scroll-proportion="-8.472222">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.css">
+      <file leaf-file-name="treenode.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/english-script/treenode.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="20" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="english-parser.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/english-script/english-parser.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="119" column="6" selection-start="2593" selection-end="2593" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MethodInterception.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/english-script/MethodInterception.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="9" selection-start="1581" selection-end="1581" vertical-scroll-proportion="0.07317073">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rails english-script: development" pinned="true" current="false" current-in-tab="false">
+        <entry file="mock:///Rails english-script: development">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="13" selection-start="44" selection-end="44" vertical-scroll-proportion="-0.9310345">
               <folding />
             </state>
           </provider>
@@ -467,32 +142,32 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/models/parameter.rb" />
-        <option value="$PROJECT_DIR$/app/models/variable.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/svg-utils.js" />
-        <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
-        <option value="$PROJECT_DIR$/Gemfile" />
-        <option value="$PROJECT_DIR$/src/treenode.rb" />
-        <option value="$PROJECT_DIR$/src/MethodInterception.rb" />
-        <option value="$PROJECT_DIR$/src/english-parser.rb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
-        <option value="$PROJECT_DIR$/src/console.rb" />
-        <option value="$PROJECT_DIR$/src/util.rb" />
-        <option value="$PROJECT_DIR$/src/power-parser.rb" />
-        <option value="$PROJECT_DIR$/app/models/english-parser.rb" />
-        <option value="$PROJECT_DIR$/app/models/node.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
-        <option value="$PROJECT_DIR$/config/application.rb" />
-        <option value="$PROJECT_DIR$/config/initializers/core_extensions.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/svg-utils.js" />
+        <option value="$PROJECT_DIR$/test/test.e" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/sinewave.js" />
         <option value="$PROJECT_DIR$/lib/english-script/extensions.rb" />
+        <option value="$PROJECT_DIR$/test/unit/learning_test.rb" />
         <option value="$PROJECT_DIR$/app/views/sandbox/index.html.erb" />
-        <option value="$PROJECT_DIR$/app/assets/stylesheets/application.css" />
-        <option value="$PROJECT_DIR$/app/controllers/sandbox_controller.rb" />
-        <option value="$PROJECT_DIR$/lib/english-script/MethodInterception.rb" />
-        <option value="$PROJECT_DIR$/lib/english-script/power-parser.rb" />
+        <option value="$PROJECT_DIR$/test/unit/parser_test.rb" />
+        <option value="$PROJECT_DIR$/app/models/variable.rb" />
+        <option value="$PROJECT_DIR$/app/models/function.rb" />
         <option value="$PROJECT_DIR$/lib/english-script/english-tokens.rb" />
+        <option value="/Rails english-script: development" />
+        <option value="$PROJECT_DIR$/app/views/nodes/_form.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/nodes/show.html.erb" />
+        <option value="$PROJECT_DIR$/test/fixtures/nodes.yml" />
+        <option value="$PROJECT_DIR$/app/models/context.rb" />
+        <option value="$PROJECT_DIR$/lib/english-script/Interpretation.rb" />
+        <option value="$PROJECT_DIR$/lib/english-script/power-parser.rb" />
         <option value="$PROJECT_DIR$/lib/english-script/english-parser.rb" />
+        <option value="$PROJECT_DIR$/lib/english-script/treenode.rb" />
+        <option value="$PROJECT_DIR$/db/schema.rb" />
+        <option value="$PROJECT_DIR$/app/views/nodes/index.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/sandbox_controller.rb" />
+        <option value="$PROJECT_DIR$/app/models/statement.rb" />
+        <option value="$PROJECT_DIR$/app/models/node.rb" />
+        <option value="$PROJECT_DIR$/lib/english-script/MethodInterception.rb" />
       </list>
     </option>
   </component>
@@ -534,7 +209,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -619,7 +293,89 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; RVM: ruby-1.9.3-p125 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; RVM: ruby-1.9.3-p125 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="1.9.1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="unit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fixtures" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -665,7 +421,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="db" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -680,10 +436,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="initializers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -740,6 +492,64 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="english-script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -759,79 +569,76 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="english-script" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="english-script" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stylesheets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="english-script" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="english-script" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="RailsProjectView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.lastSelected" value="ruby.project.structure" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
     <property name="Ruby.ViewRefParam.DefaultExtension" value="html.erb" />
-    <property name="GoToClass.includeJavaFiles" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/unit" />
       <recent name="$PROJECT_DIR$/config/initializers" />
       <recent name="$PROJECT_DIR$/app/controllers" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/unit" />
+      <recent name="$PROJECT_DIR$/test/functional" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/app/models/script" />
-      <recent name="$PROJECT_DIR$/app/models" />
-      <recent name="$PROJECT_DIR$/app/helpers/script" />
     </key>
   </component>
   <component name="RunManager" selected="Rails.Development: english-script">
+    <configuration default="false" name="parser_test" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda/Minitest" temporary="true">
+      <predefined_log_file id="RUBY_TESTUNIT" enabled="true" />
+      <module name="english-script" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift) -Itest" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs>
+        <env name="RAILS_ENV" value="test" />
+        <env name="JRUBY_OPTS" value="-X+O" />
+      </envs>
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="true" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/test/unit/parser_test.rb" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
+      <RunnerSettings RunnerId="RubyDebugRunner" />
+      <ConfigurationWrapper RunnerId="RubyDebugRunner" />
+      <method />
+    </configuration>
     <configuration default="true" type="RakeRunConfigurationType" factoryName="Rake">
       <module name="" />
       <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -981,6 +788,19 @@
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="SETTINGS_VERSION" VALUE="2" />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
+      <option name="VM_PARAMETERS" value="" />
+      <option name="USER_CFG_CLASS" />
+      <option name="CONTEXT_PROVIDER" />
+      <method />
+    </configuration>
     <configuration default="false" name="Production: english-script" type="RailsRunConfigurationType" factoryName="Rails">
       <predefined_log_file id="RUBY_RAILS_SERVER" enabled="true" />
       <module name="english-script" />
@@ -1021,14 +841,16 @@
         </COVERAGE_PATTERN>
       </EXTENSION>
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SCRIPT_ARGS" VALUE="" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="3000" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="3003" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="DUMMY_APP" VALUE="test/dummy" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="default" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ENVIRONMENT_TYPE" VALUE="development" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
       <RunnerSettings RunnerId="RubyDebugRunner" />
+      <RunnerSettings RunnerId="RubyRunner" />
       <ConfigurationWrapper RunnerId="RubyDebugRunner" />
+      <ConfigurationWrapper RunnerId="RubyRunner" />
       <method />
     </configuration>
     <configuration default="false" name="test" type="RakeRunConfigurationType" factoryName="Rake">
@@ -1077,12 +899,18 @@
       <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_PREREQS" VALUE="false" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Rails.Production: english-script" />
       <item index="1" class="java.lang.String" itemvalue="Rails.Development: english-script" />
       <item index="2" class="java.lang.String" itemvalue="Rake.test" />
       <item index="3" class="java.lang.String" itemvalue="Rake.spec" />
+      <item index="4" class="java.lang.String" itemvalue="Test::Unit/Shoulda/Minitest.parser_test" />
     </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Test::Unit/Shoulda/Minitest.parser_test" />
+      </list>
+    </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
@@ -1109,6 +937,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="ca916c65-060f-45e6-b6b2-df0c2cb5a26e" name="Default" comment="" />
       <created>1352295977271</created>
       <updated>1352295977271</updated>
     </task>
@@ -1118,24 +947,25 @@
     <frame x="0" y="22" width="2560" height="1414" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.4840891" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.4984089" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.4984089" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.49522674" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.49045345" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32975337" sideWeight="0.60060745" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24980111" sideWeight="0.60060745" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39939255" sideWeight="0.49045345" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39939255" sideWeight="0.50676215" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25974542" sideWeight="0.60060745" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39939255" sideWeight="0.5529037" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39939255" sideWeight="0.44431186" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.48727128" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.4840891" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1191,174 +1021,184 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/lib/english-script/english-parser.rb</url>
-          <line>270</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/lib/english-script/english-tokens.rb</url>
-          <line>181</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$USER_HOME$/.rvm/gems/ruby-1.9.3-p125/gems/activerecord-3.1.3/lib/active_record/connection_adapters/column.rb</url>
-          <line>48</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/lib/english-script/english-tokens.rb</url>
-          <line>260</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/lib/english-script/english-parser.rb</url>
-          <line>596</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/lib/english-script/english-parser.rb</url>
-          <line>271</line>
+          <url>file://$PROJECT_DIR$/lib/english-script/MethodInterception.rb</url>
+          <line>161</line>
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/extra/English script.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extra/console.rb">
+    <entry file="file://$PROJECT_DIR$/test/unit/function_test.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="5" column="12" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extra/util.rb">
+    <entry file="file://$PROJECT_DIR$/test/unit/node_test.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="11" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.0">
+        <state line="7" column="0" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/schema.rb">
+    <entry file="file://$PROJECT_DIR$/test/unit/parser_test.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="174" column="49" selection-start="5922" selection-end="5922" vertical-scroll-proportion="0.7879581">
+        <state line="2" column="82" selection-start="81" selection-end="81" vertical-scroll-proportion="0.035340313">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/english-script/treenode.rb">
+    <entry file="file://$USER_HOME$/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/site_ruby/1.9.1/evil.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="6" selection-start="6" selection-end="14" vertical-scroll-proportion="0.0">
+        <state line="131" column="10" selection-start="2593" selection-end="2593" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/script/Annotations.rb">
+    <entry file="file://$PROJECT_DIR$/app/models/function.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="29" selection-start="474" selection-end="474" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/script/context.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/kind.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/node.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="7" selection-start="1088" selection-end="1088" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="17" selection-start="779" selection-end="779" vertical-scroll-proportion="-11.222222">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/application.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="32" selection-start="2074" selection-end="2074" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/context.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.rvm/gems/ruby-1.9.3-p125/gems/activerecord-3.1.3/lib/active_record/callbacks.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/english-script/extensions.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/initializers/core_extensions.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="25" selection-start="183" selection-end="183" vertical-scroll-proportion="0.070680626">
+        <state line="0" column="21" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/sandbox/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="28" selection-start="347" selection-end="347" vertical-scroll-proportion="-4.5">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
           <folding>
-            <element signature="n#style#0;n#input#0;n#td#1;n#tr#0;n#table#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#b#0;n#td#1;n#tr#0;n#table#0;n#form#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.css">
+    <entry file="file://$PROJECT_DIR$/app/models/variable.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="20" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0">
+        <state line="0" column="18" selection-start="18" selection-end="18" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/config/database.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="11" column="66" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/english-script/exceptions.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/nodes/_form.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="34" column="19" selection-start="873" selection-end="873" vertical-scroll-proportion="-2.2637362">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/nodes/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="14" selection-start="314" selection-end="314" vertical-scroll-proportion="-20.666666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/fixtures/nodes.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="9" selection-start="319" selection-end="319" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/value.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/context.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="0" selection-start="1099" selection-end="1099" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/english-script/english-tokens.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="66" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/english-script/Interpretation.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="2" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.rvm/gems/ruby-1.9.3-p125/gems/activerecord-3.1.3/lib/active_record/connection_adapters/column.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="0" selection-start="1848" selection-end="1848" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/english-script/power-parser.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="238" column="0" selection-start="4785" selection-end="4785" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/english-script/english-parser.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="119" column="6" selection-start="2593" selection-end="2593" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/schema.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="21" selection-start="3004" selection-end="3004" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/nodes/index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="11" selection-start="577" selection-end="577" vertical-scroll-proportion="-8.472222">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/sandbox_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="51" selection-start="0" selection-end="1882" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/statement.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="25" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.rvm/gems/ruby-1.9.3-p125/gems/activerecord-3.1.3/lib/active_record/callbacks.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="234" column="9" selection-start="10089" selection-end="10089" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/node.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/english-script/treenode.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -1367,35 +1207,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/english-script/MethodInterception.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="17" selection-start="4076" selection-end="4076" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.rvm/gems/ruby-1.9.3-p125/gems/activerecord-3.1.3/lib/active_record/connection_adapters/column.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="10" selection-start="1858" selection-end="1858" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/english-script/power-parser.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="266" column="0" selection-start="5756" selection-end="5756" vertical-scroll-proportion="-9.461538">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/english-script/english-tokens.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="0" selection-start="7285" selection-end="7285" vertical-scroll-proportion="-9.461538">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/english-script/english-parser.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="704" column="0" selection-start="12623" selection-end="12623" vertical-scroll-proportion="0.63414633">
+        <state line="53" column="9" selection-start="1581" selection-end="1581" vertical-scroll-proportion="0.07317073">
           <folding />
         </state>
       </provider>
