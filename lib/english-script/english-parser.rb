@@ -1,36 +1,55 @@
 #!/usr/bin/env ruby
+require_relative "Interpretation"
 require_relative "MethodInterception"
 require_relative "english-tokens"
 require_relative "power-parser"
 require 'linguistics'
 require 'wordnet'
 #require 'wordnet-defaultdb'
-Linguistics.use( :en, :monkeypatch=> true )
+Linguistics.use(:en, :monkeypatch => true)
 #http://99designs.com/tech-blog/ More magic
+
 
 class EnglishParser < Parser
   include MethodInterception
+  #extend MethodInterception::ClassMethods
+
   include EnglishParserTokens # module
+
+
+  #def svg
+  #  return @svg
+  #end
+  #def result
+  #  return @result
+  #end
+
 
   def initialize
     super
+
     @javascript=""
     @context=""
     @variables={}
     @svg=[]
-    @ruby_methods=["puts","print","svg"]
+    @ruby_methods=["puts", "print", "svg"]
+    @methods=[]
     @OK="OK"
     @result=""
+  end
 
-    puts "goose".plural
-    puts "a dozen".parse_integer
-    #   Linguistics::EN.has_wordnet?
-    puts "bug".synsets.map(&:words).flatten.map(&:to_s).uniq
-    #puts "bad".hypernyms
-    #puts "bad".synset.hypernyms
-    #puts "bad".synset.synonyms
-    #puts "bad".synonyms
-
+  def interpretation
+    @interpretation=Interpretation.new
+    i= @interpretation #  Interpretation.new
+    super # set tree, nodes
+    i.javascript=@javascript
+    i.context=@context
+    i.methods=@methods
+    i.ruby_methods=@ruby_methods
+    i.variables=@variables
+    i.svg=@svg
+    i.result=@result
+    i
   end
 
   def svg x
@@ -42,19 +61,105 @@ class EnglishParser < Parser
   #  quote
   #end
 
+  def download url
+    require 'net/http'
+    require 'uri'
+    uri = URI.parse(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = url =~ /https/
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    #response.status
+    #response["header-here"] # All headers are lowercase
+    response.body
+  end
+
+  def english_to_math s
+    s.replace_numerals
+    s.gsub!(" plus ", "+")
+    s.gsub!(" minus ", "-")
+
+    s.gsub!(" (\d+) multiply (\d+) ", "\1 * \2")
+    s.gsub!(" multiply (\d+) with (\d+) ", "\1 * \2")
+    s.gsub!(" multiply (\d+) by (\d+) ", "\1 * \2")
+    s.gsub!(" multiply (\d+) and (\d+) ", "\1 * \2")
+    s.gsub!(" divide (\d+) with (\d+) ", "\1 / \2")
+    s.gsub!(" divide (\d+) by (\d+) ", "\1 / \2")
+    s.gsub!(" divide (\d+) and (\d+) ", "\1 / \2")
+    s.gsub!(" multiplied by ", "*")
+    s.gsub!(" times ", "*")
+    s.gsub!(" divided by ", "/")
+    s.gsub!(" divided ", "/")
+    s.gsub!(" with ", "*")
+    s.gsub!(" by ", "*")
+    s.gsub!(" and ", "+")
+    s.gsub!(" multiply ", "*")
+    return s
+  end
+
+  def evaluate_property
+    raiseNewline
+    x=endNode2
+    _ "of"
+    y=endNode
+    begin
+    all=x+" of "+y
+    @result=eval(all) rescue nil
+    @result=eval(y+"."+x) rescue nil
+    @result=eval('"'+y+'".'+x) rescue nil #string method
+    rescue
+      jeannie all
+    end
+  end
+
+
+  def jeannie request
+    jeannie_api="https://weannie.pannous.com/api?"
+    params="login=test-user&out=simple&input="
+    #raise "empty evaluation" if @current_value.blank?
+    @result=download jeannie_api+params+URI.encode(request)
+    @result
+  end
+
+  #  those attributes. hacky? do better / don't use
+  def subnode attributes={}
+    attributes.each do |name, value|
+      @current_node.nodes<<TreeNode.new(name: name, value: value)
+      @current_value=value
+    end
+    return @current_value
+  end
+
+  def evaluate
+    __ "what is", "evaluate", "how much", "what are", "calculate"
+    no_rollback!
+    the_expression= rest_of_line
+    subnode expression:the_expression
+    @current_value=the_expression
+    begin
+      @result=eval(english_to_math the_expression) #if @result.blank?
+    rescue
+      @result=jeannie(the_expression)
+    end
+    subnode result:@result # todo: via automagic
+    @current_value=@result
+    @current_value
+  end
+
   def root
-    many{
-      newline? ||
-      try{action} ||
-      try{ruby_def} ||
-      try{method_definition} ||
-      try{block}||
-      try{context}
+    many {
+          newline? ||
+          try { action } ||
+          try { ruby_def } ||
+          try { method_definition } ||
+          try { block }||
+          try { context }
     }
   end
 
   def context
-    _"context"
+    _ "context"
     @context= word
     NL
     block
@@ -62,22 +167,22 @@ class EnglishParser < Parser
   end
 
   def bracelet
-    _"("
+    _ "("
     algebra
-    _")"
+    _ ")"
   end
 
   def algebra
-    any{variable? or number? or bracelet?}
-    star{
-    tokens "+","*","-","/"
-    no_rollback!
-    any{variable? or number? or bracelet?}
+    any { variable? or number? or bracelet? }
+    star {
+      tokens "+", "*", "-", "/"
+      no_rollback!
+      any { variable? or number? or bracelet? }
     }
   end
 
   def javascript
-    __ @context=="javascript"? "script" :"java script","javascript","js"
+    __ @context=="javascript" ? "script" : "java script", "javascript", "js"
     no_rollback! 10
     @javascript+=rest_of_line+";"
     newline?
@@ -86,29 +191,29 @@ class EnglishParser < Parser
   end
 
 
-
   def script_block
-    _"<script>"
+    _ "<script>"
     read_until "</script>"
   end
 
 
   def block
-    star{
+    star {
       x=expression
       newlines
       x
     }
   end
-                              #;//... expression| backtrack!
+
+  #;//... expression| backtrack!
 
   def expression
-    x=any{
+    x=any {
       return @NEWLINE if checkNewline
-          try{action}||
-          try{if_then} ||
-          try{once}    ||
-          try{looper}
+      try { action }||
+          try { if_then } ||
+          try { once } ||
+          try { looper }
     }
     x
     #one :action, :if_then ,:once , :looper
@@ -119,8 +224,8 @@ class EnglishParser < Parser
     #@throwing=true
     method
     verb
-    try{endNode}
-    star{arg}
+    try { endNode }
+    star { arg }
     #''?
     start_block
     no_rollback!
@@ -133,17 +238,17 @@ class EnglishParser < Parser
 
 #module EnglishScript
   def ruby_action
-    _'ruby'
+    _ 'ruby'
     exec(action || quote)
   end
 
 
   def bash_action
     must_contain 'bash'
-    remove_tokens 'execute','command','commandline','run','shell','shellscript','script','bash'
-    @command = try{quote}  # danger bash "hi">echo
+    remove_tokens 'execute', 'command', 'commandline', 'run', 'shell', 'shellscript', 'script', 'bash'
+    @command = try { quote } # danger bash "hi">echo
     @command = rest_of_line if not @command
-    #any{ try{  } ||  statements }
+                             #any{ try{  } ||  statements }
     begin
       puts "going to execute " + @command
       result=%x{#{@command}}
@@ -158,31 +263,31 @@ class EnglishParser < Parser
 
 
   def if_then_line
-    _'if'
+    _ 'if'
     condition
-    _'then'
+    _ 'then'
     action
   end
 
   def if_then_block
     If
     condition
-    _?'then'
+    _? 'then'
     newline
     block
     done
   end
 
-  def if_then  # ( options {greedy=false } )
+  def if_then # ( options {greedy=false } )
     if_then_line || if_then_block
-               #	|| action If condition newline
+              #	|| action If condition newline
   end
 
 
   def once
-    _'once'
+    _ 'once'
     condition
-    _?'then'
+    _? 'then'
     action
 #	|| action 'as soon as' condition
 #	|| action 'once' condition
@@ -199,7 +304,7 @@ class EnglishParser < Parser
   end
 
   def spo
-    endNode
+    endNode2
     verb
     nod
   end
@@ -207,8 +312,8 @@ class EnglishParser < Parser
   def substitute_variables args
     args=" "+args+" "
     for variable in @variables.keys
-      args.gsub!(/\$#{variable}[^\w]/,@variables[variable])
-      args.gsub!(/[^\w]#{variable}[^\w]/,@variables[variable])
+      args.gsub!(/\$#{variable}[^\w]/, @variables[variable])
+      args.gsub!(/[^\w]#{variable}[^\w]/, @variables[variable])
     end
     args
   end
@@ -220,7 +325,7 @@ class EnglishParser < Parser
   end
 
   def ruby_method_call
-    call=tokens? "call","execute","run","start","evaluate","invoke"
+    call=tokens? "call", "execute", "run", "start", "evaluate", "invoke"
     no_rollback! if call # remove later
     ruby_method=tokens? @ruby_methods
     raise UndefinedRubyMethod.new word if not ruby_method
@@ -234,9 +339,9 @@ class EnglishParser < Parser
       error $!
     end
     checkNewline
-    #raiseEnd
+                         #raiseEnd
     @current_value=ruby_method
-    #return @OK # don't return nil!
+                         #return @OK # don't return nil!
     return ruby_method
   end
 
@@ -244,29 +349,47 @@ class EnglishParser < Parser
     #verb_node
     verb
     nod?
-    star{arg}
+    star { arg }
+  end
+
+  def bla
+    @current_value=nil
+    star {
+      tokens "tell me", "hey", "could you", "give me",
+              "i would like to", "can you", "please", "let us", "let's", "can i",
+              "can you", "would you", "i would", "i ask you to", "i'd",
+              "love to", "like to", "i asked you to", "would you", "could i",
+              "i tell you to", "i told you to", "would you", "come on",
+              "i wanna", "i want to", "i want", "tell me", "i need to",
+              "i need"
+    }
+    #_? "know" # what is
   end
 
   def action
+    bla?
     #	||'say' x=(.*) -> 'bash "say $quote"'
     #one  :bash_action ,:setter ,:verb ,:verb_node , :spo
-    result=any{ #action
-      try {javascript} ||
-      try {bash_action} ||
-      try{setter}||
-          try {spo}||
-          try{ruby_method_call} ||
-          try{method_call} ||
-          try{verb_node} ||
-          try{verb}
+    result=any {#action
+          try { javascript } ||
+          try { bash_action } ||
+              try { evaluate_property } ||
+              try { evaluate } ||
+          try { setter } ||
+          try { spo }||
+          try { ruby_method_call } ||
+          try { method_call } ||
+          try { verb_node } ||
+          try { verb }
     }
+    raise NoResult.new if not result
     #any{ bash_action ||setter ||verb ||verb and nod ||endNode and verb and nod}
     newline? #cut rest, BUT:
     return result
   end
 
   def while_loop
-    _'while'
+    _ 'while'
     no_rollback!
     condition
     start_block
@@ -274,6 +397,7 @@ class EnglishParser < Parser
     block
     done
   end
+
 #
 #def until_condition
 #  action
@@ -294,26 +418,29 @@ class EnglishParser < Parser
 #end
 #
   def looped_action
+    must_contain 'as long', 'while', 'until'
     action
-    __ 'as long','while','until'
+    __ 'as long', 'while', 'until'
     condition
   end
 
   def times
+    must_contain 'times'
     action
     number
-    _'times'
+    _ 'times'
   end
 
 
 # todo : node cache : skip action(X) -> _'forever'  if action was (not) parsed before
   def forever
+    must_contain 'forever'
     action
-    _'forever'
+    _ 'forever'
   end
 
   def as_long_condition_block
-    _'as long as'
+    _ 'as long as'
     condition
     newline
     block
@@ -323,8 +450,9 @@ class EnglishParser < Parser
   def looper
     _? "do"
     _? "repeat"
-    one :while_loop ,:looped_action,:times,:as_long_condition_block,:forever
+    one :while_loop, :looped_action, :times, :as_long_condition_block, :forever
   end
+
 #  until_condition ,:while_condition ,:as_long_condition
 
 #/*	 let nod be nods */
@@ -332,7 +460,7 @@ class EnglishParser < Parser
     let?
     the?
     modifier?
-    try{tokens 'var ','val ','value of '}
+    try { tokens 'var ', 'val ', 'value of ' }
     modifier?
     var=variable
     be
@@ -345,7 +473,7 @@ class EnglishParser < Parser
   end
 
   def variable
-    one_or_more{word}
+    one_or_more { word }
   end
 
 
@@ -356,7 +484,7 @@ class EnglishParser < Parser
     #raise EndOfDocument.new if @string.blank?
     #return false if starts_with? keywords
     match=@string.match(/^\s*\w+[\d\w_]*/)
-    if(match)
+    if (match)
       @string=@string[match[0].length..-1].strip
       @current_value=match[0].strip
       return match[0]
@@ -382,8 +510,8 @@ class EnglishParser < Parser
     @current_value=nil
     except=constants
     no_keyword except
-    any{
-          quote?||
+    any {
+      quote?||
           constant?||
           true_variable? ||
           nill? ||
@@ -391,14 +519,14 @@ class EnglishParser < Parser
           nod? ||
           rest_of_line
     }
-    @current_value#.strip
+    @current_value #.strip
   end
 
 
   def nod #options{generateAmbigWarnings=false}
-    try{number} ||
-        try{quote} ||
-        try{the_noun_that}
+    try { number } ||
+        try { quote } ||
+        try { the_noun_that }
   end
 
   def arg
@@ -416,7 +544,7 @@ class EnglishParser < Parser
 
 
   def that_are
-    _'that'
+    _ 'that'
     be
     gerund
   end
@@ -452,8 +580,6 @@ class EnglishParser < Parser
   end
 
 
-
-
   def gerundium
     verb
     token 'ing'
@@ -461,35 +587,31 @@ class EnglishParser < Parser
 
 
   def verbium
-    comparison||verb and adverb  # be||have||
+    comparison||verb and adverb # be||have||
   end
 
   def the_noun_that
     the?
     noun
-    star{selector}
+    star { selector }
   end
 
 
   def endNode
     return true if checkEnd
-    any{
-      try{
-        endNode2
-        _'of'
-        endNode2
-      }||
-          try{endNode2 and selector2 } ||
-          try{endNode2} ||
-          try{value}
+    any {
+      try { evaluate_property }||
+          try { endNode2 and selector2 } ||
+          try { endNode2 } ||
+          try { value }
     }
   end
 
   def selector2
-    __ 'that','who'
-    star{adverb}
+    __ 'that', 'who'
+    star { adverb }
     verb
-    _'s'
+    _ 's'
     preposition
     endNode2
   end
@@ -497,28 +619,28 @@ class EnglishParser < Parser
   def selector
 # ambivalent?  delete james from china
 #any{where || that || token('of') and endNode || preposition and nod }
-    one :where,:that,try{token('of') and endNode},try{preposition and nod}
+    one :where, :that, try { token('of') and endNode }, try { preposition and nod }
   end
 
 # preposition nod  # ambivalent?  delete james, from china delete (james from china)
 
 # (who) run like rabbits
   def verb_comparison
-    star{adverb}
+    star { adverb }
     verb
     preposition
   end
 
 
   def comparison
-    try{verb_comparison}||
-    try{comparation}
+    try { verb_comparison }||
+        try { comparation }
   end
 
 
   def endNode2
     the?
-    star{adjective}
+    star { adjective }
     noun
     #any{
     #  try{noun}
@@ -534,7 +656,7 @@ class EnglishParser < Parser
 
   def any_ruby_line
     line=@string
-    @string=@string.gsub(/.*/,"")
+    @string=@string.gsub(/.*/, "")
     checkNewline
     line
   end
@@ -554,8 +676,8 @@ class EnglishParser < Parser
   def ruby_block
     block_depth=0
     lines=[]
-    star{
-      raise EndOfBlock.new if(@string.strip.start_with?"end") and block_depth==0
+    star {
+      raise EndOfBlock.new if (@string.strip.start_with? "end") and block_depth==0
       line=any_ruby_line
       lines<<line
       line
@@ -566,23 +688,24 @@ class EnglishParser < Parser
   end
 
   def ruby_def
-    _"def"
+    _ "def"
     no_rollback!
     lines=["def "+@string]
     method=word "method"
     #@current_node.value=method #has ruby_block leaf!
-    try{arg=word;}
-    try{_"="; defaulter=(quote? or word?)} # or ...!?
-    star{_","; arg=word;}
+    try { arg=word; }
+    try { _ "="; defaulter=(quote? or word?) } # or ...!?
+    star { _ ","; arg=word; }
     newline
     lines+=ruby_block
     #-- # // Some Ruby coat goes here
     newline?
-    _"end"
+    _ "end"
     begin
-    eval lines.join("\n")
+      eval lines.join("\n")
       @ruby_methods<<method
-      verbose method +"  defied successfully !"
+      @methods<<@current_node   # to do : more
+      verbose method + " defined successfully !"
     rescue
       error "error in ruby_def block"
       error lines
@@ -595,13 +718,12 @@ class EnglishParser < Parser
 
   def start_block
     return @OK if checkNewline
-    try{tokens "do","{","first you ","second you ","then you ","finally you ",":"}
+    try { tokens "do", "{", "first you ", "second you ", "then you ", "finally you ", ":" }
   end
 
 
-
   def newline?
-    try{newline}
+    try { newline }
   end
 
   def raiseNewline
@@ -610,7 +732,7 @@ class EnglishParser < Parser
 
   def checkNewline
     comment if not @string.blank?
-    if @string.blank?
+    if @string.blank? or @string.strip.blank?
       @line_number=@line_number+1
       return @NEWLINE if @line_number>=@lines.count
       #raise EndOfDocument.new if @line_number==@lines.count
@@ -623,23 +745,23 @@ class EnglishParser < Parser
 
   def newline
     return @NEWLINE if checkNewline==@NEWLINE
-    found=tokens "\.\n","\. ","\n","\r\n",";" #,'\.\.\.' ,'end','done' NO!! OPTIONAL!
+    found=tokens "\.\n", "\. ", "\n", "\r\n", ";" #,'\.\.\.' ,'end','done' NO!! OPTIONAL!
     return @NEWLINE if checkNewline==@NEWLINE # get new line
     return found
   end
 
   def newlines
     #one_or_more{newline}
-    star{newline}
+    star { newline }
   end
 
   def NL
-    tokens '\n','\r'
+    tokens '\n', '\r'
   end
 
 
   def NLs
-    tokens '\n','\r'
+    tokens '\n', '\r'
   end
 
 
@@ -663,16 +785,16 @@ class EnglishParser < Parser
 
   def comment_block
     token '/*'
-    @string.gsub('.*?\*\/','')
+    @string.gsub('.*?\*\/', '')
     #token '*/'
     add_tree_node
   end
 
   def comment
     raiseEnd if @string==nil
-    @string.gsub!( / -- .*/,'');
-    @string.gsub!( /\/\/.*/,''); # todo
-    @string.gsub!( /#.*/,'');
+    @string.gsub!(/ -- .*/, '');
+    @string.gsub!(/\/\/.*/, ''); # todo
+    @string.gsub!(/#.*/, '');
     checkNewline if @string.blank?
   end
 

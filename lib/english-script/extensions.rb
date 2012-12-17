@@ -56,7 +56,15 @@ class String
     nil? or empty?
   end
 
-  def parse_integer
+  def lowercase
+    downcase
+  end
+
+  def lowercase!
+    downcase!
+  end
+
+  def replace_numerals
     gsub!(/([a-z])-([a-z])/,"\\1+\\2")
     gsub!("a couple of","2")
     gsub!("a dozen","12")
@@ -111,8 +119,13 @@ class String
 	gsub!("thousand ","*1000")
 	gsub!("million ","*1000000")
 	gsub!("billion ","*1000000000")
-  eval(self).to_i
-  end
+    end
+
+
+    def parse_integer
+      replace_numerals
+      eval(self).to_i
+    end
 
 end
 

@@ -1,10 +1,15 @@
 #require_relative "../lib/english-script/english-parser"
+#require 'test_helper'
+require '../test_helper'
+#require 'active_support/core_ext'
+#require 'active_support/dependencies'
+#require_dependency 'test'
+#require_dependency "english-script/power-parser.rb"
+#require_dependency "english-script/english-parser.rb"
+require_relative "../../lib/english-script/english-parser"
 
 
-require_dependency "english-script/power-parser.rb"
-require_dependency "english-script/english-parser.rb"
-
-class ParserTest<EnglishParser
+class EnglishParserTest<EnglishParser
 # grammar : 'hello' QUESTION ('does'| QUESTION)* 'the world'? VERB
   def test_root
     #token "hello"
@@ -234,7 +239,7 @@ end"
       #test_ruby_method_call
       #test_ruby_variables
       #test_ruby_all
-      exit
+      return
       test_js
       #test_verb
       #test_setter2
@@ -259,5 +264,21 @@ end"
 
 end
 
-ParserTest.new.test
+#EnglishParserTest.new.test
+
+#require 'test_helper'
+
+class ParserTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+  test "jeannie" do
+    p=EnglishParser.new
+    r= p.jeannie ("3 plus 3")
+    puts "jeannie : 3 plus 3 = "+r.to_s
+    assert(r=="6")
+    puts "OK!!!!!!"
+  end
+
+end
 

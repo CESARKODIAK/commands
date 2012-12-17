@@ -2,7 +2,14 @@
   <dictionary name="me">
     <words>
       <w>automagic</w>
+      <w>defaultdb</w>
+      <w>deveiate</w>
       <w>isvalid</w>
+      <w>linkparser</w>
+      <w>minitest</w>
+      <w>simplecov</w>
+      <w>stemmer</w>
+      <w>wordnet</w>
     </words>
   </dictionary>
 </component>

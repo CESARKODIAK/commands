@@ -1,19 +1,36 @@
 #!/usr/bin/env ruby
 
 require_relative "exceptions"
+
+
+class Interpretation
+  attr_accessor :root,:nodes
+end
+
+
 class Parser #<MethodInterception
   include Exceptions
+
   def initialize
     super # needs to be called by hand!
-    #@verbose=true
-    @verbose=false
+    @verbose=true
+    #@verbose=false
           #@very_verbose=true
     #@very_verbose=false
     @very_verbose=@verbose
+
+    @original_string=""   # for string_pointer ONLY!!
+    @string=""
+    @last_pattern=nil
     @rollback=[]
     @tree=[]
     @line_number=0
     @lines=[]
+  end
+
+  def interpretation
+    super #  set properties
+    return @interpretation
   end
 
 
@@ -38,13 +55,20 @@ class Parser #<MethodInterception
 
   @line_number=0
   @lines=[]
+
   def raiseEnd
     if @string.blank?
       raise EndOfDocument.new if @line_number>=@lines.count
-      @string=@lines[++@line_number];
+      #@string=@lines[++@line_number];
       raise EndOfLine.new
     end
   end
+
+  def checkRaiseEnd
+    #raise EndOfDocument.new if @string.blank? # no:try,try,try
+    return @string.blank?
+  end
+
 
   def checkEnd
     #raise EndOfDocument.new if @string.blank? # no:try,try,try
@@ -52,9 +76,10 @@ class Parser #<MethodInterception
   end
 
   def token t
-    return nil if checkEnd
-    #raiseEnd
-    if @string.start_with? t
+    #return nil if checkEnd
+    @string.strip!
+    raiseEnd
+    if @string.downcase.start_with? t
       @current_value=@string[0,t.length].strip
       @string=@string[t.length..-1].strip
       return true
@@ -80,7 +105,7 @@ class Parser #<MethodInterception
     @string=@string.gsub(/([^\w ])/," \\1 ").strip+" "
     for t in tokenz.flatten
       return true if(t=="\n" and @string.empty?)
-      if @string.start_with?(t+" ")
+      if @string.downcase.start_with?(t+" ")
         @current_value=@string[0,t.length].strip
         @string=@string[t.length..-1].strip
         return @current_value
@@ -127,8 +152,12 @@ class Parser #<MethodInterception
     tokens x
   end
 
-  def must_contain x
-    look_ahead x
+  def must_contain *args
+    good=false
+      for x in args
+        good||=@string.index(x)
+      end
+    raise(NotMatching.new(x)) if not good
   end
 
   def look_ahead x
@@ -209,8 +238,7 @@ class Parser #<MethodInterception
         #retry
     rescue => e
       verbose "Error in #{to_source block}"
-      puts e.message
-      #error e
+      error e
     end
     @string=oldString if check_rollback_allowed
     @throwing=was_throwing
@@ -272,6 +300,7 @@ class Parser #<MethodInterception
       end
       return result
     rescue NotMatching,EndOfLine => e
+      @current_value=nil
       verbose "Tried #{to_source block}"
       verbose e
       string_pointer if @verbose
@@ -300,7 +329,7 @@ class Parser #<MethodInterception
         #return true
     rescue => e
       error e
-      raise SyntaxError.new(e)
+      raise e #SyntaxError.new(e)
       #exit
     end
     @string=old #if rollback
@@ -422,33 +451,6 @@ class Parser #<MethodInterception
     puts e.message
   end
 
-  @original_string=""
-  @string=""
-  def parse string
-    puts "PARSING"
-    begin
-      @original_string=string
-      @string=string
-      @lines=[string] if @lines.empty?
-      root
-    rescue => e
-      error e
-    end
-    puts "PARSED SUCCESSFULLY!!"
-    show_tree
-    #puts @jav
-    puts @svg
-    return @result
-    #exit
-  end
-
-  def svg
-    return @svg
-  end
-  def result
-    return @result
-  end
-
 
   def one *matches
     oldString=@string
@@ -474,7 +476,6 @@ class Parser #<MethodInterception
 
 
 
-  @last_pattern=nil
   def method_missing(sym, *args, &block)  # <- NoMethodError use node.blah to get blah!
     syms=sym.to_s
     cut=syms[0..-2]
@@ -522,5 +523,24 @@ class Parser #<MethodInterception
   def dictionary_path
     app_path + "word-lists/"
   end
+
+  def parse string
+    puts "PARSING"
+    begin
+      @original_string=string
+      @lines=string.split("\n") if @lines.empty?
+      @string=@lines[0]
+      root
+    rescue => e
+      error e
+    end
+    puts "PARSED SUCCESSFULLY!!"
+    show_tree
+    #puts @jav
+    puts @svg
+    return interpretation # self# @result
+    #exit
+  end
+
 
 end
