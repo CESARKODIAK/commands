@@ -1,0 +1,32 @@
+<h1>Listing scripts</h1>
+
+<table class="sorted">
+  <tr>
+    <th>Name</th>
+    <th>Text</th>
+    <th>Description</th>
+    <th>User</th>
+    <th>Current</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @scripts.each do |script| %>
+      <% @clazz= (@clazz=='even'  ?  'odd':'even' ) %>
+      <tr class="<%= @clazz %>">
+        <td><%= script.name %></td>
+        <td><%= script.text %></td>
+        <td><%= script.description %></td>
+        <td><%= script.user_id %></td>
+        <td><%= script.current_id %></td>
+        <td><%= link_to 'Show', script %></td>
+        <td><%= link_to 'Edit', edit_script_path(script) %></td>
+        <td><%= link_to 'Destroy', script, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New Script', new_script_path %>

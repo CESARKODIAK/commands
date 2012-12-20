@@ -1,0 +1,36 @@
+<style type="text/css">
+    .run {
+        height: 30px;
+        background-color: #006400;
+        color: #fffaf0;
+    }
+</style>
+<p id="notice"><%= notice %></p>
+
+<form id="form" action="/run/<%= @script.id rescue "" %>" method="post">
+  <table>
+    <tr>
+      <td width="600px">
+        <textarea name="text" id="text" class="text"><%= @text %></textarea>
+        <br/><b><input class="run" type="submit" value="RUN!"/></b><br/>
+      </td>
+      <td>
+        <svg id="svg" xmlns="http://www.w3.org/2000/svg" width="300" height="200">
+          <%= @svg %>
+        </svg>
+      </td>
+    </tr>
+  </table>
+  <br/>
+  <b class="blink">
+    <%= @result %>
+  </b>
+  <script>
+      blinks(4, 1);
+      <%= @javascript %>
+  </script>
+</form>
+<%= render 'compact',header:"examples" %>
+<% @scripts=@versions #hack %>
+<%= render 'compact',header:"versions" %>
+
