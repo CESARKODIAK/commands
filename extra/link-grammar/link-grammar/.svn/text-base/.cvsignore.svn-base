@@ -1,9 +1,0 @@
-Makefile
-Makefile.in
-link-parser
-link-features.h
-svn-commit.tmp*
-.deps
-.libs
-*.la
-*.lo
