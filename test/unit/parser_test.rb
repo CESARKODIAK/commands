@@ -1,22 +1,53 @@
 #require_relative "../lib/english-script/english-parser"
-#require 'test_helper'
-require '../test_helper'
+require 'test_helper'
+#require '../test_helper'
 #require 'active_support/core_ext'
 #require 'active_support/dependencies'
 #require_dependency 'test'
 #require_dependency "english-script/power-parser.rb"
 #require_dependency "english-script/english-parser.rb"
+$testing=true
+
 require_relative "../../lib/english-script/english-parser"
 
+class EnglishParserTestClass<EnglishParser
+  #@@parser=EnglishParser.new
 
-class EnglishParserTest<EnglishParser
+  def initialize
+    @@testing=true
+    super
+    #@@parser=EnglishParser.new
+  end
+
+  def NOmethod_missing(sym, *args, &block) # <- NoMethodError use node.blah to get blah!
+    syms=sym.to_s
+    if @@parser and @@parser.methods.contains(sym)#(syms.end_with?"?")
+      x= try { @@parser.send(sym) } if args.count==0
+      x= try { @@parser.send(sym,args[0]) } if args.count==1
+      x= try { @@parser.send(sym, args) } if args.count>0
+      return x
+    end
+    super(sym, *args, &block)
+  end
+
+  def test_substitute_variables
+    use_tree=false
+    @variables={"x" => 3}
+    assert(" 3 "== substitute_variables(' #{x} '))
+    assert('"3"'== substitute_variables('"#{x}"'))
+    assert(" 3 "== substitute_variables(" $x "))
+    assert("'3'"== substitute_variables("'$x'"))
+    assert("3"== substitute_variables('#{x}'))
+    assert do ("3"== substitute_variables("$x")) end
+  end
+
 # grammar : 'hello' QUESTION ('does'| QUESTION)* 'the world'? VERB
   def test_root
     s "hello who does the world end"
     token "hello"
     question
-    star{
-      try{token 'does'} || try{question}
+    star {
+      try { token 'does' } || try { question }
     }
     _? 'the world'
     assert verb
@@ -57,12 +88,13 @@ class EnglishParserTest<EnglishParser
   end
 
 
+
   def test_action
     s "eat a sandwich; done"
     #s "bash 'ls'"
     #verb and nod
     assert action
-    assert(!@string.match("sandwich"))
+    assert(!string.match("sandwich"))
   end
 
   def test_methods
@@ -148,10 +180,7 @@ done"
 
   def s string
     allow_rollback
-    @lines=string.split("\n")
-    @string=@lines[0]
-    #@string=string
-    @original_string=@string
+    @@parser.init string
   end
 
   def test_method_call
@@ -180,7 +209,7 @@ done"
   def test_js
     s "js alert('hi')"
     assert javascript
-    puts @javascript
+    #puts @javascript
   end
 
   def test_ruby_method_call
@@ -208,7 +237,7 @@ def ruby_block_test x='yuhu'
 end
 call ruby_block_test 'yeah'
 "
-  root
+    root
   end
 
   def test_ruby_variables
@@ -229,16 +258,25 @@ end"
   def test_algebra
     s "2* ( 3 + 10 ) "
     #s "2*(3+10)"
-    puts "Parse #{@string} as algebra?"
+    puts "Parse #{string} as algebra?"
     assert algebra
     #puts eval good_node_values @root if @root #== @string
   end
 
-  def assert x
-    raise ScriptError if not x
+  #ScriptError = Class.new StandardError
+  def assert x=nil, &block
+    x=yield if not x and block
+    #raise Exception.new (to_source(block)) if not x
+    raise ScriptError.new to_source(block) if not x
     puts x
     puts "!!OK!!"
   end
+
+  #def assert x
+  #  raise ScriptError if not x
+  #  puts x
+  #  puts "!!OK!!"
+  #end
 
   def test_args
     s " an mp3"
@@ -279,28 +317,34 @@ end"
     end
   end
 
+
 end
 
-#EnglishParserTest.new.test
 
-#require 'test_helper'
+class EnglishParserTest < ActiveSupport::TestCase
 
-class ParserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-  test "all" do
-    EnglishParserTest.new.test
+  @@testParser=EnglishParserTestClass.new
+
+  def initialize args
+    @testParser=EnglishParserTestClass.new
+    super args
   end
 
+  def self.dont_test x
+    puts "NOT testing "+x.to_s
+  end
 
-  test "jeannie" do
-    p=EnglishParser.new
-    r= p.jeannie ("3 plus 3")
+  test "substitute_variables" do
+    @testParser.test_substitute_variables
+    #@@testParser.test_substitute_variables
+    assert "yay"
+  end
+
+  dont_test "jeannie" do
+    r= @testParser.jeannie ("3 plus 3")
     puts "jeannie : 3 plus 3 = "+r.to_s
     assert(r=="6")
     puts "OK!!!!!!"
   end
 
 end
-

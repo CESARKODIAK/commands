@@ -102,12 +102,13 @@ class Parser #<MethodInterception
   def tokens *tokenz
     raiseEnd
     #return if checkEnd
-    @string=@string.gsub(/([^\w ])/," \\1 ").strip+" "
+    @string.strip!
+    string=@string.gsub(/([^\w ])/," \\1 ").strip+" "
     for t in tokenz.flatten
-      return true if(t=="\n" and @string.empty?)
-      if @string.downcase.start_with?(t+" ")
-        @current_value=@string[0,t.length].strip
-        @string=@string[t.length..-1].strip
+      return true if (t=="\n" and @string.empty?)
+      if string.downcase.start_with?(t+" ")
+        @current_value=string[0,t.length].strip
+        @string=@string[t.length..-1].strip # space????
         return @current_value
       end
     end
@@ -272,14 +273,14 @@ class Parser #<MethodInterception
   end
 
   def to_source x
-    return @last_pattern if @last_pattern
+    return @last_pattern if @last_pattern or not x
     #proc=block.to_source(:strip_enclosure => true) rescue "Sourcify::MultipleMatchingProcsPerLineError"
     res=x.source_location[0]+":"+x.source_location[1].to_s+"\n"
     lines=IO.readlines(x.source_location[0])
     i=x.source_location[1]-1
     while true
       res+= lines[i]
-      break if i>=lines.length or lines[i].match "}"
+      break if i>=lines.length or lines[i].match "}" or lines[i].match "end"
       i=i+1
     end
     res

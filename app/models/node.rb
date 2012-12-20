@@ -58,7 +58,7 @@ class Node < ActiveRecord::Base
   end
 
 
-  alias old_initialize initialize
+  #alias old_initialize initialize
   alias old_inspect inspect
   alias old_save save
   alias old_destroy destroy
@@ -76,11 +76,11 @@ class Node < ActiveRecord::Base
 #  @kind=0
 #  kind=0
 #
-  def initialize args=nil
-    puts "init "
-    old_initialize args
-    return self
-  end
+#  def initialize args=nil
+    #puts "init "
+    #old_initialize args
+    #return self
+  #end
 
 
   def fix_id

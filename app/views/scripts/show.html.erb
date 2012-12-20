@@ -1,26 +1,29 @@
 <style type="text/css">
-    .run {
-        height: 30px;
-        background-color: #006400;
-        color: #fffaf0;
-    }
+
 </style>
 <p id="notice"><%= notice %></p>
-
+<br/>
 <form id="form" action="/run/<%= @script.id rescue "" %>" method="post">
   <table>
     <tr>
       <td width="600px">
+
+        <input id="name" value="<%= @name || "" %>"/>
         <textarea name="text" id="text" class="text"><%= @text %></textarea>
         <br/><b><input class="run" type="submit" value="RUN!"/></b><br/>
       </td>
       <td>
         <svg id="svg" xmlns="http://www.w3.org/2000/svg" width="300" height="200">
-          <%= @svg %>
+          <circle cx="110" cy="80" r="30" stroke="black" stroke-width="2" fill="yellow" id="circle"/>
+          <%@svg.each do |svg|%>
+              <%= svg.html_safe %>
+          <% end %>
+          <%#= @svg.map(&:html_safe) %>
         </svg>
       </td>
     </tr>
   </table>
+  <br/>
   <br/>
   <b class="blink">
     <%= @result %>

@@ -27,7 +27,6 @@ class EnglishParser < Parser
 
   def initialize
     super
-
     @javascript=""
     @context=""
     @variables={}
@@ -36,6 +35,20 @@ class EnglishParser < Parser
     @methods=[]
     @OK="OK"
     @result=""
+  end
+
+  def init string
+    @lines=string.split("\n")
+    @string=@lines[0]
+    @original_string=@string
+  end
+
+  #def variables= x
+  #  @variables=x
+  #end
+
+  def string
+    @string
   end
 
   def interpretation
@@ -323,11 +336,19 @@ class EnglishParser < Parser
   end
 
   def substitute_variables args
-    args=" "+args+" "
+    #args=" "+args+" "
     for variable in @variables.keys
-      args.gsub!(/\$#{variable}[^\w]/, @variables[variable]||"nil")
-      args.gsub!(/[^\w]#{variable}[^\w]/, @variables[variable]||"nil")
+      value=@variables[variable]||"nil"
+      #args.gsub!(/\$#{variable}/, "#{variable}") # $x => x !!
+      args.gsub!(/.\{#{variable}\}/, "#{value}") #  ruby style #{x} ;}
+      args.gsub!(/\$#{variable}$/, "#{value}")   # php style $x
+      args.gsub!(/\$#{variable}([^\w])/, "#{value}\\1")
+      args.gsub!(/^#{variable}$/, "#{value}")
+      args.gsub!(/^#{variable}([^\w])/, "#{value}\\1")
+      args.gsub!(/([^\w])#{variable}$/, "\\1#{value}")
+      args.gsub!(/([^\w])#{variable}([^\w])/, "\\1#{value}\\2")
     end
+    #args.strip
     args
   end
 
@@ -812,13 +833,13 @@ class EnglishParser < Parser
   end
 
   def rest_of_line
-    if not @string.match(/(.*?)\n/)
+    if not @string.match(/(.*?)[;\n]/)
       @current_value=@string
       @string=nil
       return @current_value
     end
-    @current_value=@string.match(/(.*?)\n/)[1]
-    @string=@string[@current_value.length..-1]
+    @current_value=@string.match(/(.*?)[;\n]/)[1]
+    @string=@string[@current_value.length+1..-1]
     @current_value.strip!
     return @current_value
   end

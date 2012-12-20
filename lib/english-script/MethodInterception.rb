@@ -172,8 +172,7 @@ module MethodInterception
       @@use_tree=x
     end
 
-    #@@use_tree=false
-    @@use_tree=true # DO NOT use while developing!
+    @@use_tree=$testing?false:true # DO NOT use while developing!
   end
 
 end

@@ -19,6 +19,9 @@ class Array
   def blank?
     nil? or empty?
   end
+  def contains x
+    index x
+  end
 end
 
 class TrueClass

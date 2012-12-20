@@ -21,7 +21,10 @@ class Script < ActiveRecord::Base
       end
       context.nodes.map(&:save)
       for variable, value in @interpretation.variables
-        context.variables<< Variable.new(name: variable, value: value)
+        name=variable.to_s
+        _value=Value.new(value:  value.to_s)
+        _variable=Variable.new(name: name, value:_value)
+        context.variables<< _variable
       end
       @interpretation.context=context
 
@@ -39,3 +42,4 @@ class Script < ActiveRecord::Base
 
   end
 end
+

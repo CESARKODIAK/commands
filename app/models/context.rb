@@ -1,8 +1,8 @@
 class Context < Node
   has_many :nodes
 # ^^ zu teuer
-  has_many :functions ,:through => :nodes
-  has_many :variables ,:through => :nodes
+  has_many :functions #,:through => :nodes
+  has_many :variables, class_name: 'Node'
 
   def count
     nodes.count
