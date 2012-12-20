@@ -6,9 +6,11 @@
       <w>deveiate</w>
       <w>isvalid</w>
       <w>linkparser</w>
+      <w>looper</w>
       <w>minitest</w>
       <w>simplecov</w>
       <w>stemmer</w>
+      <w>verbium</w>
       <w>wordnet</w>
     </words>
   </dictionary>

@@ -2,21 +2,30 @@
 <html>
 <head>
   <title>English script</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "application","scripts" ,"table"%>
+  <%= javascript_include_tag "application","svg-utils" ,"tab-key"%>
   <%= csrf_meta_tags %>
-  <%= javascript_include_tag "svg-utils" %>
   <!--<script type="text/javascript" src="javascripts/svg-utils.js"></script>-->
     <!--<script type="text/javascript" english-script="javascripts/prototype.js"></script>-->
     <!--<script type="text/javascript" english-script="javascripts/effects.js"></script>-->
+  <style type="text/css">
+      .logo {
+          padding-left: 60px;
+          padding-bottom: -20px;
+          margin-bottom: -20px;
+      }
+  </style>
 </head>
 
 <body>
+<img class="logo" src="/English script.png" height=50/>
 
 <div id="page">
     <div id="sidebar">
         <ul id="sidebar-items">
           <li><%= link_to "sandbox", "/sandbox" %>
+          </li>
+          <li><%= link_to "scripts", "/scripts" %>
           </li>
           <li><%= link_to "methods", "/functions" %>
           </li>

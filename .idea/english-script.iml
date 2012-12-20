@@ -17,6 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/extra/link-grammar" />
       <excludeFolder url="file://$MODULE_DIR$/extra/netbase" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/bundle" />
       <excludeFolder url="file://$MODULE_DIR$/word-lists" />
     </content>
     <orderEntry type="inheritedJdk" />

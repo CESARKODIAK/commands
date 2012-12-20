@@ -32,7 +32,7 @@ class EnglishParser < Parser
     @context=""
     @variables={}
     @svg=[]
-    @ruby_methods=["puts", "print", "svg"]
+    @ruby_methods=["puts", "print", "svg"] #"puts"=>x_puts !!!
     @methods=[]
     @OK="OK"
     @result=""
@@ -104,10 +104,10 @@ class EnglishParser < Parser
     _ "of"
     y=endNode
     begin
-    all=x+" of "+y
-    @result=eval(all) rescue nil
-    @result=eval(y+"."+x) rescue nil
-    @result=eval('"'+y+'".'+x) rescue nil #string method
+      all=x+" of "+y
+      @result=eval(all) rescue nil
+      @result=eval(y+"."+x) rescue nil
+      @result=eval('"'+y+'".'+x) rescue nil #string method
     rescue
       jeannie all
     end
@@ -132,25 +132,27 @@ class EnglishParser < Parser
   end
 
   def evaluate
-    __ "what is", "evaluate", "how much", "what are", "calculate"
+    __ "what is", "evaluate", "how much", "what are", "calculate", "eval"
     no_rollback!
     the_expression= rest_of_line
-    subnode expression:the_expression
+    subnode statement: the_expression
     @current_value=the_expression
     begin
       @result=eval(english_to_math the_expression) #if @result.blank?
     rescue
       @result=jeannie(the_expression)
     end
-    subnode result:@result # todo: via automagic
+    subnode result: @result # todo: via automagic
     @current_value=@result
     @current_value
   end
 
   def root
     many {
-          newline? ||
-          try { action } ||
+      newline? ||
+          try { expression } || # 4+7
+          try { statement } || # while ... + action
+                               #try { action } || # run command
           try { ruby_def } ||
           try { method_definition } ||
           try { block }||
@@ -161,7 +163,8 @@ class EnglishParser < Parser
   def context
     _ "context"
     @context= word
-    NL
+    newlines
+    #NL
     block
     done
   end
@@ -172,10 +175,15 @@ class EnglishParser < Parser
     _ ")"
   end
 
+  def operator
+    tokens("+", "*", "-", "/")
+  end
+
   def algebra
     any { variable? or number? or bracelet? }
     star {
-      tokens "+", "*", "-", "/"
+      operator
+      #subnode operator: tokens("+", "*", "-", "/")
       no_rollback!
       any { variable? or number? or bracelet? }
     }
@@ -199,7 +207,7 @@ class EnglishParser < Parser
 
   def block
     star {
-      x=expression
+      x=statement
       newlines
       x
     }
@@ -208,6 +216,11 @@ class EnglishParser < Parser
   #;//... expression| backtrack!
 
   def expression
+    try { ex=endNode } or ex=algebra
+    @result=eval(ex) rescue nil
+  end
+
+  def statement
     x=any {
       return @NEWLINE if checkNewline
       try { action }||
@@ -222,12 +235,12 @@ class EnglishParser < Parser
 
   def method_definition
     #@throwing=true
-    method
-    verb
-    try { endNode }
-    star { arg }
+    method    #  how to
+    verb      #  integrate
+    try { endNode } # a sine wave
+    star { arg } # over an interval
     #''?
-    start_block
+    start_block # :
     no_rollback!
     block
     #newlines?
@@ -312,36 +325,50 @@ class EnglishParser < Parser
   def substitute_variables args
     args=" "+args+" "
     for variable in @variables.keys
-      args.gsub!(/\$#{variable}[^\w]/, @variables[variable])
-      args.gsub!(/[^\w]#{variable}[^\w]/, @variables[variable])
+      args.gsub!(/\$#{variable}[^\w]/, @variables[variable]||"nil")
+      args.gsub!(/[^\w]#{variable}[^\w]/, @variables[variable]||"nil")
     end
     args
   end
 
-  def print x
-    @result=x
+  def x_puts x
+    if @result
+      @result+=x.to_s rescue nil
+    else
+      @result=x
+    end
     puts x
     x
   end
 
+  #def print x
+  #  @result+=x.to_s
+  #  p x
+  #  x
+  #end
+
   def ruby_method_call
     call=tokens? "call", "execute", "run", "start", "evaluate", "invoke"
-    no_rollback! if call # remove later
+    if call # remove later
+      no_rollback! if call # remove later
+    end
     ruby_method=tokens? @ruby_methods
     raise UndefinedRubyMethod.new word if not ruby_method
+    ruby_method.gsub!("puts", "x_puts")
     args=substitute_variables rest_of_line
     begin
       the_call=ruby_method+" "+args.to_s
-      @result=eval(the_call)
+      @result=eval(the_call)||""
       verbose the_call+"  called successfully with result "+@result.to_s
-    rescue
-      error "error calling "+the_call
+    rescue => e
+      puts "\n!!!!!!!!!!!!\n ERROR calling #{the_call}\n!!!!!!!!!!!!\n "
       error $!
+      puts "!!!! ERROR calling "+the_call
     end
     checkNewline
-                         #raiseEnd
+    #raiseEnd
     @current_value=ruby_method
-                         #return @OK # don't return nil!
+    #return @OK # don't return nil!
     return ruby_method
   end
 
@@ -356,12 +383,12 @@ class EnglishParser < Parser
     @current_value=nil
     star {
       tokens "tell me", "hey", "could you", "give me",
-              "i would like to", "can you", "please", "let us", "let's", "can i",
-              "can you", "would you", "i would", "i ask you to", "i'd",
-              "love to", "like to", "i asked you to", "would you", "could i",
-              "i tell you to", "i told you to", "would you", "come on",
-              "i wanna", "i want to", "i want", "tell me", "i need to",
-              "i need"
+             "i would like to", "can you", "please", "let us", "let's", "can i",
+             "can you", "would you", "i would", "i ask you to", "i'd",
+             "love to", "like to", "i asked you to", "would you", "could i",
+             "i tell you to", "i told you to", "would you", "come on",
+             "i wanna", "i want to", "i want", "tell me", "i need to",
+             "i need"
     }
     #_? "know" # what is
   end
@@ -371,14 +398,14 @@ class EnglishParser < Parser
     #	||'say' x=(.*) -> 'bash "say $quote"'
     #one  :bash_action ,:setter ,:verb ,:verb_node , :spo
     result=any {#action
-          try { javascript } ||
+      try { javascript } ||
           try { bash_action } ||
-              try { evaluate_property } ||
-              try { evaluate } ||
-          try { setter } ||
-          try { spo }||
           try { ruby_method_call } ||
           try { method_call } ||
+          try { evaluate_property } ||
+          try { evaluate } ||
+          try { setter } ||
+          try { spo }||
           try { verb_node } ||
           try { verb }
     }
@@ -465,7 +492,8 @@ class EnglishParser < Parser
     var=variable
     be
     no_rollback!
-    @variables[var]=value
+    val=value
+    @variables[var]=val
     newline?
     var
 # ||'to'
@@ -510,13 +538,13 @@ class EnglishParser < Parser
     @current_value=nil
     except=constants
     no_keyword except
-    any {
-      quote?||
+    @current_value=any {
+          quote?||
           constant?||
           true_variable? ||
-          nill? ||
           number? ||
           nod? ||
+          nill? ||
           rest_of_line
     }
     @current_value #.strip
@@ -527,6 +555,10 @@ class EnglishParser < Parser
     try { number } ||
         try { quote } ||
         try { the_noun_that }
+  end
+
+  def article
+    tokens articles
   end
 
   def arg
@@ -596,13 +628,17 @@ class EnglishParser < Parser
     star { selector }
   end
 
+  #def plural
+  #  word #todo
+  #end
 
   def endNode
     return true if checkEnd
     any {
-      try { evaluate_property }||
-          try { endNode2 and selector2 } ||
-          try { endNode2 } ||
+          try { evaluate_property }||
+          try { article?; word } ||
+          #try { plural} ||
+          try { endNode2 and selector2? } ||
           try { value }
     }
   end
@@ -639,7 +675,9 @@ class EnglishParser < Parser
 
 
   def endNode2
-    the?
+    try {
+      article
+    }
     star { adjective }
     noun
     #any{
@@ -700,11 +738,13 @@ class EnglishParser < Parser
     lines+=ruby_block
     #-- # // Some Ruby coat goes here
     newline?
-    _ "end"
+    done
     begin
-      eval lines.join("\n")
+      #Redirect output to HTML result
+      the_script=lines.join("\n").gsub("puts", "x_puts")
+      eval the_script
       @ruby_methods<<method
-      @methods<<@current_node   # to do : more
+      @methods<<@current_node # to do : more
       verbose method + " defined successfully !"
     rescue
       error "error in ruby_def block"

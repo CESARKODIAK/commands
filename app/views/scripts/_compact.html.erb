@@ -1,0 +1,13 @@
+<table>
+  <tr>
+    <th><%= header %></th>
+  </tr>
+
+<% @scripts.each do |script| %>
+  <tr>
+    <td><%= link_to '(x)', script, method: :delete,:remote => true ,:onclick => "$(this).parent().parent().empty();"%></td>
+    <td title="<%= script.text%>"><%= link_to script.name ,script%></td>
+    <!--<td title="<%= script.description %>"><%= link_to script.text ,script%></td>-->
+  </tr>
+<% end %>
+</table>

@@ -22,6 +22,14 @@ module EnglishParserTokens #< MethodInterception
     @keywords # precalculated
   end
 
+  def articles
+    ['a','an','the','these','those','any','all','some','teh','that','every','each','this']# 'that' * 2 !!!
+  end
+
+  def quantifiers
+    articles+ ["any","all","no","every"]#+number
+  end
+
   def type_keywords
     ["class","interface","module","type"]
   end
@@ -125,8 +133,8 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def done_words
-    ['}','ok','OK','O.K.','alright','alrighty','that\'s it',"I'm done","i'm done", 'fine','fini','done',
-               'all set','finished','finish','fin','ende','the end','end','over and out','over','qed',"<end>"]# NL+ # NL verbium?]
+    ['}','done','end','ok','OK','O.K.','alright','alrighty','that\'s it',"I'm done","i'm done", 'fine','fini',
+               'all set','finished','finish','fin','ende','the end','over and out','over','qed',"<end>"]# NL+ # NL verbium?]
   end
 
 
@@ -248,7 +256,7 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def the
-    tokens 'a','an','the','these','those','any','all','some','teh','that','every','each','this'# 'that' * 2 !!!
+    tokens articles
   end
 
   def the?
@@ -267,8 +275,10 @@ module EnglishParserTokens #< MethodInterception
     if match
       @current_value=@string[0..match[0].length]
       @string=@string[match[0].length..-1].strip
+      return @current_value
       #return rest @string
     end
+    return false
     #plus{tokens '1','2','3','4','5','6','7','8','9','0','.'}
   end
 
@@ -278,7 +288,9 @@ module EnglishParserTokens #< MethodInterception
     if match
       @current_value=@string[0..match[0].length]
       @string=@string[match[0].length..-1].strip
+      return @current_value.strip
     end
+    return false
     #plus{tokens '1','2','3','4','5','6','7','8','9','0'}
   end
 

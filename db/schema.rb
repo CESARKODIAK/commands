@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107181440) do
+ActiveRecord::Schema.define(:version => 20121220113016) do
 
   create_table "accounts", :force => true do |t|
     t.string "account",  :limit => 150
@@ -149,6 +149,16 @@ ActiveRecord::Schema.define(:version => 20121107181440) do
     t.text "name"
   end
 
+  create_table "scripts", :force => true do |t|
+    t.string   "name"
+    t.text     "text"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "current_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "statements", :force => true do |t|
     t.integer "Subject",    :limit => 8
     t.integer "Predicate",  :limit => 8
@@ -208,15 +218,5 @@ ActiveRecord::Schema.define(:version => 20121107181440) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-#  # rails generate scaffold node name:string context_id:integer kind_id:integer value:text parent_id:integer valid:bool user_id:integer parsed:bool executable:bool #
-#  rails generate scaffold context name:string parent_id:integer description:text # < node
-#  # rails generate scaffold kind name:string description:text parent_id:integer # < node
-#  rails generate scaffold function name:string context_id:integer kind_id:integer return_kind_id:integer body:text class_id:integer object_id:integer user_id:integer# parameters < node
-#  rails generate scaffold parameter name:string default:string kind_id:integer method_id:integer
-#  rails generate scaffold variable name:string default:string context_id:integer kind_id:integer method_id:integer
-## rails generate scaffold list name:string #values:text #words
-## rails generate scaffold word name:string #synsets, lists
-
 
 end

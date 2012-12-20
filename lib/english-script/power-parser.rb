@@ -4,7 +4,7 @@ require_relative "exceptions"
 
 
 class Interpretation
-  attr_accessor :root,:nodes
+  attr_accessor :root,:nodes,:context
 end
 
 
@@ -18,7 +18,6 @@ class Parser #<MethodInterception
           #@very_verbose=true
     #@very_verbose=false
     @very_verbose=@verbose
-
     @original_string=""   # for string_pointer ONLY!!
     @string=""
     @last_pattern=nil
@@ -30,6 +29,7 @@ class Parser #<MethodInterception
 
   def interpretation
     super #  set properties
+    @interpretation.error_position=@error_position
     return @interpretation
   end
 
@@ -84,7 +84,7 @@ class Parser #<MethodInterception
       @string=@string[t.length..-1].strip
       return true
     else
-      verbose "expected "+t # if @throwing
+      verbose "expected "+t.to_s # if @throwing
       raise NotMatching.new(t)
     end
   end
@@ -223,7 +223,7 @@ class Parser #<MethodInterception
     #@throwing[@level]=false
     oldString=@string
     begin
-      result=yield
+      result=yield # <--- !!!!!
       if not result
       @string=oldString
       raise NoResult.new(to_source block)
@@ -298,6 +298,7 @@ class Parser #<MethodInterception
         (@nodes-old_nodes).each{|n| n.valid=false}
         @string=old
       end
+      @last_node=@current_node
       return result
     rescue NotMatching,EndOfLine => e
       @current_value=nil
@@ -375,7 +376,7 @@ class Parser #<MethodInterception
       while true
         break if @string=="" or @string==last_string
         last_string=@string
-        match=yield
+        match=yield # <------!!!!!!!!!!!!!!!!!!!
         break if match.blank?
         oldString=@string # (partial)  success
         good<< match

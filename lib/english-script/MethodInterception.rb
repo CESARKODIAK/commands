@@ -12,6 +12,7 @@ module MethodInterception
     @tokens=[]
     @new_nodes=[] #  remove after try failed
     @current_node=nil
+    @last_node=nil
     @root=nil
     @current_value=""
   end
@@ -34,7 +35,7 @@ module MethodInterception
     ["_", "_?", "subnode", "tokens", "ignore", "initialize", "bad", "checkNewline", "newline", "newline?", "ruby_block_test",
      "substitute_variables", "raiseNewline", "any", "initialize", "one_or_more", "expression",
      "endNode", "the_noun_that", "nod", "star", "rest_of_line", "setter", "action", "parse", "number",
-     "allow_rollback",
+     "allow_rollback",  "init",
      "test_setter", "try_action", "method_missing", "endNode2", "no_rollback!", "raiseEnd",
      "string_pointer", "verbose", "try", "checkEnd", "to_source", "rest", "keywords",
      "starts_with?", "be_words", "no_keyword", "prepositions", "variables_list", "the?", "app_path",
@@ -43,7 +44,7 @@ module MethodInterception
   end
 
   def keepers
-    ["token", "tokens", "word"]
+    ["token", "tokens", "word","integer","real"]
   end
 
   def current_value= x
@@ -68,7 +69,16 @@ module MethodInterception
     result
   end
 
-  def flat_tree node, collect=[]
+  def flat_tree node
+    if node.show_node and node.value
+      puts node.good_value
+    end
+    for n in node.nodes
+      flat_tree(n)
+    end
+  end
+
+  def flat_tree2 node, collect=[]
     if node.show_node and node.value
       puts node.good_value
       collect<<node

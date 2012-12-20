@@ -1,6 +1,8 @@
 #ActionController::Routing::Routes.draw do |map|
   EnglishScript::Application.routes.draw do
 
+  resources :scripts
+
   resources :variables
 
   resources :parameters
@@ -52,7 +54,10 @@
   resources :statements
 
   # The priority is based upon order of creation: first created -> highest priority.
-
+  match 'run'  => 'Scripts#run', :via => :post
+  match 'run/:id'  => 'Scripts#run', :via => :post
+  match 'save_and_run/:id'  => 'Scripts#save_and_run', :via => :post
+  #connect 'scripts/:id', :controller => 'scripts', :action => 'run',:method => "post"
   # Sample of regular route:
   #   connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action

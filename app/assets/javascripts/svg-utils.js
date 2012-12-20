@@ -1,5 +1,14 @@
 function tee(){
-    alert("hoo")
+//    alert("hoo")
+
+
+
+    //      ​
+    //
+    //      var svg = document.getElementById("svg");
+    //      var r = rect(100, 100, "blue");
+    //      add(r);
+    //      animate(r); of
 }
 var rect=function(h,w,fill){
  var NS="http://www.w3.org/2000/svg";
