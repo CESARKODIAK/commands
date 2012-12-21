@@ -33,14 +33,14 @@ class ScriptsController < ApplicationController
 
   def save_version
     return if @script.text==@text
-    old=Script.new text:@script.text
+    old=Script.new text: @script.text
     @script.versions<<old
     @script.text=@text
     @script.save!
   end
 
   def run
-    @text||=params[:text]
+    @text||=params[:text]  ||params["script[text]"]
     if params[:id]
       @script = Script.find(params[:id])
       save_version
@@ -88,7 +88,10 @@ class ScriptsController < ApplicationController
 
     respond_to do |format|
       if @script.update_attributes(params[:script])
-        @script.current_id=nil if @script.name
+        if @script.name
+          @script.current_id=nil
+          @script.save
+        end
         format.html { redirect_to @script, notice: 'Script was successfully updated.' }
         format.json { head :ok }
       else
@@ -107,8 +110,26 @@ class ScriptsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to scripts_url }
       format.json { head :ok }
-      format.js { render :layout=>false }
+      format.js { render :layout => false }
     end
+  end
+
+  def destroy_orphaned_versions
+    if params[:id]
+      @script=Script.find(params[:id])
+      @script.versions.each { |script|
+        script.destroy if not script.current_id==nil
+      }
+      @text=@script.text
+      run_script
+      render :show
+    else
+      Script.all.each { |script|
+        script.destroy if not script.current_id==nil
+      }
+      render :index
+    end
+
   end
 
 end

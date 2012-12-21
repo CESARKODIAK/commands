@@ -41,6 +41,20 @@ class EnglishParserTestClass<EnglishParser
     assert do ("3"== substitute_variables("$x")) end
   end
 
+
+  def test_default_setter_dont_overwrite
+
+    s "set color to blue; set default color to green"
+    setter
+    assert(@variables["color"]=="blue")
+  end
+
+  def test_default_setter
+    s "set the default color to green"
+    setter
+    assert(@variables.contains("color"))
+  end
+
 # grammar : 'hello' QUESTION ('does'| QUESTION)* 'the world'? VERB
   def test_root
     s "hello who does the world end"
@@ -180,7 +194,8 @@ done"
 
   def s string
     allow_rollback
-    @@parser.init string
+    init string
+    #@@parser.init string
   end
 
   def test_method_call
@@ -333,6 +348,17 @@ class EnglishParserTest < ActiveSupport::TestCase
   def self.dont_test x
     puts "NOT testing "+x.to_s
   end
+
+  #test "ALL" do
+  #  @testParser.test
+  #end
+
+
+  test "setter" do
+    @testParser.test_default_setter
+    @testParser.test_default_setter_dont_overwrite
+  end
+
 
   test "substitute_variables" do
     @testParser.test_substitute_variables

@@ -3,19 +3,25 @@
 </style>
 <p id="notice"><%= notice %></p>
 <br/>
-<form id="form" action="/run/<%= @script.id rescue "" %>" method="post">
+
+<!--update-->
+<form id="form" action="/scripts/<%= @script.id rescue "" %>" method="post">
+  <input type="hidden" name="_method" value="put" />
+  <input name="script[name]" value="<%= @script.name rescue "" %>"/>
+<!--</form>-->
+<!---->
+<!--<form id="form" action="/run/<%= @script.id rescue "" %>" method="post">-->
   <table>
     <tr>
       <td width="600px">
 
-        <input id="name" value="<%= @name || "" %>"/>
-        <textarea name="text" id="text" class="text"><%= @text %></textarea>
+        <textarea name="script[text]" id="text" class="text"><%= @text %></textarea>
         <br/><b><input class="run" type="submit" value="RUN!"/></b><br/>
       </td>
       <td>
         <svg id="svg" xmlns="http://www.w3.org/2000/svg" width="300" height="200">
           <circle cx="110" cy="80" r="30" stroke="black" stroke-width="2" fill="yellow" id="circle"/>
-          <%@svg.each do |svg|%>
+          <%@svg||=[]; @svg.each do |svg| %>
               <%= svg.html_safe %>
           <% end %>
           <%#= @svg.map(&:html_safe) %>
@@ -33,7 +39,7 @@
       <%= @javascript %>
   </script>
 </form>
-<%= render 'compact',header:"examples" %>
-<% @scripts=@versions #hack %>
-<%= render 'compact',header:"versions" %>
-
+<%= render 'compact', header: "examples" %>
+<% @scripts=@versions #hack  %>
+<%= render 'compact', header: "versions" %>
+<%= link_to 'Destroy orphaned versions', '/scripts/destroy_orphaned_versions/'+@script.id rescue ""%>

@@ -9,7 +9,10 @@
 
   resources :functions
 
-    match '/sandbox' => 'sandbox#index'
+  match '/scripts/destroy_orphaned_versions/' => 'Scripts#destroy_orphaned_versions'
+  match '/scripts/destroy_orphaned_versions/:id' => 'Scripts#destroy_orphaned_versions'
+
+  match '/sandbox' => 'sandbox#index'
     match '/' => 'sandbox#index'
     #match '/script' => 'sandbox#index'
 

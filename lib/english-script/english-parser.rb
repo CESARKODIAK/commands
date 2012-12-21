@@ -507,14 +507,14 @@ class EnglishParser < Parser
   def setter
     let?
     the?
-    modifier?
-    try { tokens 'var ', 'val ', 'value of ' }
-    modifier?
+    mod=modifier?
+    tokens? 'var ', 'val ', 'value of '
+    mod||=modifier? # ??
     var=variable
-    be
+    _?("to") or be
     no_rollback!
     val=value
-    @variables[var]=val
+    @variables[var]=val if mod!="default" or not @variables.contains(var)
     newline?
     var
 # ||'to'

@@ -14,6 +14,12 @@ class Nil
   end
 end
 
+class Hash
+  def contains key
+     keys.contains key
+  end
+end
+
 class Array
   #EVIL!!
   def blank?

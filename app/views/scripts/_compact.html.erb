@@ -1,13 +1,14 @@
-<table>
+<table class="sorted">
   <tr>
     <th><%= header rescue "" %></th>
   </tr>
 
-<% @scripts.each do |script| %>
-  <tr>
-    <td><%= link_to '(x)', script, method: :delete,:remote => true ,:onclick => "$(this).parent().parent().empty();"%></td>
-    <td title="<%= script.text%>"><%= link_to script.name ,script%></td>
-    <!--<td title="<%= script.description %>"><%= link_to script.text ,script%></td>-->
-  </tr>
-<% end %>
+  <% @scripts.each do |script| %>
+      <% @clazz= (@clazz=='even' ? 'odd' : 'even') %>
+      <tr class="<%= @clazz %>">
+        <td><%= link_to '(x)', script, method: :delete, :remote => true, :onclick => "$(this).parent().parent().empty();" %></td>
+        <td title="<%= script.text %>"><%= link_to script.name, script %></td>
+        <!--<td title="<%= script.description %>"><%= link_to script.text, script %></td>-->
+      </tr>
+  <% end %>
 </table>
