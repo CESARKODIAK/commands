@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220113016) do
+ActiveRecord::Schema.define(:version => 20121221161350) do
+
+  create_table "_nodes_old_20121215", :force => true do |t|
+    t.string  "name",       :limit => 200
+    t.text    "type"
+    t.string  "deleted",    :limit => 1
+    t.boolean "valid"
+    t.integer "version"
+    t.integer "user_id"
+    t.integer "parent_id"
+    t.integer "kind_id",                   :default => 1
+    t.integer "context_id",                :default => 103, :null => false
+  end
+
+  create_table "_s2_old_20121215", :force => true do |t|
+    t.integer "context_id",   :limit => 8, :default => 103, :null => false
+    t.integer "subject_id",   :limit => 8
+    t.integer "predicate_id", :limit => 8
+    t.integer "object_id",    :limit => 8
+    t.integer "user_id",                   :default => 0,   :null => false
+    t.integer "modifier_id",  :limit => 8
+    t.integer "inserted"
+    t.string  "deleted",      :limit => 1
+  end
 
   create_table "accounts", :force => true do |t|
     t.string "account",  :limit => 150
@@ -95,7 +118,6 @@ ActiveRecord::Schema.define(:version => 20121220113016) do
     t.text    "type"
     t.string  "deleted",    :limit => 1
     t.boolean "isvalid"
-    t.boolean "parsed"
     t.integer "version"
     t.integer "user_id"
     t.integer "parent_id"
@@ -160,20 +182,19 @@ ActiveRecord::Schema.define(:version => 20121220113016) do
   end
 
   create_table "statements", :force => true do |t|
-    t.integer "Subject",    :limit => 8
-    t.integer "Predicate",  :limit => 8
-    t.integer "Object",     :limit => 8
-    t.integer "user"
-    t.integer "Modifier",   :limit => 8
+    t.integer "context_id",   :limit => 8, :default => 103, :null => false
+    t.integer "subject_id",   :limit => 8
+    t.integer "predicate_id", :limit => 8
+    t.integer "object_id",    :limit => 8
+    t.integer "user_id",                   :default => 0,   :null => false
+    t.integer "modifier_id",  :limit => 8
     t.integer "inserted"
-    t.string  "deleted",    :limit => 1
-    t.integer "context_id", :limit => 8, :default => 103, :null => false
-    t.integer "user_id",                 :default => 0,   :null => false
+    t.string  "deleted",      :limit => 1
   end
 
-  add_index "statements", ["Object"], :name => "Object"
-  add_index "statements", ["Predicate"], :name => "Predicate"
-  add_index "statements", ["Subject"], :name => "Subject"
+  add_index "statements", ["object_id"], :name => "Object2"
+  add_index "statements", ["predicate_id"], :name => "Predicate2"
+  add_index "statements", ["subject_id"], :name => "Subject2"
 
   create_table "users", :force => true do |t|
     t.text    "name"
@@ -218,5 +239,26 @@ ActiveRecord::Schema.define(:version => 20121220113016) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "versions", :force => true do |t|
+    t.integer  "versioned_id"
+    t.string   "versioned_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "user_name"
+    t.text     "modifications"
+    t.integer  "number"
+    t.integer  "reverted_from"
+    t.string   "tag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "versions", ["created_at"], :name => "index_versions_on_created_at"
+  add_index "versions", ["number"], :name => "index_versions_on_number"
+  add_index "versions", ["tag"], :name => "index_versions_on_tag"
+  add_index "versions", ["user_id", "user_type"], :name => "index_versions_on_user_id_and_user_type"
+  add_index "versions", ["user_name"], :name => "index_versions_on_user_name"
+  add_index "versions", ["versioned_id", "versioned_type"], :name => "index_versions_on_versioned_id_and_versioned_type"
 
 end

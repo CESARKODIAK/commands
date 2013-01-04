@@ -2,18 +2,18 @@
 
 </style>
 <p id="notice"><%= notice %></p>
-<br/>
 
 <!--update-->
 <form id="form" action="/scripts/<%= @script.id rescue "" %>" method="post">
   <input type="hidden" name="_method" value="put" />
-  <input name="script[name]" value="<%= @script.name rescue "" %>"/>
-<!--</form>-->
+
+  <!--</form>-->
 <!---->
 <!--<form id="form" action="/run/<%= @script.id rescue "" %>" method="post">-->
-  <table>
+  <table id="editor">
     <tr>
       <td width="600px">
+        <input name="script[name]" id="name" value="<%= @script.name rescue "" %>"/><br/>
 
         <textarea name="script[text]" id="text" class="text"><%= @text %></textarea>
         <br/><b><input class="run" type="submit" value="RUN!"/></b><br/>

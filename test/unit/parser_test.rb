@@ -1,13 +1,8 @@
-#require_relative "../lib/english-script/english-parser"
 require 'test_helper'
 #require '../test_helper'
-#require 'active_support/core_ext'
-#require 'active_support/dependencies'
-#require_dependency 'test'
-#require_dependency "english-script/power-parser.rb"
-#require_dependency "english-script/english-parser.rb"
-$testing=true
 
+$testing=true
+#require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"
 
 class EnglishParserTestClass<EnglishParser
@@ -273,7 +268,7 @@ end"
   def test_algebra
     s "2* ( 3 + 10 ) "
     #s "2*(3+10)"
-    puts "Parse #{string} as algebra?"
+    puts "Parse #{@string} as algebra?"
     assert algebra
     #puts eval good_node_values @root if @root #== @string
   end
@@ -293,8 +288,9 @@ end"
   #  puts "!!OK!!"
   #end
 
+
   def test_args
-    s " an mp3"
+    s "eat an mp3"
     assert(endNode)
   end
 
@@ -349,9 +345,9 @@ class EnglishParserTest < ActiveSupport::TestCase
     puts "NOT testing "+x.to_s
   end
 
-  #test "ALL" do
-  #  @testParser.test
-  #end
+  test "ALL" do
+    @testParser.test
+  end
 
 
   test "setter" do

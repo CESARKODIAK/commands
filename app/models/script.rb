@@ -1,4 +1,5 @@
 class Script < ActiveRecord::Base
+  #versioned
   belongs_to :current, class_name: "Script", foreign_key: :current_id
   has_many :versions, class_name: "Script", foreign_key: :current_id
 

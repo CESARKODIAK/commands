@@ -246,7 +246,7 @@ module EnglishParserTokens #< MethodInterception
 
   def method
     tokens 'how to','function','definition for','definition of','define','method for','method',
-           '^to' # <<< TO == DANGER!! to be or not to be
+           'in order to','^to' # <<< TO == DANGER!! to be or not to be
     # is defined as
     #
   end

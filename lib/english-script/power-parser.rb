@@ -27,6 +27,13 @@ class Parser #<MethodInterception
     @lines=[]
   end
 
+
+  def init string
+    @lines=string.split("\n")
+    @string=@lines[0]
+    @original_string=@string
+  end
+
   def interpretation
     super #  set properties
     @interpretation.error_position=@error_position
@@ -108,7 +115,8 @@ class Parser #<MethodInterception
       return true if (t=="\n" and @string.empty?)
       if string.downcase.start_with?(t+" ")
         @current_value=string[0,t.length].strip
-        @string=@string[t.length..-1].strip # space????
+        string=@string[t.length..-1].strip # space????
+        @string=string
         return @current_value
       end
     end
@@ -529,9 +537,7 @@ class Parser #<MethodInterception
   def parse string
     puts "PARSING"
     begin
-      @original_string=string
-      @lines=string.split("\n") if @lines.empty?
-      @string=@lines[0]
+      init string
       root
     rescue => e
       error e

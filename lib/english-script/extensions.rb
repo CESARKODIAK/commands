@@ -73,7 +73,7 @@ class String
     downcase!
   end
 
-  def replace_numerals
+  def replace_numerals!
     gsub!(/([a-z])-([a-z])/,"\\1+\\2")
     gsub!("a couple of","2")
     gsub!("a dozen","12")
@@ -132,7 +132,7 @@ class String
 
 
     def parse_integer
-      replace_numerals
+      replace_numerals!
       eval(self).to_i
     end
 

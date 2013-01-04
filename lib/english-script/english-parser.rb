@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 require_relative "Interpretation"
 require_relative "MethodInterception"
 require_relative "english-tokens"
@@ -12,18 +13,7 @@ Linguistics.use(:en, :monkeypatch => true)
 
 class EnglishParser < Parser
   include MethodInterception
-  #extend MethodInterception::ClassMethods
-
   include EnglishParserTokens # module
-
-
-  #def svg
-  #  return @svg
-  #end
-  #def result
-  #  return @result
-  #end
-
 
   def initialize
     super
@@ -37,19 +27,6 @@ class EnglishParser < Parser
     @result=""
   end
 
-  def init string
-    @lines=string.split("\n")
-    @string=@lines[0]
-    @original_string=@string
-  end
-
-  #def variables= x
-  #  @variables=x
-  #end
-
-  def string
-    @string
-  end
 
   def interpretation
     @interpretation=Interpretation.new
@@ -64,15 +41,6 @@ class EnglishParser < Parser
     i.result=@result
     i
   end
-
-  def svg x
-    @svg<<x
-  end
-
-  #def svg
-  #  _"svg"
-  #  quote
-  #end
 
   def download url
     require 'net/http'
@@ -89,7 +57,7 @@ class EnglishParser < Parser
   end
 
   def english_to_math s
-    s.replace_numerals
+    s.replace_numerals!
     s.gsub!(" plus ", "+")
     s.gsub!(" minus ", "-")
 
@@ -162,12 +130,11 @@ class EnglishParser < Parser
 
   def root
     many {
-      newline? ||
-          try { expression } || # 4+7
-          try { statement } || # while ... + action
-                               #try { action } || # run command
-          try { ruby_def } ||
+          try { newline }    ||
           try { method_definition } ||
+          try { expression } ||
+          try { statement }  ||
+          try { ruby_def }   ||
           try { block }||
           try { context }
     }
@@ -254,7 +221,7 @@ class EnglishParser < Parser
     star { arg } # over an interval
     #''?
     start_block # :
-    no_rollback!
+    no_rollback! 10
     block
     #newlines?
     x=done
@@ -298,8 +265,9 @@ class EnglishParser < Parser
   def if_then_block
     If
     condition
+    no_rollback!
     _? 'then'
-    newline
+    newline?
     block
     done
   end
@@ -338,6 +306,7 @@ class EnglishParser < Parser
   def substitute_variables args
     #args=" "+args+" "
     for variable in @variables.keys
+      variable=variable.join(" ") if variable.is_a? Array #HOW!?!?!
       value=@variables[variable]||"nil"
       #args.gsub!(/\$#{variable}/, "#{variable}") # $x => x !!
       args.gsub!(/.\{#{variable}\}/, "#{value}") #  ruby style #{x} ;}
@@ -503,12 +472,13 @@ class EnglishParser < Parser
 
 #  until_condition ,:while_condition ,:as_long_condition
 
+#  CAREFUL WITH WATCHES!!! THEY manipulate the current system, especially variable
 #/*	 let nod be nods */
   def setter
     let?
     the?
     mod=modifier?
-    tokens? 'var ', 'val ', 'value of '
+    tokens? 'var', 'val', 'value of'
     mod||=modifier? # ??
     var=variable
     _?("to") or be
@@ -742,7 +712,7 @@ class EnglishParser < Parser
       line
     }
     lines<<"end" #todo: in any_ruby_line
-    @current_node.value=lines
+    @current_value=lines    #todo: !?!
     lines
   end
 
@@ -865,27 +835,11 @@ class EnglishParser < Parser
     result
   end
 
-  def get_javascript
-    @javascript
+  def svg x
+    @svg<<x
   end
 
 end
 
-#Parser.new.test±
-#Parser.new.test•
-#Parser.new.test∆
-#Parser.new.test!
-#Parser.new.test*
-#Parser.new.test_any
-
-#Parser.new.parse "hello why does the world end"
-#Parser.new.parse "hello why does the world car"
-
-#p "o"
-#breakpoint
-#debugger
-
-
-#EnglishParser.new.tokens
 #EnglishParser.new.parse "x=7" if nil
 #EnglishParser.new.start if not ARGV.blank?

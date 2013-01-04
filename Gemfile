@@ -40,7 +40,8 @@ gem "minitest-reporters"
 gem 'test-unit'
 gem 'rspec'
 
-
+# DRY versions!!
+gem 'vestal_versions', :git => 'git://github.com/laserlemon/vestal_versions'
 
 gem 'linguistics'
 #gem 'hoe-deveiate','~> 0.1.1'

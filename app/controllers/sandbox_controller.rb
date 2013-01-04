@@ -9,6 +9,7 @@ class SandboxController < ApplicationController
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
+  # SEE SCRIPT Controller !
   def index
     @text=params[:text]||"what is 3 + 3"
     @interpretation=Script.run(@text)
@@ -19,6 +20,9 @@ class SandboxController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render :xml => @nodes }
+      format.svg {
+        send_data(@graphic.to_svg, type: "image/svg+xml", disposition: "inline")
+      }
     end
   end
 

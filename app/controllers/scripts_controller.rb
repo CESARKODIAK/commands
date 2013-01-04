@@ -1,4 +1,5 @@
 class ScriptsController < ApplicationController
+  include ScriptsHelper
   # GET /scripts
   # GET /scripts.json
   def index
@@ -10,33 +11,15 @@ class ScriptsController < ApplicationController
     end
   end
 
-  def run_script
-    @interpretation=Script.run(@text)
-    @result=@interpretation.result
-    @javascript=@interpretation.javascript
-    @svg=@interpretation.svg
-    @scripts=Script.where(:current_id => nil)
-    @versions=Script.where(:current_id => @script.id) rescue @versions=[]
-  end
-
   # GET /scripts/1
   # GET /scripts/1.json
   def show
     @script = Script.find(params[:id])
-    @text=@script.text
     run_script
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @script }
     end
-  end
-
-  def save_version
-    return if @script.text==@text
-    old=Script.new text: @script.text
-    @script.versions<<old
-    @script.text=@text
-    @script.save!
   end
 
   def run
@@ -49,11 +32,22 @@ class ScriptsController < ApplicationController
     render :show
   end
 
+
+
+  def run_script
+    @text||=@script.text
+    @interpretation=Script.run(@text)
+    @result=@interpretation.result
+    @javascript=@interpretation.javascript
+    @svg=@interpretation.svg
+    @scripts=Script.where(:current_id => nil)
+    @versions=Script.where(:current_id => @script.id) rescue @versions=[]
+  end
+
   # GET /scripts/new
   # GET /scripts/new.json
   def new
     @script = Script.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @script }
@@ -69,7 +63,6 @@ class ScriptsController < ApplicationController
   # POST /scripts.json
   def create
     @script = Script.new(params[:script])
-
     respond_to do |format|
       if @script.save
         format.html { redirect_to @script, notice: 'Script was successfully created.' }
@@ -85,7 +78,8 @@ class ScriptsController < ApplicationController
   # PUT /scripts/1.json
   def update
     @script = Script.find(params[:id])
-
+    @text=params[:script][:text]
+    save_version # to do: better!
     respond_to do |format|
       if @script.update_attributes(params[:script])
         if @script.name
@@ -129,7 +123,6 @@ class ScriptsController < ApplicationController
       }
       render :index
     end
-
   end
 
 end
