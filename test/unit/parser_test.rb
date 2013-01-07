@@ -1,7 +1,7 @@
 require 'test_helper'
 #require '../test_helper'
 
-$testing=true
+$dont_use_tree=true
 #require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"
 
@@ -38,7 +38,6 @@ class EnglishParserTestClass<EnglishParser
 
 
   def test_default_setter_dont_overwrite
-
     s "set color to blue; set default color to green"
     setter
     assert(@variables["color"]=="blue")
@@ -187,12 +186,6 @@ done"
     looper
   end
 
-  def s string
-    allow_rollback
-    init string
-    #@@parser.init string
-  end
-
   def test_method_call
     s "evaluate the function at point I"
     method_call
@@ -269,7 +262,10 @@ end"
     s "2* ( 3 + 10 ) "
     #s "2*(3+10)"
     puts "Parse #{@string} as algebra?"
-    assert algebra
+    tree=algebra
+    assert tree
+    #assert @result==26
+    #assert{@result==26}
     #puts eval good_node_values @root if @root #== @string
   end
 
@@ -341,28 +337,37 @@ class EnglishParserTest < ActiveSupport::TestCase
     super args
   end
 
-  def self.dont_test x
+  def self._test x
     puts "NOT testing "+x.to_s
   end
 
-  test "ALL" do
-    @testParser.test
+  _test "ALL" do
+    @testParser.methods.each{|m|
+      if m.to_s.starts_with?"test"
+        @testParser.send(m)
+      end
+    }
+  end
+
+  test "current" do
+    @testParser.test_algebra
+    #@testParser.test
   end
 
 
-  test "setter" do
+  _test "setter" do
     @testParser.test_default_setter
     @testParser.test_default_setter_dont_overwrite
   end
 
 
-  test "substitute_variables" do
+  _test "substitute_variables" do
     @testParser.test_substitute_variables
     #@@testParser.test_substitute_variables
     assert "yay"
   end
 
-  dont_test "jeannie" do
+  _test "jeannie" do
     r= @testParser.jeannie ("3 plus 3")
     puts "jeannie : 3 plus 3 = "+r.to_s
     assert(r=="6")

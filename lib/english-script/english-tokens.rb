@@ -31,7 +31,7 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def type_keywords
-    ["class","interface","module","type"]
+    ["class","interface","module","type","kind"]
   end
 
   def constants
@@ -300,11 +300,16 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def true_variable
+    for v in @variables.keys
+      if @string.start_with? v
+        token v
+      end
+    end
     tokens variables_list
   end
 
-  def noun
-    no_keyword
+  def noun include=[]
+    no_keyword include
     #return true if true_variable
     @current_value=get_noun
     #@current_value=call_is_noun

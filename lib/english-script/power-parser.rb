@@ -14,9 +14,7 @@ class Parser #<MethodInterception
   def initialize
     super # needs to be called by hand!
     @verbose=true
-    #@verbose=false
-          #@very_verbose=true
-    #@very_verbose=false
+    @verbose=false
     @very_verbose=@verbose
     @original_string=""   # for string_pointer ONLY!!
     @string=""
@@ -27,6 +25,44 @@ class Parser #<MethodInterception
     @lines=[]
   end
 
+
+
+  def s string
+    allow_rollback
+    init string
+    #@@parser.init string
+  end
+
+  def p string
+    allow_rollback
+    init string
+    root
+    #@@parser.init string
+  end
+
+
+  def parse string
+    allow_rollback
+    init string
+    root
+    #@@parser.init string
+  end
+
+  def assert x=nil, &block
+    x=yield if not x and block
+    #raise Exception.new (to_source(block)) if not x
+    raise ScriptError.new to_source(block) if block and not x
+    if x.is_a? String
+      begin
+        parse x
+        condition
+      rescue => e
+        raise ScriptError.new "NOT "+x+" \t("+e.class.to_s+") "+e.to_s
+      end
+      puts x
+    end
+    puts "!!OK!!"
+  end
 
   def init string
     @lines=string.split("\n")
@@ -89,7 +125,7 @@ class Parser #<MethodInterception
     if @string.downcase.start_with? t
       @current_value=@string[0,t.length].strip
       @string=@string[t.length..-1].strip
-      return true
+      return @current_value
     else
       verbose "expected "+t.to_s # if @throwing
       raise NotMatching.new(t)
@@ -263,17 +299,18 @@ class Parser #<MethodInterception
   def quote
     raiseEnd
     #return if checkEnd
+    # todo :match ".*?"
     if @string[0]=="'"
       to=@string[1..-1].index("'")
       @current_value=@string[1..to];
       @string= @string[to+2..-1].strip
-      return @current_value
+      return "'"+@current_value+"'"
     end
     if @string[0]=='"'
       to=@string[1..-1].index('"')
       @current_value=@string[1..to];
       @string= @string[to+2..-1].strip
-      return @current_value
+      return '"'+@current_value+'"'
     end
     raise NotMatching.new("quote")
     #throw "no quote" if @throwing
@@ -544,11 +581,8 @@ class Parser #<MethodInterception
     end
     puts "PARSED SUCCESSFULLY!!"
     show_tree
-    #puts @jav
     puts @svg
     return interpretation # self# @result
-    #exit
   end
-
 
 end

@@ -11,6 +11,7 @@
       <w>simplecov</w>
       <w>stemmer</w>
       <w>verbium</w>
+      <w>whot</w>
       <w>wordnet</w>
     </words>
   </dictionary>

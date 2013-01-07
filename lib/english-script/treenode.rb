@@ -20,6 +20,24 @@ class TreeNode
     return @name.to_s + ":" + @value.to_s
   end
 
+  def full_value
+    if value
+      return value
+    elsif @nodes.count>0
+      return @nodes.map(&:full_value).join(" ")
+    else
+      return ""
+    end
+  end
+
+  def eval_node
+    whot=full_value
+    begin
+      return eval(whot) rescue nil ## v0.0
+    rescue SyntaxError => se
+    end
+  end
+
   def to_s
     good_value
   end

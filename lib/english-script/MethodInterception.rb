@@ -32,7 +32,8 @@ module MethodInterception
     #"newline","newlines","newline?",
     #test_setter Should never be set ("")!?
     #"token","tokens",
-    ["_", "_?", "subnode", "tokens", "ignore", "initialize", "bad", "checkNewline", "newline", "newline?", "ruby_block_test",
+    [ "_", "_?", "subnode", "tokens", "ignore", "initialize", "bad", "checkNewline", "newline",
+     "newline?", "ruby_block_test","subnode_token",
      "substitute_variables", "raiseNewline", "any", "initialize", "one_or_more", "expression",
      "endNode", "the_noun_that", "nod", "star", "rest_of_line", "setter", "action", "parse", "number",
      "allow_rollback",  "init",
@@ -97,7 +98,9 @@ module MethodInterception
   end
 
   def bad name
+    return true if $dont_use_tree
     return true if name.to_s.end_with? "_words"
+    #return true if name.to_s.start_with? "test_" # NEEDED for algebra.parent todo!
     #bad_name=true if name.to_s.end_with?("?") or
     ignore.index name.to_s # 0 == true ! OK
   end
@@ -151,7 +154,7 @@ module MethodInterception
 
     def method_added name
       return true if name.to_s=="initialize"
-      return if not @@use_tree
+      return if $dont_use_tree
       return if @@__last_methods_added && @@__last_methods_added.include?(name)
       with = :"#{name}_with_before_each_method"
       without = :"#{name}_without_before_each_method"
@@ -168,11 +171,6 @@ module MethodInterception
       @@__last_methods_added = nil
     end
 
-    def use_tree= x # too late
-      @@use_tree=x
-    end
-
-    @@use_tree=$testing?false:true # DO NOT use while developing!
   end
 
 end

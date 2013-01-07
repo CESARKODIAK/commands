@@ -2,6 +2,7 @@
 
 require_relative "Interpretation"
 require_relative "MethodInterception"
+require_relative "CoreFunctions"
 require_relative "english-tokens"
 require_relative "power-parser"
 require 'linguistics'
@@ -13,15 +14,20 @@ Linguistics.use(:en, :monkeypatch => true)
 
 class EnglishParser < Parser
   include MethodInterception
+  include CoreFunctions
   include EnglishParserTokens # module
+  @methods=[]
+
 
   def initialize
     super
+    @interpret=true
     @javascript=""
     @context=""
     @variables={}
     @svg=[]
     @ruby_methods=["puts", "print", "svg"] #"puts"=>x_puts !!!
+    @core_methods=["show"] #"puts"=>x_puts !!!
     @methods=[]
     @OK="OK"
     @result=""
@@ -79,19 +85,29 @@ class EnglishParser < Parser
     return s
   end
 
+
+  def do_evaluate x
+
+  end
+
   def evaluate_property
+    must_contain "of"
     raiseNewline
-    x=endNode2
+    x=endNode2 type_keywords
     _ "of"
     y=endNode
+    return true if not @interpret
+    # todo : eval NODE !@!!
+    x="class" if x=="type" # !@!@*)($&@) NOO
+    all=x+" of "+y
     begin
-      all=x+" of "+y
-      @result=eval(all) rescue nil
-      @result=eval(y+"."+x) rescue nil
-      @result=eval('"'+y+'".'+x) rescue nil #string method
+    @result=eval(y+"."+x) rescue SyntaxError
+    @result=eval('"'+y+'".'+x) if not @result  rescue SyntaxError #string method
+    @result=eval(all) if not @result rescue SyntaxError
     rescue
-      jeannie all
+    @result=jeannie all if not @result
     end
+    return @result
   end
 
 
@@ -99,12 +115,12 @@ class EnglishParser < Parser
     jeannie_api="https://weannie.pannous.com/api?"
     params="login=test-user&out=simple&input="
     #raise "empty evaluation" if @current_value.blank?
-    @result=download jeannie_api+params+URI.encode(request)
-    @result
+    download jeannie_api+params+URI.encode(request)
   end
 
   #  those attributes. hacky? do better / don't use
   def subnode attributes={}
+    return if $dont_use_tree
     attributes.each do |name, value|
       @current_node.nodes<<TreeNode.new(name: name, value: value)
       @current_value=value
@@ -129,12 +145,12 @@ class EnglishParser < Parser
   end
 
   def root
-    many {
-          try { newline }    ||
+    many {#root
+      try { newline } ||
           try { method_definition } ||
           try { expression } ||
-          try { statement }  ||
-          try { ruby_def }   ||
+          try { statement } ||
+          try { ruby_def } ||
           try { block }||
           try { context }
     }
@@ -150,9 +166,9 @@ class EnglishParser < Parser
   end
 
   def bracelet
-    _ "("
+    subnode "brace" => token("(")
     algebra
-    _ ")"
+    subnode "brace" => token(")")
   end
 
   def operator
@@ -167,6 +183,9 @@ class EnglishParser < Parser
       no_rollback!
       any { variable? or number? or bracelet? }
     }
+    if @interpret
+      @result=get_parent.eval_node #wasteful!!
+    end
   end
 
   def javascript
@@ -193,17 +212,16 @@ class EnglishParser < Parser
     }
   end
 
-  #;//... expression| backtrack!
-
   def expression
-    try { ex=endNode } or ex=algebra
-    @result=eval(ex) rescue nil
+    try { ex=endNode } or try { ex=evaluate_property } or ex=algebra
+    @result=ex if ex
   end
 
   def statement
     x=any {
       return @NEWLINE if checkNewline
       try { action }||
+          try { expression } || # AS RETURN VALUE! DANGER!
           try { if_then } ||
           try { once } ||
           try { looper }
@@ -214,22 +232,21 @@ class EnglishParser < Parser
   end
 
   def method_definition
-    #@throwing=true
-    method    #  how to
-    verb      #  integrate
-    try { endNode } # a sine wave
-    star { arg } # over an interval
-    #''?
+    @interpret=false
+    method #  how to
+    no_rollback!
+    name=verb #  integrate
+    obj=try { endNode } # a sine wave
+    args=star { arg } # over an interval
     start_block # :
     no_rollback! 10
     block
-    #newlines?
-    x=done
-    #add_tree_node
+    done
+    @methods[name]=get_parent rescue nil
+    @interpret=true
+    name
   end
 
-
-#module EnglishScript
   def ruby_action
     _ 'ruby'
     exec(action || quote)
@@ -308,9 +325,9 @@ class EnglishParser < Parser
     for variable in @variables.keys
       variable=variable.join(" ") if variable.is_a? Array #HOW!?!?!
       value=@variables[variable]||"nil"
-      #args.gsub!(/\$#{variable}/, "#{variable}") # $x => x !!
+                                                          #args.gsub!(/\$#{variable}/, "#{variable}") # $x => x !!
       args.gsub!(/.\{#{variable}\}/, "#{value}") #  ruby style #{x} ;}
-      args.gsub!(/\$#{variable}$/, "#{value}")   # php style $x
+      args.gsub!(/\$#{variable}$/, "#{value}") # php style $x
       args.gsub!(/\$#{variable}([^\w])/, "#{value}\\1")
       args.gsub!(/^#{variable}$/, "#{value}")
       args.gsub!(/^#{variable}([^\w])/, "#{value}\\1")
@@ -364,9 +381,16 @@ class EnglishParser < Parser
 
   def method_call
     #verb_node
-    verb
-    nod?
-    star { arg }
+    method=verb
+    obj=nod?
+    args=star { arg }
+    if @interpret
+      for method0 in @methods
+        if method0.name==method
+          method0.call(obj, args)
+        end
+      end
+    end
   end
 
   def bla
@@ -530,13 +554,14 @@ class EnglishParser < Parser
     except=constants
     no_keyword except
     @current_value=any {
-          quote?||
+      quote?||
           constant?||
           true_variable? ||
           number? ||
           nod? ||
-          nill? ||
-          rest_of_line
+          nill?
+      #||
+      #rest_of_line # TOOBIG HERE!
     }
     @current_value #.strip
   end
@@ -626,8 +651,10 @@ class EnglishParser < Parser
   def endNode
     return true if checkEnd
     any {
-          try { evaluate_property }||
+      try { evaluate_property }||
           try { article?; word } ||
+          try { true_variable} ||
+
           #try { plural} ||
           try { endNode2 and selector2? } ||
           try { value }
@@ -665,12 +692,12 @@ class EnglishParser < Parser
   end
 
 
-  def endNode2
+  def endNode2 include=[]
     try {
       article
     }
     star { adjective }
-    noun
+    noun include
     #any{
     #  try{noun}
     #  try{variable}
@@ -712,7 +739,7 @@ class EnglishParser < Parser
       line
     }
     lines<<"end" #todo: in any_ruby_line
-    @current_value=lines    #todo: !?!
+    @current_value=lines #todo: !?!
     lines
   end
 

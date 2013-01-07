@@ -1,12 +1,16 @@
 require 'test_helper'
 
-$testing=true
+$dont_use_tree=true
 require_relative "../../lib/english-script/english-parser"
 
 class FunctionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  def s x
+
+  end
+
   test "Basic syntax" do
 
   end
@@ -29,6 +33,9 @@ class FunctionTest < ActiveSupport::TestCase
   end
 
   def p x,&block
+    s x
+    root
+  end
 
   test "svg return object" do
     parse 'svg <circle cx="$x" cy="50" r="$radius" stroke="black" fill="$color" id="circle"/>'

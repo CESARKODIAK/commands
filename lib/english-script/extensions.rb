@@ -44,6 +44,10 @@ end
 
 class String
 
+  def - x
+    self[0..self.index(x)-1]+self[self.index(x)+x.length..-1]
+  end
+
   def is_noun
     not synsets(:noun).empty?
   end
