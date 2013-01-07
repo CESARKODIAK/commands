@@ -36,7 +36,7 @@ module MethodInterception
      "newline?", "ruby_block_test","subnode_token","get_adjective","get_noun","get_verb",
      "substitute_variables", "raiseNewline", "any", "initialize", "one_or_more", "expression",
      "endNode", "the_noun_that", "nod", "star", "rest_of_line", "setter", "action", "parse", "number",
-     "allow_rollback",  "init",
+     "allow_rollback",  "init", "type_keywords",
      "test_setter", "try_action", "method_missing", "endNode2", "no_rollback!", "raiseEnd",
      "string_pointer", "verbose", "try", "checkEnd", "to_source", "rest", "keywords",
      "starts_with?", "be_words", "no_keyword", "no_keyword_except", "prepositions", "variables_list", "the?",
@@ -106,7 +106,7 @@ module MethodInterception
     ignore.index name.to_s # 0 == true ! OK
   end
 
-  def get_parent
+  def parent_node
     return nil if @nodes.count==0
     for i in 0..(caller.count)
       next if not caller[i].match(/parser/)
@@ -124,7 +124,7 @@ module MethodInterception
     if not bad name
       @current_value=nil # if not keepers.index name.to_s
                          #parent=@current_node
-      @current_node=TreeNode.new(parent: get_parent, name: name)
+      @current_node=TreeNode.new(parent: parent_node, name: name)
       @root=@current_node if @nodes.count==0
       @nodes<<@current_node
     end
@@ -165,7 +165,8 @@ module MethodInterception
         ret=send without, *args, &block
         @current_value=ret if not @current_value #!?!???! TEST!! 7.1.2013
         after_each_method name #sets @current_value nil!
-                               #begin rescue  doesn't work
+        #begin rescue  doesn't work
+        #ret=@current_node if @current_node whitelist? just return manually? how? parent_node  #!!TEST!! 7.1.2013
         return ret
       end
       alias_method without, name

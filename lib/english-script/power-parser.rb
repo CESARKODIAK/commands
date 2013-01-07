@@ -303,13 +303,15 @@ class Parser #<MethodInterception
       to=@string[1..-1].index("'")
       @current_value=@string[1..to];
       @string= @string[to+2..-1].strip
-      return "'"+@current_value+"'"
+      return @current_value
+      #return "'"+@current_value+"'"
     end
     if @string[0]=='"'
       to=@string[1..-1].index('"')
       @current_value=@string[1..to];
       @string= @string[to+2..-1].strip
-      return '"'+@current_value+'"'
+      return @current_value
+      #return '"'+@current_value+'"'
     end
     raise NotMatching.new("quote")
     #throw "no quote" if @throwing

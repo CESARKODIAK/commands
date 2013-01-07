@@ -100,12 +100,25 @@ class EnglishParser < Parser
     x=endNode2 type_keywords
     _ "of"
     y=endNode
-    return get_parent if not @interpret
+    return parent_node if not @interpret
     # todo : eval NODE !@!!
     x="class" if x=="type" # !@!@*)($&@) NOO
+    if x.is_a? TreeNode
+      if x.nodes.count==1
+        x=x.to_s
+      else
+        r="" # argument hack
+        for n in x.nodes
+          r=":"+n.value+" "+r if n.value and n.valid
+        end
+        x=r[1..-1]
+      end
+    #x=x.full_value.flip  # argument hack NEEE color= green  color of the sun => sun.green --
+
+    end
     all=x+" of "+y
     begin
-    @result=eval(y+"."+x) rescue SyntaxError
+    @result=eval(y+"."+x) rescue nil
     @result=eval('"'+y+'".'+x) if not @result  rescue SyntaxError #string method
     @result=eval(all) if not @result rescue SyntaxError
     rescue
@@ -191,9 +204,9 @@ class EnglishParser < Parser
       }
     }
     if @interpret
-      @result=get_parent.eval_node #wasteful!!
+      @result=parent_node.eval_node #wasteful!!
     end
-    get_parent
+    parent_node
   end
 
   def javascript
@@ -256,7 +269,7 @@ class EnglishParser < Parser
     block
     done
     @interpret=true
-    @methods[name]=get_parent rescue nil
+    @methods[name]=parent_node rescue nil
     name
   end
 
@@ -637,7 +650,7 @@ class EnglishParser < Parser
         debug x
       end
     end
-    return get_parent
+    return parent_node
   end
 
   def auxiliary
@@ -766,6 +779,7 @@ any{
     }
     star { adjective } #  first second ... included
     noun include
+    return parent_node
     #any{
     #  try{noun}
     #  try{variable}
