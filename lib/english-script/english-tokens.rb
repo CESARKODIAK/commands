@@ -49,7 +49,7 @@ module EnglishParserTokens #< MethodInterception
   def prepositions
     ['above','after','against','apart from','around','as','aside from','at','before','behind','below',
                  'beneath','beside','between','beyond','by','considering','down','during','for','from','in',
-                 'instead of','inside','into','like','near','on','onto','out of','over', 'outside',
+                 'instead of','inside of','inside','into','like','near','on','onto','out of','over', 'outside',
                  'since','through','thru','to','till','with','up','upon','under','underneath','versus', 'via','with',
                  'within','without','toward','towards']
   end
@@ -126,9 +126,10 @@ module EnglishParserTokens #< MethodInterception
   end
 #Classifiers==#measure word="litre","cups","kernels","ears","bushels",
 
+  # nicer, sweeter, ....
   def true_comparitons
-    ['be','is','are','were','=','<','>=','==','<','=<','gt','lt','eq','bigger','greater','equals',
-                     'smaller','less','equal to','more','less']
+    ['be','is','are','were','=','<','>=','==','<','=<','gt','lt','eq','bigger','greater','equals','identical to',
+                     'smaller','less','equal to','more','less','the same as','same as','similar']
   end
 
   def nill_words
@@ -219,9 +220,6 @@ module EnglishParserTokens #< MethodInterception
   end
 
 
-  def adjective
-    tokens 'funny','big','small','good','bad'
-  end
 
   def done
     #if(@string[0]=='}')
@@ -318,6 +316,8 @@ module EnglishParserTokens #< MethodInterception
     tokens variables_list
   end
 
+
+
   def noun include=[]
     no_keyword include
     #return true if true_variable
@@ -329,6 +329,10 @@ module EnglishParserTokens #< MethodInterception
     ['evaluate','eval']
   end
 
+  def adjective
+    @current_value=get_adjective
+    #tokens 'funny','big','small','good','bad'
+  end
 
   def get_noun
     the_noun=@string.match(/^\s*(\w+)/)[1] rescue nil
@@ -337,6 +341,15 @@ module EnglishParserTokens #< MethodInterception
     raise NotMatching.new "no noun" if not the_noun.is_noun
     @string=@string.strip[the_noun.length..-1]
     the_noun
+  end
+
+  def get_adjective
+    the_adjective=@string.match(/^\s*(\w+)/)[1] rescue nil
+    #return false if not the_adjective
+    raise NotMatching.new "no adjective word" if not the_adjective
+    raise NotMatching.new "no adjective" if not the_adjective.is_adjective
+    @string=@string.strip[the_adjective.length..-1]
+    the_adjective
   end
 
 

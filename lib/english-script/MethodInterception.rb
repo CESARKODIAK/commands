@@ -33,7 +33,7 @@ module MethodInterception
     #test_setter Should never be set ("")!?
     #"token","tokens",
     [ "_", "_?", "subnode", "tokens", "ignore", "initialize", "bad", "checkNewline", "newline",
-     "newline?", "ruby_block_test","subnode_token",
+     "newline?", "ruby_block_test","subnode_token","get_adjective","get_noun","get_verb",
      "substitute_variables", "raiseNewline", "any", "initialize", "one_or_more", "expression",
      "endNode", "the_noun_that", "nod", "star", "rest_of_line", "setter", "action", "parse", "number",
      "allow_rollback",  "init",
@@ -163,6 +163,7 @@ module MethodInterception
       define_method with do |*args, &block|
         before_each_method name
         ret=send without, *args, &block
+        @current_value=ret if not @current_value #!?!???! TEST!! 7.1.2013
         after_each_method name #sets @current_value nil!
                                #begin rescue  doesn't work
         return ret

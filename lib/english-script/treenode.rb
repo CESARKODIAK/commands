@@ -22,7 +22,11 @@ class TreeNode
 
   def full_value
     if value
-      return value
+      if $variables and ($variables[value])
+        return $variables[value]
+      else
+        return value
+      end
     elsif @nodes.count>0
       return @nodes.map(&:full_value).join(" ")
     else
@@ -33,7 +37,8 @@ class TreeNode
   def eval_node
     whot=full_value
     begin
-      return eval(whot) rescue nil ## v0.0
+      res=eval(whot) rescue nil ## v0.0
+      return res
     rescue SyntaxError => se
     end
   end

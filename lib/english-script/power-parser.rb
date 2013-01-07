@@ -50,10 +50,11 @@ class Parser #<MethodInterception
     if x.is_a? String
       begin
         s x
-        condition
+        ok=condition
       rescue => e
-        raise ScriptError.new "NOT "+x+" \t("+e.class.to_s+") "+e.to_s
+        raise ScriptError.new "NOT PASSING: "+x+" \t("+e.class.to_s+") "+e.to_s
       end
+      raise StandardError.new "NOT PASSING: "+x if not ok
       puts x
     end
     puts "!!OK!!"

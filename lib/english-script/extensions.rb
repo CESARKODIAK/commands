@@ -52,6 +52,10 @@ end
 
 class String
 
+  def invert
+    reverse
+  end
+
   def - x
     self[0..self.index(x)-1]+self[self.index(x)+x.length..-1]
   end
@@ -148,6 +152,42 @@ class String
       eval(self).to_i
     end
 
+end
+class Float
+  def to_the_power_of x
+    self**x
+  end
+  def to_the x
+    self**x
+  end
+
+  def power x
+    self**x
+  end
+
+
+  def square
+    self*self
+  end
+end
+
+class Fixnum
+
+  def to_the_power_of x
+    self**x
+  end
+
+  def to_the x
+    self**x
+  end
+
+  def power x
+    self**x
+  end
+
+  def square
+    self*self
+  end
 end
 
 #return true if self==false

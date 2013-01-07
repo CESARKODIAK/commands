@@ -87,7 +87,9 @@ class EnglishParser < Parser
 
 
   def do_evaluate x
+    $variables=@variables
     return @variables[x] if @variables.contains x
+    return x.eval_node if x.is_a? TreeNode
     return eval(x)
     # ... todo!
   end
@@ -148,7 +150,7 @@ class EnglishParser < Parser
 
   def root
     many {#root
-      try { newline } ||
+          try { newline } ||
           try { method_definition } ||
           try { statement } ||
           try { ruby_def } ||
@@ -178,16 +180,20 @@ class EnglishParser < Parser
   end
 
   def algebra
-    any { variable? or number? or bracelet? }
+    any { value? or bracelet? } # variable? or number? or
     star {
       operator
       #subnode operator: tokens("+", "*", "-", "/")
       no_rollback!
-      any { variable? or number? or bracelet? }
+      z=any {
+        value? ||
+        bracelet?
+      }
     }
     if @interpret
       @result=get_parent.eval_node #wasteful!!
     end
+    get_parent
   end
 
   def javascript
@@ -216,9 +222,9 @@ class EnglishParser < Parser
 
   def expression
     ex=any{
+      try { algebra } ||
       try { endNode } ||
-      try { evaluate_property } ||
-          algebra
+      try { evaluate_property }
       }
     @result=do_evaluate ex if ex
   end
@@ -227,7 +233,7 @@ class EnglishParser < Parser
     raiseNewline
     x=any {
       return @NEWLINE if checkNewline
-      try { action }||
+          try { action }||
           try { expression } || # AS RETURN VALUE! DANGER!
           try { if_then } ||
           try { once } ||
@@ -239,7 +245,6 @@ class EnglishParser < Parser
   end
 
   def method_definition
-    @interpret=false
     method #  how to
     no_rollback!
     name=verb #  integrate
@@ -247,10 +252,11 @@ class EnglishParser < Parser
     args=star { arg } # over an interval
     start_block # :
     no_rollback! 10
+    @interpret=false
     block
     done
-    @methods[name]=get_parent rescue nil
     @interpret=true
+    @methods[name]=get_parent rescue nil
     name
   end
 
@@ -513,11 +519,12 @@ class EnglishParser < Parser
     mod||=modifier? # ??
     var=variable
     _?("to") or be
+    #val=expression
     no_rollback!
-    val=endNode
+    val=endNode if not val
     #val=value
     @variables[var]=val if mod!="default" or not @variables.contains(var)
-    newline?
+    checkEnd||newline
     var
 # ||'to'
 #'initial'?	let? the? ('initial'||'var'||'val'||'value of')? variable (be||'to') value
@@ -593,28 +600,27 @@ class EnglishParser < Parser
 # things that stink
 #, things that move backwards
   def that_do
-    token 'that'
+    tokens 'that','which','whose','who'
     verbium
     endNode?
   end
 
 
+
+
   def that_are
-    _ 'that'
+    __ 'that','which','whose','who'
     be
-    gerund
+    adjective? || gerund
   end
 
   def that
     that_do || that_are
   end
 
-  def gerund
-    'stinking'
-  end
 
   def where
-    token 'where'
+    tokens 'where'
     condition
   end
 
@@ -670,6 +676,28 @@ class EnglishParser < Parser
     tokens type_names
   end
 
+
+  def gerund
+    #'stinking'
+    match=@string.match(/^\s*(\w+)ing/)
+    return false if not match
+    @string=match.post_match
+    pr=tokens? prepositions # wrapped in
+    endNode? if pr # silver
+    @current_value=match[1]
+    @current_value
+  end
+
+  def postjective # 4 squared , 'bla' inverted, buttons pushed in, mail read by James
+    match=@string.match(/^\s*(\w+)ed/)
+    return false if not match
+    @string=match.post_match
+    pr=tokens? prepositions if not checkEnd# wrapped in
+    endNode? if pr and not checkEnd # silver
+    @current_value=match[1]
+    @current_value
+  end
+
   def endNode
     return true if checkEnd
     x=any {
@@ -677,7 +705,7 @@ class EnglishParser < Parser
           #try { plural} ||
           try { evaluate_property }||
           try { x=endNode2
-                try{selector2}  # fucks it up, HOW !?!?!?  EndOfDocument hmmmmmmm , not caught OK
+                try{verbSelector}  # fucks it up, HOW !?!?!?  EndOfDocument hmmmmmmm , not caught OK
                 return x
           } ||
           try { true_variable} ||
@@ -687,23 +715,33 @@ class EnglishParser < Parser
           } ||
           try { value }
     }
+    po=try{postjective} # inverted
+    if po and @interpret
+      x=@current_value=x.send(po) rescue x #DANGAR!!
+    end
     x
   end
 
-  def selector2
+  def verbSelector
     return if checkEnd
     __ 'that', 'who'
     star { adverb }
     verb
-    _ 's'
+    star { adverb }
+    #_ 's' ??
     preposition
     endNode2
   end
 
   def selector
 # ambivalent?  delete james from china
-#any{where || that || token('of') and endNode || preposition and nod }
-    one :where, :that, try { token('of') and endNode }, try { preposition and nod }
+any{
+  try{where}
+  that?
+  try{token('of') and endNode}
+  try{preposition and nod }
+  }
+    #one :where, :that, try { token('of') and endNode }, try { preposition and nod }
   end
 
 # preposition nod  # ambivalent?  delete james, from china delete (james from china)
@@ -726,7 +764,7 @@ class EnglishParser < Parser
     try {
       article
     }
-    star { adjective }
+    star { adjective } #  first second ... included
     noun include
     #any{
     #  try{noun}

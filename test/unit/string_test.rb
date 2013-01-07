@@ -13,18 +13,41 @@ class StringTestClass<EnglishParser
     super
   end
 
-  def _test_string_methods
+  def test_string_methods
     p "invert 'hi'"
     assert @result=="ih"
     p "x='hi' inverted"
     assert @result=="ih"
-    assert(@variables['x']== 'hi');
+    assert(@variables['x']== 'ih');
+  end
+
+  def test_select
+    assert "first character of 'hi' is 'h'"
+    assert "second character of 'hi' is 'i'"
+    assert "last character of 'hi' is 'i'"
+    assert "first word of 'hi you' is 'hi'"
+    assert "second word of 'hi you' is 'you'"
+    assert "last word of 'hi you' is 'you'"
+  end
+
+  def test_gerunds
+    s "gerunding"
+    x=gerund
+    s "gerunded"
+    x=postjective
+    x
   end
 
   def test_concatenation
     s "x is 'hi'"
     setter
     assert(@variables['x']== 'hi');
+    s "x + 'world'"
+    #algebra
+    #statement
+    root
+    p "x + ' world'"
+    assert @result=="hi world"
     p "x is 'hi'
        y is 'world'
         z is x + ' ' + y"
@@ -79,12 +102,22 @@ class StringTestClass<EnglishParser
   def test_type3
   p "x be 'hello world';show x;x;y= class of x"
     assert @variables['y']==String
-
     assert("type of x is string")
     assert("class of x is string")
     assert("kind of x is string")
     p "y is type of x"
     assert("y is string")
+  end
+
+  def current
+    #test_type1
+    #test_type2
+    #test_type
+    #test_type3
+    #test_concatenation
+    #test_gerunds
+    #test_string_methods
+    test_select
   end
 
 end
@@ -120,9 +153,7 @@ class StringTest < ActiveSupport::TestCase
   end
 
   test "current" do
-    #@testParser.test_type1
-    #@testParser.test_type2
-    @testParser.test_type
+    @testParser.current
   end
 
 end
