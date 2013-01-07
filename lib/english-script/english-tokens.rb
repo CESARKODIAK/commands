@@ -34,8 +34,12 @@ module EnglishParserTokens #< MethodInterception
     ["class","interface","module","type","kind"]
   end
 
+  def type_names
+    ["string","int","integer","bool","boolean","list","array","hash"]
+  end
+
   def constants
-    ["true","false","yes","no","1","0"]
+    ["true","false","yes","no","1","0","pi"]
   end
 
   def question_words
@@ -183,15 +187,20 @@ module EnglishParserTokens #< MethodInterception
 # is neither ... nor ...
   def comparation
     # danger: is
-    tokens? 'be','is','are','were'
+    eq=tokens? 'be','is','are','were'
     tokens? 'either','neither'
     tokens? 'not'
     try{adverb} #'quite','nearly','almost','definitely','by any means','without a doubt'
-    tokens true_comparitons
-    no_rollback!
+    if(eq) # is (equal) optional
+      tokens? true_comparitons
+    else
+      comp=tokens true_comparitons
+      no_rollback!
+    end
     tokens? 'and','or','xor','nor'
     tokens? true_comparitons
     _?'than','then' #_?'then' ;}
+    comp||eq
   end
 
   def either_or
@@ -273,7 +282,7 @@ module EnglishParserTokens #< MethodInterception
     raiseEnd
     match=@string.match(/^\d*.\d+/)
     if match
-      @current_value=@string[0..match[0].length]
+      @current_value=@string[0..match[0].length-1].to_f
       @string=@string[match[0].length..-1].strip
       return @current_value
       #return rest @string
@@ -286,9 +295,9 @@ module EnglishParserTokens #< MethodInterception
   def integer
     match=@string.match(/^\d+/)
     if match
-      @current_value=@string[0..match[0].length]
+      @current_value=@string[0..match[0].length-1].to_i
       @string=@string[match[0].length..-1].strip
-      return @current_value.strip
+      return @current_value
     end
     return false
     #plus{tokens '1','2','3','4','5','6','7','8','9','0'}
@@ -302,7 +311,8 @@ module EnglishParserTokens #< MethodInterception
   def true_variable
     for v in @variables.keys
       if @string.start_with? v
-        token v
+        var=token v
+        return var
       end
     end
     tokens variables_list
@@ -322,7 +332,8 @@ module EnglishParserTokens #< MethodInterception
 
   def get_noun
     the_noun=@string.match(/^\s*(\w+)/)[1] rescue nil
-    return false if not the_noun
+    #return false if not the_noun
+    raise NotMatching.new "no noun word" if not the_noun
     raise NotMatching.new "no noun" if not the_noun.is_noun
     @string=@string.strip[the_noun.length..-1]
     the_noun

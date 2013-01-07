@@ -25,8 +25,6 @@ class Parser #<MethodInterception
     @lines=[]
   end
 
-
-
   def s string
     allow_rollback
     init string
@@ -34,10 +32,7 @@ class Parser #<MethodInterception
   end
 
   def p string
-    allow_rollback
-    init string
-    root
-    #@@parser.init string
+    parse string
   end
 
 
@@ -54,7 +49,7 @@ class Parser #<MethodInterception
     raise ScriptError.new to_source(block) if block and not x
     if x.is_a? String
       begin
-        parse x
+        s x
         condition
       rescue => e
         raise ScriptError.new "NOT "+x+" \t("+e.class.to_s+") "+e.to_s
@@ -68,6 +63,9 @@ class Parser #<MethodInterception
     @lines=string.split("\n")
     @string=@lines[0]
     @original_string=@string
+    @root=nil
+    @nodes=[]
+    @interpret=true
   end
 
   def interpretation

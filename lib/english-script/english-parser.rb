@@ -87,7 +87,9 @@ class EnglishParser < Parser
 
 
   def do_evaluate x
-
+    return @variables[x] if @variables.contains x
+    return eval(x)
+    # ... todo!
   end
 
   def evaluate_property
@@ -96,7 +98,7 @@ class EnglishParser < Parser
     x=endNode2 type_keywords
     _ "of"
     y=endNode
-    return true if not @interpret
+    return get_parent if not @interpret
     # todo : eval NODE !@!!
     x="class" if x=="type" # !@!@*)($&@) NOO
     all=x+" of "+y
@@ -148,10 +150,10 @@ class EnglishParser < Parser
     many {#root
       try { newline } ||
           try { method_definition } ||
-          try { expression } ||
           try { statement } ||
           try { ruby_def } ||
           try { block }||
+          try { expression } ||
           try { context }
     }
   end
@@ -213,11 +215,16 @@ class EnglishParser < Parser
   end
 
   def expression
-    try { ex=endNode } or try { ex=evaluate_property } or ex=algebra
-    @result=ex if ex
+    ex=any{
+      try { endNode } ||
+      try { evaluate_property } ||
+          algebra
+      }
+    @result=do_evaluate ex if ex
   end
 
   def statement
+    raiseNewline
     x=any {
       return @NEWLINE if checkNewline
       try { action }||
@@ -507,7 +514,8 @@ class EnglishParser < Parser
     var=variable
     _?("to") or be
     no_rollback!
-    val=value
+    val=endNode
+    #val=value
     @variables[var]=val if mod!="default" or not @variables.contains(var)
     newline?
     var
@@ -542,6 +550,7 @@ class EnglishParser < Parser
   end
 
   def no_keyword except=[]
+    except=except[:except] if except.is_a? Hash
     raise NotMatching.new ("ShouldNotMatchKeyword") if starts_with? keywords-except
   end
 
@@ -551,10 +560,9 @@ class EnglishParser < Parser
 
   def value
     @current_value=nil
-    except=constants
-    no_keyword except
+    no_keyword_except constants
     @current_value=any {
-      quote?||
+          quote?||
           constant?||
           true_variable? ||
           number? ||
@@ -611,9 +619,19 @@ class EnglishParser < Parser
   end
 
   def condition
-    endNode
-    comparison
-    endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
+    a=endNode
+    comp=comparison
+    #allow_rollback ??
+    b=endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
+    if @interpret
+      begin
+      @result=a.send(comp,b)
+      return @result
+      rescue => x
+        debug x
+      end
+    end
+    return get_parent
   end
 
   def auxiliary
@@ -648,20 +666,32 @@ class EnglishParser < Parser
   #  word #todo
   #end
 
+  def typeName
+    tokens type_names
+  end
+
   def endNode
     return true if checkEnd
-    any {
-      try { evaluate_property }||
-          try { article?; word } ||
-          try { true_variable} ||
-
+    x=any {
+          #typeName? ||
           #try { plural} ||
-          try { endNode2 and selector2? } ||
+          try { evaluate_property }||
+          try { x=endNode2
+                try{selector2}  # fucks it up, HOW !?!?!?  EndOfDocument hmmmmmmm , not caught OK
+                return x
+          } ||
+          try { true_variable} ||
+          try { article?; word } ||
+          try { article?
+                typeName
+          } ||
           try { value }
     }
+    x
   end
 
   def selector2
+    return if checkEnd
     __ 'that', 'who'
     star { adverb }
     verb

@@ -39,7 +39,8 @@ module MethodInterception
      "allow_rollback",  "init",
      "test_setter", "try_action", "method_missing", "endNode2", "no_rollback!", "raiseEnd",
      "string_pointer", "verbose", "try", "checkEnd", "to_source", "rest", "keywords",
-     "starts_with?", "be_words", "no_keyword", "prepositions", "variables_list", "the?", "app_path",
+     "starts_with?", "be_words", "no_keyword", "no_keyword_except", "prepositions", "variables_list", "the?",
+     "app_path",
      "constants", "comment", "any_ruby_line"
     ] #"call_is_verb",
   end

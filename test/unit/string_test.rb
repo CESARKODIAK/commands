@@ -1,7 +1,8 @@
 require 'test_helper'
 #require '../test_helper'
 
-$dont_use_tree=true
+#$dont_use_tree=true
+$dont_use_tree=false
 #require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"
 
@@ -10,6 +11,14 @@ class StringTestClass<EnglishParser
   def initialize
     @@testing=true
     super
+  end
+
+  def _test_string_methods
+    p "invert 'hi'"
+    assert @result=="ih"
+    p "x='hi' inverted"
+    assert @result=="ih"
+    assert(@variables['x']== 'hi');
   end
 
   def test_concatenation
@@ -63,7 +72,14 @@ class StringTestClass<EnglishParser
 
 
   def test_type
-    p "x be 'hello world';show x;x; class of x"
+    parse "x='hi'"
+    assert "type of x is string"
+  end
+
+  def test_type3
+  p "x be 'hello world';show x;x;y= class of x"
+    assert @variables['y']==String
+
     assert("type of x is string")
     assert("class of x is string")
     assert("kind of x is string")
@@ -104,9 +120,9 @@ class StringTest < ActiveSupport::TestCase
   end
 
   test "current" do
-    @testParser.test_type1
-    @testParser.test_type2
-    #@testParser.test_type
+    #@testParser.test_type1
+    #@testParser.test_type2
+    @testParser.test_type
   end
 
 end

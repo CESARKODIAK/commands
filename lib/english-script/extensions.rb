@@ -6,6 +6,14 @@ class Object
   def debug *x
     puts x
   end
+
+  def is x
+    return true if x==self
+    return true if x===self
+    return true if x.to_s.downcase==self.to_s.downcase #KINDA
+    return false
+  end
+
 end
 
 class Nil
