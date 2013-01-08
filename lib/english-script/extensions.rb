@@ -37,10 +37,19 @@ class Hash
 end
 
 class Array
+  #def = x  unexpected '='
+  #  is x
+  #end
 
   def fix_int i
+    i=count/2 if i.to_s=="middle"
+    return i-1 if i.is_a? Numeric
     i=i.to_s.replace_numerals!.to_i
     i-1
+  end
+
+  def character nr
+    item nr
   end
 
   def item nr
@@ -87,18 +96,26 @@ end
 class String
 
   def fix_int i
+    i=count/2 if i.to_s=="middle"
+    return i-1 if i.is_a? Numeric
     i=i.to_s.replace_numerals!.to_i #if i.is_a? String
-    i
+    i-1
+  end
+
+
+  def sentence i
+    i=fix_int i
+    split(/[\.\?\!\;]/)[i]
   end
 
   def paragraph i
     i=fix_int i
-    split("\n")[i-1]
+    split("\n")[i]
   end
 
   def word i
     i=fix_int i
-    split(" ")[i-1]
+    split(" ")[i]
   end
 
   def item i
@@ -111,7 +128,7 @@ class String
 
   def character i
     i=fix_int i
-    self[i-1..i-1]
+    self[i-1..i]
   end
 
   def flip
@@ -159,8 +176,30 @@ class String
   end
 
   def replace_numerals!
+
     gsub!(/([a-z])-([a-z])/, "\\1+\\2")
     gsub!("last", "0") # index trick
+
+    gsub!("tenth", "10")
+    gsub!("ninth", "9")
+    gsub!("eighth", "8")
+    gsub!("seventh", "7")
+    gsub!("sixth", "6")
+    gsub!("fifth", "5")
+    gsub!("fourth", "4")
+    gsub!("third", "3")
+    gsub!("second", "2")
+    gsub!("first", "1")
+
+    gsub!("4th", "4")
+    gsub!("3rd", "3")
+    gsub!("2nd", "2")
+    gsub!("1st", "1")
+    gsub!("(\d+)th", "\\1")
+    gsub!("(\d+)rd", "\\1")
+    gsub!("(\d+)nd", "\\1")
+    gsub!("(\d+)st", "\\1")
+
     gsub!("a couple of", "2")
     gsub!("a dozen", "12")
     gsub!("ten", "10")
@@ -172,6 +211,7 @@ class String
     gsub!("seventy", "70")
     gsub!("eighty", "80")
     gsub!("ninety", "90")
+
     gsub!("ten", "10")
     gsub!("eleven", "11")
     gsub!("twelve", "12")
@@ -182,16 +222,7 @@ class String
     gsub!("seventeen", "17")
     gsub!("eighteen", "18")
     gsub!("nineteen", "19")
-    gsub!("tenth", "10")
-    gsub!("ninth", "9")
-    gsub!("eighth", "8")
-    gsub!("seventh", "7")
-    gsub!("sixth", "6")
-    gsub!("fifth", "5")
-    gsub!("fourth", "4")
-    gsub!("third", "3")
-    gsub!("second", "2")
-    gsub!("first", "1")
+
     gsub!("ten", "10")
     gsub!("nine", "9")
     gsub!("eight", "8")
@@ -204,6 +235,7 @@ class String
     gsub!("one", "1")
     gsub!("dozen", "12")
     gsub!("couple", "2")
+
     gsub!(" hundred thousand", " 100000")
     gsub!(" hundred", " 100")
     gsub!(" thousand", " 1000")
@@ -224,26 +256,18 @@ class String
   end
 
 end
-class Float
-  def to_the_power_of x
-    self**x
+
+
+#class Fixnum Float
+class Numeric
+  def bigger? x
+    self>x
   end
 
-  def to_the x
-    self**x
+  def smaller? x
+    self<x
   end
 
-  def power x
-    self**x
-  end
-
-
-  def square
-    self*self
-  end
-end
-
-class Fixnum
 
   def to_the_power_of x
     self**x

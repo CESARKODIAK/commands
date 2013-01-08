@@ -11,7 +11,7 @@ require 'wordnet'
 Linguistics.use(:en, :monkeypatch => true)
 #http://99designs.com/tech-blog/ More magic
 
-
+# look at java AST http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations
 class EnglishParser < Parser
   include MethodInterception
   include CoreFunctions
@@ -61,115 +61,6 @@ class EnglishParser < Parser
     response.body
   end
 
-  def english_to_math s
-    s.replace_numerals!
-    s.gsub!(" plus ", "+")
-    s.gsub!(" minus ", "-")
-
-    s.gsub!(/(\d+) multiply (\d+)/, "\\1 * \\2")
-    s.gsub!(/multiply (\d+) with (\d+)/, "\\1 * \\2")
-    s.gsub!(/multiply (\d+) by (\d+)/, "\\1 * \\2")
-    s.gsub!(/multiply (\d+) and (\d+)/, "\\1 * \\2")
-    s.gsub!(/divide (\d+) with (\d+)/, "\\1 / \\2")
-    s.gsub!(/divide (\d+) by (\d+)/, "\\1 / \\2")
-    s.gsub!(/divide (\d+) and (\d+)/, "\\1 / \\2")
-    s.gsub!(" multiplied by ", "*")
-    s.gsub!(" times ", "*")
-    s.gsub!(" divided by ", "/")
-    s.gsub!(" divided ", "/")
-    s.gsub!(" with ", "*")
-    s.gsub!(" by ", "*")
-    s.gsub!(" and ", "+")
-    s.gsub!(" multiply ", "*")
-    return s
-  end
-
-
-  def do_evaluate x
-    begin
-      return x if x.is_a? Array
-      $variables=@variables
-      return @variables[x] if @variables.contains x
-      return x.eval_node if x.is_a? TreeNode
-      return eval(x)
-        # ... todo!
-    rescue SyntaxError
-      return x
-    end
-  end
-
-  def evaluate_property
-    must_contain "of","in"
-    raiseNewline
-    x=endNoun type_keywords
-    __ "of", "in"
-    y=expression
-    return parent_node if not @interpret
-    # todo : eval NODE !@!!
-    x="class" if x=="type" # !@!@*)($&@) NOO
-    if x.is_a? TreeNode
-      if x.nodes.count==1
-        x=x.to_s
-      else
-        r="" # argument hack
-        for n in x.nodes
-          r=n.value+" "+r if n.value and n.valid
-        end
-      end
-      #x=x.full_value.flip  # argument hack NEEE color= green  color of the sun => sun.green --
-    end
-    x=x.join(" ") if x.is_a? Array
-    y=y.to_s if y.is_a? Array
-    all=x+" of "+y
-    x=x.gsub(" ", " :")
-    begin
-      @result=nil #delete old!
-      @result=eval(y+"."+x) rescue nil
-      @result=eval("'"+y+"'."+x) if not @result rescue SyntaxError #string method
-                  #@result=eval('"'+y+'".'+x) if not @result  rescue SyntaxError #string method
-      @result=eval(all) if not @result rescue SyntaxError
-    rescue SyntaxError => e
-      #@result=jeannie all if not @result
-    rescue => e
-      #@result=jeannie all if not @result
-    end
-    return @result
-  end
-
-
-  def jeannie request
-    jeannie_api="https://weannie.pannous.com/api?"
-    params="login=test-user&out=simple&input="
-    #raise "empty evaluation" if @current_value.blank?
-    download jeannie_api+params+URI.encode(request)
-  end
-
-  #  those attributes. hacky? do better / don't use
-  def subnode attributes={}
-    return if not $use_tree
-    attributes.each do |name, value|
-      @current_node.nodes<<TreeNode.new(name: name, value: value)
-      @current_value=value
-    end
-    return @current_value
-  end
-
-  def evaluate
-    __ "what is", "evaluate", "how much", "what are", "calculate", "eval"
-    no_rollback!
-    the_expression= rest_of_line
-    subnode statement: the_expression
-    @current_value=the_expression
-    begin
-      @result=eval(english_to_math the_expression) #if @result.blank?
-    rescue
-      @result=jeannie(the_expression)
-    end
-    subnode result: @result # todo: via automagic
-    @current_value=@result
-    @current_value
-  end
-
   def root
     many {#root
       try { newline } ||
@@ -191,6 +82,7 @@ class EnglishParser < Parser
     done
   end
 
+
   def bracelet
     subnode "brace" => token("(")
     algebra
@@ -207,7 +99,7 @@ class EnglishParser < Parser
   end
 
   def algebra
-    x=any { try { value } or bracelet? } # variable? or number? or
+    x=any { try { value } or bracelet? }
     star {
       op=operator
       no_rollback!
@@ -249,7 +141,7 @@ class EnglishParser < Parser
     }
   end
 
-
+  #direct_token : WITH space!
   def token t
     #return nil if checkEnd
     @string.strip!
@@ -262,10 +154,6 @@ class EnglishParser < Parser
       verbose "expected "+t.to_s # if @throwing
       raise NotMatching.new(t)
     end
-  end
-
-  def escape_token t
-    t.gsub(/([^\w])/, "\\\\\\1")
   end
 
   def tokens *tokenz
@@ -285,6 +173,10 @@ class EnglishParser < Parser
       end
     end
     raise NotMatching.new(tokenz.to_s) #if @throwing
+  end
+
+  def escape_token t
+    t.gsub(/([^\w])/, "\\\\\\1")
   end
 
   def starts_with? tokenz
@@ -324,7 +216,7 @@ class EnglishParser < Parser
   end
 
   def expression
-    ex=any {
+    ex=any {#expression
       try { evaluate_property } ||
           try { algebra } ||
           try { list } ||
@@ -700,40 +592,179 @@ class EnglishParser < Parser
     endNode # about sex
   end
 
-# things that stink
-#, things that move backwards
+
+  def compareNode
+    comparison
+    endNode # expression
+  end
+
+  def whose
+    _ 'whose'
+    endNoun
+    compareNode # is bigger than live
+  end
+
+  # things that stink
+  # things that move backwards
+  # people who move like Chuck
+  # the input, which has caused problems
+  #images which only vary horizontally
   def that_do
-    tokens 'that', 'which', 'whose', 'who'
-    verbium
+    __ 'that', 'who', 'which'
+    star { adverb } # only
+    @comp=verb # live
+    _? 's' # lives
+    star { adverb?||# happily
+        preposition? || # in
+        endNoun? # africa
+    }
+  end
+
+  # more easisly
+  def more_comparative
+    __ "more", "less", "equally"
+    adverb
+  end
+
+
+  def as_adverb_as
+    _ "as"
+    adverb
+    _ "as"
+  end
+
+  # 50% more
+  # "our burgers have more flavor",
+  # "our picture is sharper"
+  # "our picture runs sharper"
+  def null_comparative
+    verb
+    comparative
     endNode?
+    return c if c.starts_with? "more" or c.ends_with? "er"
+  end
+
+  #  faster than ever
+  #  more funny than the funny cat
+  def than_comparative
+    comparative
+    _ "than"
+    adverb? || endNode
+  end
+
+
+  def comparative
+    c=more_comparative? or adverb
+    @comp=c if c.starts_with? "more" or c.ends_with? "er"
   end
 
 
   def that_are
-    __ 'that', 'which', 'whose', 'who'
+    __ 'that', 'which', 'who'
     be
-    adjective? || gerund
+    compareNode?|| # bigger than live
+        @comp= adjective? || # simple
+            gerund #  whining
   end
 
+  # things that I saw yesterday
+  def that_object_predicate
+    tokens 'that', 'which', 'who', 'whom'
+    pronoun? or endNoun
+    verbium
+    star {
+      adverb? || preposition? || endNoun?
+    }
+  end
+
+
   def that
-    that_do || that_are
+    filter=any {
+      try { that_do } ||
+          try { that_are }||
+          try { whose }
+    }
   end
 
 
   def where
-    tokens 'where'
+    tokens 'where' # NOT: ,'who','whose','which'
     condition
+  end
+
+# ambivalent?  delete james from china
+
+  def selector
+    return if checkEnd
+    x=any {
+      try { where }|| # sql style
+          try { that } || # friends that live in africa
+          try { token('of') and endNode }|| # friends of africa
+          try { preposition and nod } # friends in africa
+    }
+    $use_tree ? parent_node : @current_value
+  end
+
+
+# preposition nod  # ambivalent?  delete james, from china delete (james from china)
+
+# (who) > run like < rabbits
+  def verb_comparison
+    star { adverb }
+    verb
+    preposition
+  end
+
+
+  def comparison
+    @comp=try { verb_comparison }|| # run like
+        try { comparation } # are bigger than
+  end
+
+
+# is more or less
+# is neither ... nor ...
+  def comparation
+    # danger: is
+    eq=tokens? 'be', 'is', 'are', 'were'
+    tokens? 'either', 'neither'
+    tokens? 'not'
+    try { adverb } #'quite','nearly','almost','definitely','by any means','without a doubt'
+    if (eq) # is (equal) optional
+      comp=tokens? true_comparitons
+    else
+      comp=tokens true_comparitons
+      no_rollback!
+    end
+    tokens? 'and', 'or', 'xor', 'nor'
+    tokens? true_comparitons
+    _? 'than', 'then' #_?'then' ;}
+    @comp=comp||eq
+  end
+
+  def either_or
+    tokens? 'be', 'is', 'are', 'were'
+    tokens 'either', 'neither'
+    comparation?
+    value
+    tokens? 'or', 'nor'
+    comparation?
+    value
   end
 
   def condition
     a=expression
-    comp=comparison
+    @comp=comparison
     #allow_rollback ??
     b=expression
     #endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
     if @interpret
       begin
-        @result=a.send(comp, b)
+        if @comp=="="
+          @result=a.is b
+        else
+          @result=a.send(@comp, b)
+        end
         return @result
       rescue => x
         debug x
@@ -742,15 +773,12 @@ class EnglishParser < Parser
     return parent_node
   end
 
-  def auxiliary
-    'want'||'like'||'hate'
-  end
-
 # todo  I hate to ...
-
-  def verbTo
-    auxiliary
-    _ 's to'
+  def loveHateTo
+    _? "would", "wouldn't"
+    __? "do", "not", "don't"
+    __ ['want', 'like', 'love', 'hate']
+    _ 'to'
   end
 
 
@@ -800,6 +828,32 @@ class EnglishParser < Parser
     @current_value
   end
 
+
+  def filter list, criterion
+    list=get_iterator(list) if not list.is_a? Array
+    if $use_tree
+      method=criterion[:comparative]||criterion[:comparison]||criterion[:adjective]
+      args=criterion[:endNode]||criterion[:endNoun]||criterion[:expression]
+    else
+      method=@comp
+      args=criterion
+    end
+    list.select { |i|
+      ok=i.send(method, args) rescue false
+      ok||=i.send(method+"?", args) rescue false
+      ok
+    }
+  end
+
+  def selectable
+    __? "every", "all"
+    x=endNoun? || true_variable
+    s=try { selector }
+    x=filter(da(x), s) if @interpret rescue x
+    x
+  end
+
+
   def endNode
     raiseEnd
     #return true if checkEnd  #!?! NEE!?
@@ -807,10 +861,7 @@ class EnglishParser < Parser
       #typeName? ||
       #try { plural} ||
       try { evaluate_property }||
-          try { x=endNoun
-          try { verbSelector } # fucks it up, HOW !?!?!?  EndOfDocument hmmmmmmm , not caught OK
-          x
-          } ||
+          try { selectable } ||
           try { true_variable } ||
           try { article?; word } ||
           try { article?; typeName } ||
@@ -821,43 +872,6 @@ class EnglishParser < Parser
       x=@current_value=x.send(po) rescue x #DANGAR!!
     end
     x
-  end
-
-  def verbSelector
-    return if checkEnd
-    __ 'that', 'who'
-    star { adverb }
-    verb
-    star { adverb }
-    #_ 's' ??
-    preposition
-    endNoun
-  end
-
-  def selector
-# ambivalent?  delete james from china
-    any {
-      try { where }
-      that?
-      try { token('of') and endNode }
-      try { preposition and nod }
-    }
-#one :where, :that, try { token('of') and endNode }, try { preposition and nod }
-  end
-
-# preposition nod  # ambivalent?  delete james, from china delete (james from china)
-
-# (who) run like rabbits
-  def verb_comparison
-    star { adverb }
-    verb
-    preposition
-  end
-
-
-  def comparison
-    try { verb_comparison }||
-        try { comparation }
   end
 
 
@@ -938,6 +952,116 @@ class EnglishParser < Parser
   def start_block
     return @OK if checkNewline
     try { tokens "do", "{", "first you ", "second you ", "then you ", "finally you ", ":" }
+  end
+
+
+  def english_to_math s
+    s.replace_numerals!
+    s.gsub!(" plus ", "+")
+    s.gsub!(" minus ", "-")
+
+    s.gsub!(/(\d+) multiply (\d+)/, "\\1 * \\2")
+    s.gsub!(/multiply (\d+) with (\d+)/, "\\1 * \\2")
+    s.gsub!(/multiply (\d+) by (\d+)/, "\\1 * \\2")
+    s.gsub!(/multiply (\d+) and (\d+)/, "\\1 * \\2")
+    s.gsub!(/divide (\d+) with (\d+)/, "\\1 / \\2")
+    s.gsub!(/divide (\d+) by (\d+)/, "\\1 / \\2")
+    s.gsub!(/divide (\d+) and (\d+)/, "\\1 / \\2")
+    s.gsub!(" multiplied by ", "*")
+    s.gsub!(" times ", "*")
+    s.gsub!(" divided by ", "/")
+    s.gsub!(" divided ", "/")
+    s.gsub!(" with ", "*")
+    s.gsub!(" by ", "*")
+    s.gsub!(" and ", "+")
+    s.gsub!(" multiply ", "*")
+    return s
+  end
+
+
+  def do_evaluate x
+    begin
+      return x if x.is_a? Array
+      $variables=@variables
+      return @variables[x] if @variables.contains x
+      return x.eval_node if x.is_a? TreeNode
+      return eval(x)
+        # ... todo!
+    rescue SyntaxError
+      return x
+    end
+  end
+
+  def evaluate_property
+    must_contain "of", "in"
+    raiseNewline
+    x=endNoun type_keywords
+    __ "of", "in"
+    y=expression
+    return parent_node if not @interpret
+    # todo : eval NODE !@!!
+    x="class" if x=="type" # !@!@*)($&@) NOO
+    if x.is_a? TreeNode
+      if x.nodes.count==1
+        x=x.to_s
+      else
+        r="" # argument hack
+        for n in x.nodes
+          r=n.value+" "+r if n.value and n.valid
+        end
+      end
+      #x=x.full_value.flip  # argument hack NEEE color= green  color of the sun => sun.green --
+    end
+    x=x.join(" ") if x.is_a? Array
+    y=y.to_s if y.is_a? Array
+    all=x+" of "+y
+    x=x.gsub(" ", " :")
+    begin
+      @result=nil #delete old!
+      @result=eval(y+"."+x) rescue nil
+      @result=eval("'"+y+"'."+x) if not @result rescue SyntaxError #string method
+                  #@result=eval('"'+y+'".'+x) if not @result  rescue SyntaxError #string method
+      @result=eval(all) if not @result rescue SyntaxError
+    rescue SyntaxError => e
+      #@result=jeannie all if not @result
+    rescue => e
+      #@result=jeannie all if not @result
+    end
+    return @result
+  end
+
+
+  def jeannie request
+    jeannie_api="https://weannie.pannous.com/api?"
+    params="login=test-user&out=simple&input="
+    #raise "empty evaluation" if @current_value.blank?
+    download jeannie_api+params+URI.encode(request)
+  end
+
+  #  those attributes. hacky? do better / don't use
+  def subnode attributes={}
+    return if not $use_tree
+    attributes.each do |name, value|
+      @current_node.nodes<<TreeNode.new(name: name, value: value)
+      @current_value=value
+    end
+    return @current_value
+  end
+
+  def evaluate
+    __ "what is", "evaluate", "how much", "what are", "calculate", "eval"
+    no_rollback!
+    the_expression= rest_of_line
+    subnode statement: the_expression
+    @current_value=the_expression
+    begin
+      @result=eval(english_to_math the_expression) #if @result.blank?
+    rescue
+      @result=jeannie(the_expression)
+    end
+    subnode result: @result # todo: via automagic
+    @current_value=@result
+    @current_value
   end
 
 

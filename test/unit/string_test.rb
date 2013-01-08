@@ -7,7 +7,7 @@ $use_tree=true
 #require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"
 
-class StringTestClass<EnglishParser
+class StringTestParser<EnglishParser
 
   def initialize
     @@testing=true
@@ -146,7 +146,7 @@ class StringTest < ActiveSupport::TestCase
   end
 
   def initialize args
-    @testParser=StringTestClass.new
+    @testParser=StringTestParser.new
     super args
   end
 

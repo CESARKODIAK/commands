@@ -125,7 +125,7 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def be_words
-    ['is','be','was',':=','=','==']
+    ['is','be','was','are','will be','were','have been','shall be', ':=','=','==']
   end
 
   def fillers
@@ -175,6 +175,9 @@ module EnglishParserTokens #< MethodInterception
     tokens modifiers
   end
 
+  def pronoun
+    __ pronouns
+  end
 
   def nill
     tokens nill_words
@@ -190,36 +193,6 @@ module EnglishParserTokens #< MethodInterception
 
   def be
     tokens be_words
-  end
-
-# is more or less
-# is neither ... nor ...
-  def comparation
-    # danger: is
-    eq=tokens? 'be','is','are','were'
-    tokens? 'either','neither'
-    tokens? 'not'
-    try{adverb} #'quite','nearly','almost','definitely','by any means','without a doubt'
-    if(eq) # is (equal) optional
-      tokens? true_comparitons
-    else
-      comp=tokens true_comparitons
-      no_rollback!
-    end
-    tokens? 'and','or','xor','nor'
-    tokens? true_comparitons
-    _?'than','then' #_?'then' ;}
-    comp||eq
-  end
-
-  def either_or
-    tokens? 'be','is','are','were'
-    tokens 'either','neither'
-    comparation?
-    value
-    tokens? 'or','nor'
-    comparation?
-    value
   end
 
 
@@ -278,31 +251,15 @@ module EnglishParserTokens #< MethodInterception
     try{the}
   end
 
-
-#number      DIGIT+ ('.' DIGIT+)?
-  def number
-    real || integer  #s '34' # Integer || Real
+  def number # complex ||
+    real || integer || __(numbers).parse_integer
   end
-
-  def real
-    raiseEnd
-    match=@string.match(/^\d*\\.\d+/)
-    if match
-      @current_value=@string[0..match[0].length-1].to_f
-      @string=@string[match[0].length..-1].strip
-      return @current_value
-      #return rest @string
-    end
-    return false
-    #plus{tokens '1','2','3','4','5','6','7','8','9','0','.'}
-  end
-
 
   def integer
     match=@string.match(/^\s*\d+/)
     if match
-      @current_value=@string[0..match[0].length-1].to_i
-      @string=@string[match[0].length..-1].strip
+      @current_value=match[0].to_i
+      @string=match.post_match.strip
       return @current_value
     end
     return false
@@ -310,18 +267,43 @@ module EnglishParserTokens #< MethodInterception
   end
 
 
+  def real
+    raiseEnd
+    match=@string.match(/^\d*\\.\d+/)
+    if match
+      @current_value=match[0].to_f
+      @string=match.post_match.strip
+      return @current_value
+    end
+    return false
+  end
+
+  def complex
+    match=@string.match(/^\s*\d+i/) # 3i
+    match=@string.match(/^\s*\d*\.\d+i/)  if not match # 3.3i
+    match=@string.match(/^\s*\d+\s*\+\s*\d+i/)  if not match # 3+3i
+    match=@string.match(/^\s*\d*\.\d+\s*\+\s*\d*\.\d+i/)  if not match # 3+3i
+    if match
+      @current_value=match[0].strip
+      @string=match.post_match.strip
+      return @current_value
+    end
+    return false
+  end
+
   def variables_list
     return ['x','y','z','a','i']
   end
 
   def true_variable
-    for v in @variables.keys
-      if @string.start_with? v
-        var=token v
-        return var
-      end
-    end
-    tokens variables_list
+    tokens @variables.keys
+    #for v in @variables.keys
+    #  if @string.start_with? v
+    #    var=token v
+    #    return var
+    #  end
+    #end
+    #tokens variables_list # todo: remove (in endNodes, selectors,...)
   end
 
 

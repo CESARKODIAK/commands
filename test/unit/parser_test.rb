@@ -5,7 +5,7 @@ $use_tree=false
 #require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"
 
-class EnglishParserTestClass<EnglishParser
+class EnglishParserTestParser<EnglishParser
   #@@parser=EnglishParser.new
 
   def initialize
@@ -330,10 +330,10 @@ end
 
 class EnglishParserTest < ActiveSupport::TestCase
 
-  @@testParser=EnglishParserTestClass.new
+  @@testParser=EnglishParserTestParser.new
 
   def initialize args
-    @testParser=EnglishParserTestClass.new
+    @testParser=EnglishParserTestParser.new
     super args
   end
 
