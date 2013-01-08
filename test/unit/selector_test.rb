@@ -19,21 +19,35 @@ class SelectorTestParser<EnglishParser
     p "friendly numbers= [1,2,3]; show all friendly numbers"
     #p "print every item in [1,2,3]"
     #p "print every number in [1,2,3]"
+    #p "friendly numbers= [1,2,3]; friendly numbers which are smaller than three "
   end
 
-
   def test_selector0
+    assert "[2,3] = 2,3"
+    assert "[2,3] equals 2,3"
+    assert "[2,3] is the same as 2,3"
+    p "xs= 2,3,8,9"
+    s " xs that are smaller than 7 "
+    z=selectable
+    s " xs that are smaller than 7 == [2,3]"
+    condition
+    assert " xs that are smaller than 7 == [2,3]"
+    assert "those xs that are smaller than seven are 2,3"
+    assert "those xs that are smaller than seven are the same as 2,3"
+    #assert " {xs<7} = 2,3 "
+  end
 
+  #todo simplify
+  # those xs that are smaller than seven are the same as 2,3
+
+  def  test_selector1
     p "xs= 1,2,3"
     assert " xs that are bigger than one == [2,3]"
     #s " xs that are bigger than one"
     #z=selectable
     #s " xs that are bigger than one == [2,3]"
     #condition
-    assert " xs that are bigger than one == [2,3]"
-
-    #p "friendly numbers= [1,2,3]; friendly numbers that are bigger than one"
-    #p "friendly numbers= [1,2,3]; friendly numbers which are smaller than three "
+    #assert " xs that are bigger than one == [2,3]"
   end
 
   def test_every_selector

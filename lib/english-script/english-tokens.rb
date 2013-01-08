@@ -125,7 +125,8 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def be_words
-    ['is','be','was','are','will be','were','have been','shall be', ':=','=','==']
+    ['is','be','was','are','will be','were','have been','shall be','should be', ':=','=','==','equals','equal',
+     'is equal to']
   end
 
   def fillers

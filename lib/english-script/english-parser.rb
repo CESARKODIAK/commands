@@ -662,7 +662,7 @@ class EnglishParser < Parser
   def that_are
     __ 'that', 'which', 'who'
     be
-    compareNode?|| # bigger than live
+    try{compareNode}|| # bigger than live
         @comp= adjective? || # simple
             gerund #  whining
   end
@@ -726,7 +726,7 @@ class EnglishParser < Parser
 # is neither ... nor ...
   def comparation
     # danger: is
-    eq=tokens? 'be', 'is', 'are', 'were'
+    eq=tokens? be_words
     tokens? 'either', 'neither'
     tokens? 'not'
     try { adverb } #'quite','nearly','almost','definitely','by any means','without a doubt'
@@ -760,7 +760,7 @@ class EnglishParser < Parser
     #endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
     if @interpret
       begin
-        if @comp=="="
+        if be_words.index @comp or @comp.match(/same/)
           @result=a.is b
         else
           @result=a.send(@comp, b)
@@ -846,7 +846,7 @@ class EnglishParser < Parser
   end
 
   def selectable
-    __? "every", "all"
+    tokens? "every", "all","those"
     x=endNoun? || true_variable
     s=try { selector }
     x=filter(da(x), s) if @interpret rescue x
