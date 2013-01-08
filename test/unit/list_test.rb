@@ -4,7 +4,7 @@ require_relative "../../lib/english-script/english-parser"
 
 class ListTestClass<EnglishParser
   def current
-    test_type0
+    #test_type0
     #test_list_syntax
     #test_type1
     #test_type2
@@ -14,6 +14,7 @@ class ListTestClass<EnglishParser
     #test_gerunds
     #test_string_methods
     #test_select
+    test_select2
     #test_concatenation
     #test_concatenation2
   end
@@ -51,18 +52,26 @@ class ListTestClass<EnglishParser
     assert(@variables['x']== 'ih');
   end
 
-  def _test_select
-    assert "first character of 'h','i','v' is 'h'"
-    assert "second character of 'h','i','v' is 'i'"
-    assert "last character of 'h','i' is 'i'"
-    assert "first word of 'hi,'you' is 'hi'"
+  def test_error
+    assert "first item in 'hi,'you' is 'hi'"
+  end
+
+  def test_select2
+
+  assert "first item in 'hi','you' is 'hi'"
+  assert "second item in 'hi','you' is 'you'"
+  assert "last item in 'hi','you' is 'you'"
+  end
+
+  def test_select
+    #assert "first character of 'h','i','v' is 'h'"
+    #assert "second character of 'h','i','v' is 'i'"
+    #assert "last character of 'h','i' is 'i'"
+    assert "first word of 'hi','you' is 'hi'"
     assert "second word of 'hi','you' is 'you'"
     assert "last word of 'hi','you' is 'you'"
-    assert "first item in 'hi,'you' is 'hi'"
-    assert "second item in 'hi','you' is 'you'"
-    assert "last item in 'hi','you' is 'you'"
-    assert "numbers are 1,2,3. second number is 2"
-    assert "my friends are a,b and c. my second friend is b"
+    #assert "numbers are 1,2,3. second number is 2"
+    #assert "my friends are a,b and c. my second friend is b"
   end
 
   def test_list_syntax

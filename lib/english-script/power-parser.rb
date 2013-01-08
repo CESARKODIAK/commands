@@ -51,13 +51,15 @@ class Parser #<MethodInterception
       begin
         s x
         ok=condition
+      rescue SyntaxError => e
+        raise e# ScriptError.new "NOT PASSING: SyntaxError : "+x+" \t("+e.class.to_s+") "+e.to_s
       rescue => e
         raise ScriptError.new "NOT PASSING: "+x+" \t("+e.class.to_s+") "+e.to_s
       end
       raise StandardError.new "NOT PASSING: "+x if not ok
       puts x
     end
-    puts "TEST PASSED! " +x+" \t" +to_source(block)
+    puts "TEST PASSED! " +x.to_s+" \t" +to_source(block).to_s
   end
 
   def init string

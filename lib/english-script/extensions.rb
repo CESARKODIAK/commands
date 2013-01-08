@@ -8,19 +8,27 @@ class Object
   end
 
   def is x
+    return true if x.blank? and self.blank?
     return true if x==self
     return true if x===self
+    return true if x==self[0] if self.is_a? Array
+    return true if x[0]==self if x.is_a? Array
     return true if x.to_s.downcase==self.to_s.downcase #KINDA
     return false
   end
 
 end
 
-class Nil
-  def blank?
-    return true
-  end
+
+def nil.blank?
+  return true
 end
+
+#def nil.to_s
+#  ""
+#  #"nil"
+#end
+
 
 class Hash
   def contains key
@@ -29,6 +37,20 @@ class Hash
 end
 
 class Array
+
+  def fix_int i
+    i=i.to_s.replace_numerals!.to_i
+    i-1
+  end
+
+  def item nr
+    self[fix_int nr]
+  end
+
+  def word nr
+    self[fix_int nr]
+  end
+
   #EVIL!!
   def blank?
     nil? or empty?
@@ -37,10 +59,17 @@ class Array
   def contains x
     index x
   end
-
-  #def length
-  #  count
+  #
+  #def method_missing method, *args, &block
+  #  return self.map{|x| x.send method} if args.count==0
+  #  return self.map{|x| x.send(method,args)} if args.count>0
+  #  super method, *args, &block
   #end
+
+  #def to_s
+  #  "["+join(", ")+"]"
+  #end
+
 end
 
 class TrueClass
@@ -229,6 +258,10 @@ class Fixnum
   end
 
   def square
+    self*self
+  end
+
+  def squared
     self*self
   end
 end

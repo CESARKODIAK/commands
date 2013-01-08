@@ -86,19 +86,23 @@ class EnglishParser < Parser
 
 
   def do_evaluate x
-    return x if x.is_a? Array
-    $variables=@variables
-    return @variables[x] if @variables.contains x
-    return x.eval_node if x.is_a? TreeNode
-    return eval(x) rescue x #SyntaxError
-    # ... todo!
+    begin
+      return x if x.is_a? Array
+      $variables=@variables
+      return @variables[x] if @variables.contains x
+      return x.eval_node if x.is_a? TreeNode
+      return eval(x)
+        # ... todo!
+    rescue SyntaxError
+      return x
+    end
   end
 
   def evaluate_property
-    must_contain "of"
+    must_contain "of","in"
     raiseNewline
     x=endNoun type_keywords
-    _ "of"
+    __ "of", "in"
     y=expression
     return parent_node if not @interpret
     # todo : eval NODE !@!!
@@ -112,17 +116,22 @@ class EnglishParser < Parser
           r=n.value+" "+r if n.value and n.valid
         end
       end
-    #x=x.full_value.flip  # argument hack NEEE color= green  color of the sun => sun.green --
+      #x=x.full_value.flip  # argument hack NEEE color= green  color of the sun => sun.green --
     end
     x=x.join(" ") if x.is_a? Array
-    x=x.gsub(" "," :")
+    y=y.to_s if y.is_a? Array
     all=x+" of "+y
+    x=x.gsub(" ", " :")
     begin
-    @result=eval(y+"."+x) rescue nil
-    @result=eval('"'+y+'".'+x) if not @result  rescue SyntaxError #string method
-    @result=eval(all) if not @result rescue SyntaxError
-    rescue
-    @result=jeannie all if not @result
+      @result=nil #delete old!
+      @result=eval(y+"."+x) rescue nil
+      @result=eval("'"+y+"'."+x) if not @result rescue SyntaxError #string method
+                  #@result=eval('"'+y+'".'+x) if not @result  rescue SyntaxError #string method
+      @result=eval(all) if not @result rescue SyntaxError
+    rescue SyntaxError => e
+      #@result=jeannie all if not @result
+    rescue => e
+      #@result=jeannie all if not @result
     end
     return @result
   end
@@ -163,7 +172,7 @@ class EnglishParser < Parser
 
   def root
     many {#root
-          try { newline } ||
+      try { newline } ||
           try { method_definition } ||
           try { statement } ||
           try { ruby_def } ||
@@ -198,20 +207,20 @@ class EnglishParser < Parser
   end
 
   def algebra
-    x=any { try{value} or bracelet? } # variable? or number? or
+    x=any { try { value } or bracelet? } # variable? or number? or
     star {
       op=operator
       no_rollback!
       y=any {
         value? ||
-        bracelet?
+            bracelet?
       }
       if not $use_tree and @interpret
-        @result=da(x).send(op,da(y)) rescue SyntaxError
+        @result=da(x).send(op, da(y)) rescue SyntaxError
       end
     }
     if @interpret
-      @result=parent_node.eval_node if $use_tree  #wasteful!!
+      @result=parent_node.eval_node if $use_tree #wasteful!!
     end
     parent_node
   end
@@ -246,7 +255,7 @@ class EnglishParser < Parser
     @string.strip!
     raiseEnd
     if starts_with? t
-      @current_value=@string[0,t.length].strip
+      @current_value=@string[0, t.length].strip
       @string=@string[t.length..-1].strip
       return @current_value
     else
@@ -256,7 +265,7 @@ class EnglishParser < Parser
   end
 
   def escape_token t
-    t.gsub(/([^\w])/,"\\\\\\1")
+    t.gsub(/([^\w])/, "\\\\\\1")
   end
 
   def tokens *tokenz
@@ -294,20 +303,19 @@ class EnglishParser < Parser
   end
 
 
-
   def list
     must_contain ","
-    start_brace= try{token "["}
+    start_brace= try { token "[" }
     start_brace= _? "{" if not start_brace
-    raise NotMatching.new "not a deep list" if not start_brace and ( @inside_list )
+    raise NotMatching.new "not a deep list" if not start_brace and (@inside_list)
     @inside_list=true
     all=[]
     #all<<expression(start_brace)
     all<<endNode
-    star{
-        tokens(",","and") # danger: and as plus
-        all<<endNode
-        #all<<expression
+    star {
+      tokens(",", "and") # danger: and as plus
+      all<<endNode
+      #all<<expression
     }
     @inside_list=false
     _ "]" if start_brace=="["
@@ -316,20 +324,20 @@ class EnglishParser < Parser
   end
 
   def expression
-    ex=any{
-      try { list} ||
-      try { algebra } ||
-      try { endNode } ||
-      try { evaluate_property }
-      }
-    @result=do_evaluate ex if ex
+    ex=any {
+      try { evaluate_property } ||
+          try { algebra } ||
+          try { list } ||
+          try { endNode }
+    }
+    @result=do_evaluate ex if ex rescue SyntaxError
   end
 
   def statement
     raiseNewline
     x=any {
       return @NEWLINE if checkNewline
-          try { action }||
+      try { action }||
           try { expression } || # AS RETURN VALUE! DANGER!
           try { if_then } ||
           try { once } ||
@@ -617,8 +625,8 @@ class EnglishParser < Parser
     _?("to") or be
     val=expression
     no_rollback!
-    #val=endNode if not val
-    #val=value
+                    #val=endNode if not val
+                    #val=value
     @variables[var]=val if mod!="default" or not @variables.contains(var)
     checkEnd||newline
     var
@@ -665,12 +673,12 @@ class EnglishParser < Parser
     @current_value=nil
     no_keyword_except constants+numbers
     @current_value=x=any {
-       try{quote}||
-       try{number} ||
-       try{true_variable} ||
-       try{constant}||
-       try{nod} ||
-       try{nill}
+      try { quote }||
+          try { number } ||
+          try { true_variable } ||
+          try { constant }||
+          try { nod } ||
+          try { nill }
       #rest_of_line # TOOBIG HERE!
     }
     x
@@ -695,16 +703,14 @@ class EnglishParser < Parser
 # things that stink
 #, things that move backwards
   def that_do
-    tokens 'that','which','whose','who'
+    tokens 'that', 'which', 'whose', 'who'
     verbium
     endNode?
   end
 
 
-
-
   def that_are
-    __ 'that','which','whose','who'
+    __ 'that', 'which', 'whose', 'who'
     be
     adjective? || gerund
   end
@@ -724,11 +730,11 @@ class EnglishParser < Parser
     comp=comparison
     #allow_rollback ??
     b=expression
-        #endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
+    #endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
     if @interpret
       begin
-      @result=a.send(comp,b)
-      return @result
+        @result=a.send(comp, b)
+        return @result
       rescue => x
         debug x
       end
@@ -788,7 +794,7 @@ class EnglishParser < Parser
     match=@string.match(/^\s*(\w+)ed/)
     return false if not match
     @string=match.post_match
-    pr=tokens? prepositions if not checkEnd# wrapped in
+    pr=tokens? prepositions if not checkEnd # wrapped in
     endNode? if pr and not checkEnd # silver
     @current_value=match[1]
     @current_value
@@ -798,19 +804,19 @@ class EnglishParser < Parser
     raiseEnd
     #return true if checkEnd  #!?! NEE!?
     x=any {
-          #typeName? ||
-          #try { plural} ||
-          try { evaluate_property }||
+      #typeName? ||
+      #try { plural} ||
+      try { evaluate_property }||
           try { x=endNoun
-                try{verbSelector}  # fucks it up, HOW !?!?!?  EndOfDocument hmmmmmmm , not caught OK
-                x
+          try { verbSelector } # fucks it up, HOW !?!?!?  EndOfDocument hmmmmmmm , not caught OK
+          x
           } ||
-          try { true_variable} ||
+          try { true_variable } ||
           try { article?; word } ||
-          try { article?; typeName} ||
+          try { article?; typeName } ||
           try { value }
     }
-    po=try{postjective} # inverted
+    po=try { postjective } # inverted
     if po and @interpret
       x=@current_value=x.send(po) rescue x #DANGAR!!
     end
@@ -830,13 +836,13 @@ class EnglishParser < Parser
 
   def selector
 # ambivalent?  delete james from china
-any{
-  try{where}
-  that?
-  try{token('of') and endNode}
-  try{preposition and nod }
-  }
-    #one :where, :that, try { token('of') and endNode }, try { preposition and nod }
+    any {
+      try { where }
+      that?
+      try { token('of') and endNode }
+      try { preposition and nod }
+    }
+#one :where, :that, try { token('of') and endNode }, try { preposition and nod }
   end
 
 # preposition nod  # ambivalent?  delete james, from china delete (james from china)
@@ -861,7 +867,7 @@ any{
     obj=noun include
     return parent_node if $use_tree
     adjs=adjs.join(" ") if adjs
-    #return adjs.to_s+" "+obj.to_s # hmmm
+                            #return adjs.to_s+" "+obj.to_s # hmmm
     return obj.to_s + ' ' + adjs.to_s # hmmm
   end
 
