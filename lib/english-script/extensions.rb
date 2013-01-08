@@ -37,6 +37,10 @@ class Array
   def contains x
     index x
   end
+
+  #def length
+  #  count
+  #end
 end
 
 class TrueClass

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-$dont_use_tree=true
+$use_tree=false
 require_relative "../../lib/english-script/english-parser"
 
 class FunctionTest < ActiveSupport::TestCase

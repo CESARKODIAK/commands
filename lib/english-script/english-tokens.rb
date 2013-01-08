@@ -9,18 +9,26 @@ module EnglishParserTokens #< MethodInterception
 # Lexemes = simple words
 ##################
 
+  def numbers
+    %w[1 2 3 4 5 6 7 8 9 0
+      tenth ninth eighth seventh sixth fifth fourth third second first
+      ten nine eight seven six five four three two one ]
+  end
+
+
 
   def initialize
     super
     #pronouns +  TODO!!! keywords-pronouns has "I" (for I in [1..2])!?
     @NEWLINE="NEWLINE"
     @keywords=prepositions+modifiers+be_words+true_comparitons+fillers+nill_words+done_words+auxiliary_verbs+
-        conjunctions+type_keywords+otherKeywords
+        conjunctions+type_keywords+otherKeywords+numbers
   end
 
   def keywords
     @keywords # precalculated
   end
+
 
   def articles
     ['a','an','the','these','those','any','all','some','teh','that','every','each','this']# 'that' * 2 !!!
@@ -278,7 +286,7 @@ module EnglishParserTokens #< MethodInterception
 
   def real
     raiseEnd
-    match=@string.match(/^\d*.\d+/)
+    match=@string.match(/^\d*\\.\d+/)
     if match
       @current_value=@string[0..match[0].length-1].to_f
       @string=@string[match[0].length..-1].strip
@@ -291,7 +299,7 @@ module EnglishParserTokens #< MethodInterception
 
 
   def integer
-    match=@string.match(/^\d+/)
+    match=@string.match(/^\s*\d+/)
     if match
       @current_value=@string[0..match[0].length-1].to_i
       @string=@string[match[0].length..-1].strip

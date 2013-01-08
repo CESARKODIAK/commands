@@ -1,8 +1,9 @@
 require 'test_helper'
 #require '../test_helper'
 
-#$dont_use_tree=true
-$dont_use_tree=false
+$use_tree=false
+$use_tree=true
+
 #require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"
 
@@ -49,9 +50,13 @@ class StringTestClass<EnglishParser
     p "x + ' world'"
     assert @result=="hi world"
     p "x is 'hi'
-       y is 'world'
-        z is x + ' ' + y"
+       y is ' world'
+       z is x + y"
     assert(@variables['z']== 'hi world');
+    assert("x and y == 'hi world'");
+    assert("x + y == 'hi world'");
+    assert("x plus y == 'hi world'");
+    assert("'hi'+ ' '+'world' == 'hi world'");
     assert("z is 'hi world'");
     p "x is 'hi'; y is 'world';z is x ' ' y"
     assert("z is 'hi world'");
@@ -117,7 +122,8 @@ class StringTestClass<EnglishParser
     #test_concatenation
     #test_gerunds
     #test_string_methods
-    test_select
+    #test_select
+    test_concatenation
   end
 
 end

@@ -57,7 +57,7 @@ class Parser #<MethodInterception
       raise StandardError.new "NOT PASSING: "+x if not ok
       puts x
     end
-    puts "!!OK!!"
+    puts "TEST PASSED! " +x+" \t" +to_source(block)
   end
 
   def init string
@@ -117,67 +117,10 @@ class Parser #<MethodInterception
     return @string.blank?
   end
 
-  def token t
-    #return nil if checkEnd
-    @string.strip!
-    raiseEnd
-    if @string.downcase.start_with? t
-      @current_value=@string[0,t.length].strip
-      @string=@string[t.length..-1].strip
-      return @current_value
-    else
-      verbose "expected "+t.to_s # if @throwing
-      raise NotMatching.new(t)
-    end
-  end
-
-  def starts_with? tokenz
-    return if checkEnd
-    for t in tokenz
-      if @string.start_with?(t+" ")
-        return true
-      end
-    end
-    return false
-  end
-
-  def tokens *tokenz
-    raiseEnd
-    #return if checkEnd
-    @string.strip!
-    string=@string.gsub(/([^\w ])/," \\1 ").strip+" "
-    for t in tokenz.flatten
-      return true if (t=="\n" and @string.empty?)
-      if string.downcase.start_with?(t+" ")
-        @current_value=string[0,t.length].strip
-        string=@string[t.length..-1].strip # space????
-        @string=string
-        return @current_value
-      end
-    end
-    raise NotMatching.new(tokenz.to_s) #if @throwing
-    return false
-  end
 
 
-  def tokens2 *tokenz
-    return if checkEnd
-    tokenz.flatten!
-    tokenz.flatten!
-    for t in tokenz
-      if(t=="\n" and @string.start_with? "\n")
-        @string.strip!
-        @current_value="\n"
-        return "\n"
-      end
-      if @string.gsub(/^ */,"").start_with?(t)
-        @current_value=@string.strip[0,t.length].strip
-        @string=@string.strip[t.strip.length..-1]# DO NOT .strip!!
-        return @current_value
-      end
-    end
-    raise NotMatching.new(tokenz.to_s) #if @throwing
-    return false
+  def __ *x
+    tokens x
   end
 
   def remove_tokens *tokenz
@@ -190,10 +133,6 @@ class Parser #<MethodInterception
 # shortcut
   def __? *x
     remove_tokens x
-  end
-
-  def __ *x
-    tokens x
   end
 
   def must_contain *args
@@ -254,6 +193,7 @@ class Parser #<MethodInterception
     @rollback[caller.count]!="NO"   # -1?
   end
 
+  # same as try but throws if no result
   @throwing=true #[]
   @level=0
   def any(&block)
@@ -397,8 +337,8 @@ class Parser #<MethodInterception
         result=yield
         #puts "------------------"
         #puts @nodes-old_tree
-        break if @string.blank?
-        if not result  #or @string==""
+        break if @string.blank? # TODO! loop criterion too week
+        if not result or result==[] #or @string==""
           raise NotMatching.new to_source(block)+"\n"+string_pointer_s
           #exit
         end
@@ -536,7 +476,10 @@ class Parser #<MethodInterception
       @last_pattern=old_last
       return x
     end
-    return star{send(cut,args)} if(syms.end_with?"!")
+    if(syms.end_with?"!")
+      puts "DEPRECATED!!"
+    return star{send(cut,args)}
+    end
     #return star{send(cut)} if(syms.end_with?"*")
     #return plus{send(cut)} if(syms.end_with?"+")
     super(sym, *args, &block)

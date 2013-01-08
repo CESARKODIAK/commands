@@ -36,7 +36,7 @@ module MethodInterception
      "newline?", "ruby_block_test","subnode_token","get_adjective","get_noun","get_verb",
      "substitute_variables", "raiseNewline", "any", "initialize", "one_or_more", "expression",
      "endNode", "the_noun_that", "nod", "star", "rest_of_line", "setter", "action", "parse", "number",
-     "allow_rollback",  "init", "type_keywords",
+     "allow_rollback",  "init", "type_keywords", "articles",  "modifiers", "auxiliary_verbs",
      "test_setter", "try_action", "method_missing", "endNode2", "no_rollback!", "raiseEnd",
      "string_pointer", "verbose", "try", "checkEnd", "to_source", "rest", "keywords",
      "starts_with?", "be_words", "no_keyword", "no_keyword_except", "prepositions", "variables_list", "the?",
@@ -99,7 +99,7 @@ module MethodInterception
   end
 
   def bad name
-    return true if $dont_use_tree
+    return true if not $use_tree
     return true if name.to_s.end_with? "_words"
     #return true if name.to_s.start_with? "test_" # NEEDED for algebra.parent todo!
     #bad_name=true if name.to_s.end_with?("?") or
@@ -155,7 +155,7 @@ module MethodInterception
 
     def method_added name
       return true if name.to_s=="initialize"
-      return if $dont_use_tree
+      return if not $use_tree
       return if @@__last_methods_added && @@__last_methods_added.include?(name)
       with = :"#{name}_with_before_each_method"
       without = :"#{name}_without_before_each_method"

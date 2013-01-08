@@ -33,7 +33,6 @@ class EnglishParser < Parser
     @result=""
   end
 
-
   def interpretation
     @interpretation=Interpretation.new
     i= @interpretation #  Interpretation.new
@@ -67,13 +66,13 @@ class EnglishParser < Parser
     s.gsub!(" plus ", "+")
     s.gsub!(" minus ", "-")
 
-    s.gsub!(" (\d+) multiply (\d+) ", "\1 * \2")
-    s.gsub!(" multiply (\d+) with (\d+) ", "\1 * \2")
-    s.gsub!(" multiply (\d+) by (\d+) ", "\1 * \2")
-    s.gsub!(" multiply (\d+) and (\d+) ", "\1 * \2")
-    s.gsub!(" divide (\d+) with (\d+) ", "\1 / \2")
-    s.gsub!(" divide (\d+) by (\d+) ", "\1 / \2")
-    s.gsub!(" divide (\d+) and (\d+) ", "\1 / \2")
+    s.gsub!(/(\d+) multiply (\d+)/, "\\1 * \\2")
+    s.gsub!(/multiply (\d+) with (\d+)/, "\\1 * \\2")
+    s.gsub!(/multiply (\d+) by (\d+)/, "\\1 * \\2")
+    s.gsub!(/multiply (\d+) and (\d+)/, "\\1 * \\2")
+    s.gsub!(/divide (\d+) with (\d+)/, "\\1 / \\2")
+    s.gsub!(/divide (\d+) by (\d+)/, "\\1 / \\2")
+    s.gsub!(/divide (\d+) and (\d+)/, "\\1 / \\2")
     s.gsub!(" multiplied by ", "*")
     s.gsub!(" times ", "*")
     s.gsub!(" divided by ", "/")
@@ -87,19 +86,20 @@ class EnglishParser < Parser
 
 
   def do_evaluate x
+    return x if x.is_a? Array
     $variables=@variables
     return @variables[x] if @variables.contains x
     return x.eval_node if x.is_a? TreeNode
-    return eval(x)
+    return eval(x) rescue x #SyntaxError
     # ... todo!
   end
 
   def evaluate_property
     must_contain "of"
     raiseNewline
-    x=endNode2 type_keywords
+    x=endNoun type_keywords
     _ "of"
-    y=endNode
+    y=expression
     return parent_node if not @interpret
     # todo : eval NODE !@!!
     x="class" if x=="type" # !@!@*)($&@) NOO
@@ -109,13 +109,13 @@ class EnglishParser < Parser
       else
         r="" # argument hack
         for n in x.nodes
-          r=":"+n.value+" "+r if n.value and n.valid
+          r=n.value+" "+r if n.value and n.valid
         end
-        x=r[1..-1]
       end
     #x=x.full_value.flip  # argument hack NEEE color= green  color of the sun => sun.green --
-
     end
+    x=x.join(" ") if x.is_a? Array
+    x=x.gsub(" "," :")
     all=x+" of "+y
     begin
     @result=eval(y+"."+x) rescue nil
@@ -137,7 +137,7 @@ class EnglishParser < Parser
 
   #  those attributes. hacky? do better / don't use
   def subnode attributes={}
-    return if $dont_use_tree
+    return if not $use_tree
     attributes.each do |name, value|
       @current_node.nodes<<TreeNode.new(name: name, value: value)
       @current_value=value
@@ -192,19 +192,26 @@ class EnglishParser < Parser
     tokens("+", "*", "-", "/")
   end
 
+  def da x #hackety hack for non-tree mode
+    x=x.join(" ") if x.is_a? Array
+    do_evaluate x
+  end
+
   def algebra
-    any { value? or bracelet? } # variable? or number? or
+    x=any { try{value} or bracelet? } # variable? or number? or
     star {
-      operator
-      #subnode operator: tokens("+", "*", "-", "/")
+      op=operator
       no_rollback!
-      z=any {
+      y=any {
         value? ||
         bracelet?
       }
+      if not $use_tree and @interpret
+        @result=da(x).send(op,da(y)) rescue SyntaxError
+      end
     }
     if @interpret
-      @result=parent_node.eval_node #wasteful!!
+      @result=parent_node.eval_node if $use_tree  #wasteful!!
     end
     parent_node
   end
@@ -233,8 +240,84 @@ class EnglishParser < Parser
     }
   end
 
+
+  def token t
+    #return nil if checkEnd
+    @string.strip!
+    raiseEnd
+    if starts_with? t
+      @current_value=@string[0,t.length].strip
+      @string=@string[t.length..-1].strip
+      return @current_value
+    else
+      verbose "expected "+t.to_s # if @throwing
+      raise NotMatching.new(t)
+    end
+  end
+
+  def escape_token t
+    t.gsub(/([^\w])/,"\\\\\\1")
+  end
+
+  def tokens *tokenz
+    raiseEnd
+    string=@string.strip+" "
+    for t in tokenz.flatten
+      return true if (t=="\n" and @string.empty?)
+      if t.match(/\w/)
+        match=string.match(/^\s*#{t}[^\w]/im)
+      else
+        match=string.match(/^\s*#{escape_token t}/im)
+      end
+      if match
+        x=@current_value=t
+        @string=match.post_match.strip
+        return x
+      end
+    end
+    raise NotMatching.new(tokenz.to_s) #if @throwing
+  end
+
+  def starts_with? tokenz
+    return false if checkEnd
+    string=@string+" " # todo: as regex?
+    tokenz=[tokenz] if tokenz.is_a? String
+    for t in tokenz
+      # RUBY BUG?? @string.start_with?(/#{t}[^\w]/)
+      if t.match(/\w/)
+        return true if string.match(/^#{t}[^\w]/im)
+      else
+        return true if string.start_with? t #escape_token []
+      end
+    end
+    return false
+  end
+
+
+
+  def list
+    must_contain ","
+    start_brace= try{token "["}
+    start_brace= _? "{" if not start_brace
+    raise NotMatching.new "not a deep list" if not start_brace and ( @inside_list )
+    @inside_list=true
+    all=[]
+    #all<<expression(start_brace)
+    all<<endNode
+    star{
+        tokens(",","and") # danger: and as plus
+        all<<endNode
+        #all<<expression
+    }
+    @inside_list=false
+    _ "]" if start_brace=="["
+    _ "}" if start_brace=="{"
+    all
+  end
+
   def expression
     ex=any{
+      try { list} ||
       try { algebra } ||
       try { endNode } ||
       try { evaluate_property }
@@ -341,7 +424,7 @@ class EnglishParser < Parser
   end
 
   def spo
-    endNode2
+    endNoun
     verb
     nod
   end
@@ -354,7 +437,7 @@ class EnglishParser < Parser
                                                           #args.gsub!(/\$#{variable}/, "#{variable}") # $x => x !!
       args.gsub!(/.\{#{variable}\}/, "#{value}") #  ruby style #{x} ;}
       args.gsub!(/\$#{variable}$/, "#{value}") # php style $x
-      args.gsub!(/\$#{variable}([^\w])/, "#{value}\\1")
+      args.gsub!(/\$#{variable}([^\w])/, "#{value}\\\1")
       args.gsub!(/^#{variable}$/, "#{value}")
       args.gsub!(/^#{variable}([^\w])/, "#{value}\\1")
       args.gsub!(/([^\w])#{variable}$/, "\\1#{value}")
@@ -532,9 +615,9 @@ class EnglishParser < Parser
     mod||=modifier? # ??
     var=variable
     _?("to") or be
-    #val=expression
+    val=expression
     no_rollback!
-    val=endNode if not val
+    #val=endNode if not val
     #val=value
     @variables[var]=val if mod!="default" or not @variables.contains(var)
     checkEnd||newline
@@ -554,7 +637,7 @@ class EnglishParser < Parser
     raiseNewline
     #raise EndOfDocument.new if @string.blank?
     #return false if starts_with? keywords
-    match=@string.match(/^\s*\w+[\d\w_]*/)
+    match=@string.match(/^\s*[a-zA-Z]+[\w_]*/)
     if (match)
       @string=@string[match[0].length..-1].strip
       @current_value=match[0].strip
@@ -580,18 +663,17 @@ class EnglishParser < Parser
 
   def value
     @current_value=nil
-    no_keyword_except constants
-    @current_value=any {
-          quote?||
-          constant?||
-          true_variable? ||
-          number? ||
-          nod? ||
-          nill?
-      #||
+    no_keyword_except constants+numbers
+    @current_value=x=any {
+       try{quote}||
+       try{number} ||
+       try{true_variable} ||
+       try{constant}||
+       try{nod} ||
+       try{nill}
       #rest_of_line # TOOBIG HERE!
     }
-    @current_value #.strip
+    x
   end
 
 
@@ -638,10 +720,11 @@ class EnglishParser < Parser
   end
 
   def condition
-    a=endNode
+    a=expression
     comp=comparison
     #allow_rollback ??
-    b=endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
+    b=expression
+        #endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
     if @interpret
       begin
       @result=a.send(comp,b)
@@ -712,20 +795,19 @@ class EnglishParser < Parser
   end
 
   def endNode
-    return true if checkEnd
+    raiseEnd
+    #return true if checkEnd  #!?! NEE!?
     x=any {
           #typeName? ||
           #try { plural} ||
           try { evaluate_property }||
-          try { x=endNode2
+          try { x=endNoun
                 try{verbSelector}  # fucks it up, HOW !?!?!?  EndOfDocument hmmmmmmm , not caught OK
-                return x
+                x
           } ||
           try { true_variable} ||
           try { article?; word } ||
-          try { article?
-                typeName
-          } ||
+          try { article?; typeName} ||
           try { value }
     }
     po=try{postjective} # inverted
@@ -743,7 +825,7 @@ class EnglishParser < Parser
     star { adverb }
     #_ 's' ??
     preposition
-    endNode2
+    endNoun
   end
 
   def selector
@@ -773,24 +855,15 @@ any{
   end
 
 
-  def endNode2 include=[]
-    try {
-      article
-    }
-    star { adjective } #  first second ... included
-    noun include
-    return parent_node
-    #any{
-    #  try{noun}
-    #  try{variable}
-    #  }
+  def endNoun include=[]
+    article?
+    adjs=star { adjective } #  first second ... included
+    obj=noun include
+    return parent_node if $use_tree
+    adjs=adjs.join(" ") if adjs
+    #return adjs.to_s+" "+obj.to_s # hmmm
+    return obj.to_s + ' ' + adjs.to_s # hmmm
   end
-
-# a nod can be a noun, a string, a number or a simple expression such as The President of the USA, birds in africa
-#/*nods
-#	 nod||List 	*/
-#/*List
-#	 (nod ',')* nod 'and' nod */
 
   def any_ruby_line
     line=@string
@@ -815,7 +888,7 @@ any{
     block_depth=0
     lines=[]
     star {
-      raise EndOfBlock.new if (@string.strip.start_with? "end") and block_depth==0
+      raise EndOfBlock.new if (start_with? "end") and block_depth==0
       line=any_ruby_line
       lines<<line
       line
