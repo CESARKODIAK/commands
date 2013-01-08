@@ -162,7 +162,8 @@ class EnglishParser < Parser
     for t in tokenz.flatten
       return true if (t=="\n" and @string.empty?)
       if t.match(/\w/)
-        match=string.match(/^\s*#{t}[^\w]/im)
+        match=string.match(/^\s*#{t}/im)
+        next if match and not match.post_match.match /[^\w]/ # next must be space or so!
       else
         match=string.match(/^\s*#{escape_token t}/im)
       end
@@ -194,6 +195,13 @@ class EnglishParser < Parser
     return false
   end
 
+  def listSelector
+    _ "{"
+    xs=true_variable
+    crit=selector
+    _ "}"
+    filter(xs, crit)
+  end
 
   def list
     must_contain ","
@@ -219,6 +227,7 @@ class EnglishParser < Parser
     ex=any {#expression
       try { evaluate_property } ||
           try { algebra } ||
+          try { listSelector } ||
           try { list } ||
           try { endNode }
     }
@@ -662,7 +671,7 @@ class EnglishParser < Parser
   def that_are
     __ 'that', 'which', 'who'
     be
-    try{compareNode}|| # bigger than live
+    try { compareNode }|| # bigger than live
         @comp= adjective? || # simple
             gerund #  whining
   end
@@ -697,7 +706,8 @@ class EnglishParser < Parser
   def selector
     return if checkEnd
     x=any {
-      try { where }|| # sql style
+      try { compareNode }||
+          try { where }|| # sql style
           try { that } || # friends that live in africa
           try { token('of') and endNode }|| # friends of africa
           try { preposition and nod } # friends in africa
@@ -760,12 +770,7 @@ class EnglishParser < Parser
     #endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
     if @interpret
       begin
-        if be_words.index @comp or @comp.match(/same/)
-          @result=a.is b
-        else
-          @result=a.send(@comp, b)
-        end
-        return @result
+        return @result=do_compare(a, @comp, b)
       rescue => x
         debug x
       end
@@ -828,8 +833,25 @@ class EnglishParser < Parser
     @current_value
   end
 
+  def do_compare a, comp, b
+    if comp=="smaller"||comp=="tinier"||comp=="<"
+      return a<b
+    elsif comp=="bigger"||comp=="larger"||comp==">"
+      return a>b
+    elsif be_words.index comp or comp.match(/same/)
+      return a.is b
+    else
+      begin
+        return a.send(comp, b) # raises!
+      rescue
+        error("ERROR COMPARING "+ a.to_s+" "+comp.to_s+" "+b.to_s)
+        return a.send(comp+"?", b)
+      end
+    end
+  end
 
   def filter list, criterion
+    list=da(list)
     list=get_iterator(list) if not list.is_a? Array
     if $use_tree
       method=criterion[:comparative]||criterion[:comparison]||criterion[:adjective]
@@ -839,17 +861,15 @@ class EnglishParser < Parser
       args=criterion
     end
     list.select { |i|
-      ok=i.send(method, args) rescue false
-      ok||=i.send(method+"?", args) rescue false
-      ok
+      do_compare(i, method, args) rescue false #REPORT BUGS!!!
     }
   end
 
   def selectable
-    tokens? "every", "all","those"
-    x=endNoun? || true_variable
+    tokens? "every", "all", "those"
+    xs=endNoun? || true_variable
     s=try { selector }
-    x=filter(da(x), s) if @interpret rescue x
+    x=filter(xs, s) if @interpret rescue x
     x
   end
 

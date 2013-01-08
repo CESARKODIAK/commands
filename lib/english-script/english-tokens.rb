@@ -147,8 +147,8 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def done_words
-    ['}','done','end','ok','OK','O.K.','alright','alrighty','that\'s it',"I'm done","i'm done", 'fine','fini',
-               'all set','finished','finish','fin','ende','the end','over and out','over','qed',"<end>"]# NL+ # NL verbium?]
+    ['}','done','end','ok','OK','O.K.','alright','alrighty','that\'s it','thats it',"I'm done","i'm done", 'fine','fini',
+               'all set','finished','finish','fin','ende','the end','over and out','over','q.e.d.','qed',"<end>"]# NL+ # NL verbium?]
   end
 
 

@@ -23,9 +23,6 @@ class SelectorTestParser<EnglishParser
   end
 
   def test_selector0
-    assert "[2,3] = 2,3"
-    assert "[2,3] equals 2,3"
-    assert "[2,3] is the same as 2,3"
     p "xs= 2,3,8,9"
     s " xs that are smaller than 7 "
     z=selectable
@@ -34,7 +31,7 @@ class SelectorTestParser<EnglishParser
     assert " xs that are smaller than 7 == [2,3]"
     assert "those xs that are smaller than seven are 2,3"
     assert "those xs that are smaller than seven are the same as 2,3"
-    #assert " {xs<7} = 2,3 "
+    assert " {xs<7} = 2,3 "
   end
 
   #todo simplify
