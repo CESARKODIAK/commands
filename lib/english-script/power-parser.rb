@@ -4,7 +4,7 @@ require_relative "exceptions"
 
 
 class Interpretation
-  attr_accessor :root,:nodes,:context
+  attr_accessor :root, :nodes, :context
 end
 
 
@@ -16,7 +16,7 @@ class Parser #<MethodInterception
     @verbose=true
     @verbose=false
     @very_verbose=@verbose
-    @original_string=""   # for string_pointer ONLY!!
+    @original_string="" # for string_pointer ONLY!!
     @string=""
     @last_pattern=nil
     @rollback=[]
@@ -31,17 +31,6 @@ class Parser #<MethodInterception
     #@@parser.init string
   end
 
-  def p string
-    parse string
-  end
-
-
-  def parse string
-    allow_rollback
-    init string
-    root
-    #@@parser.init string
-  end
 
   def assert x=nil, &block
     x=yield if not x and block
@@ -52,7 +41,7 @@ class Parser #<MethodInterception
         s x
         ok=condition
       rescue SyntaxError => e
-        raise e# ScriptError.new "NOT PASSING: SyntaxError : "+x+" \t("+e.class.to_s+") "+e.to_s
+        raise e # ScriptError.new "NOT PASSING: SyntaxError : "+x+" \t("+e.class.to_s+") "+e.to_s
       rescue => e
         raise ScriptError.new "NOT PASSING: "+x+" \t("+e.class.to_s+") "+e.to_s
       end
@@ -120,14 +109,13 @@ class Parser #<MethodInterception
   end
 
 
-
   def __ *x
     tokens x
   end
 
   def remove_tokens *tokenz
     for t in tokenz.flatten
-      @string.gsub!(/ *#{t} */," ")
+      @string.gsub!(/ *#{t} */, " ")
     end
   end
 
@@ -139,9 +127,13 @@ class Parser #<MethodInterception
 
   def must_contain *args
     good=false
-      for x in args
+    for x in args
+      if x.match(/^\w+$/)
+        good||=(" "+@string+" ").match(/[^\w]#{x}[^\w]/)
+      else
         good||=@string.index(x)
       end
+    end
     raise(NotMatching.new(x)) if not good
   end
 
@@ -158,7 +150,7 @@ class Parser #<MethodInterception
   end
 
   def _? *x
-    try{tokens x}
+    try { tokens x }
   end
 
 
@@ -183,7 +175,7 @@ class Parser #<MethodInterception
     for i in 0..(caller.count+n)
       @rollback[i] ="NO"
     end
-    @method=caller#_name
+    @method=caller #_name
   end
 
   def allow_rollback
@@ -192,12 +184,13 @@ class Parser #<MethodInterception
 
   def check_rollback_allowed
     #puts caller.count
-    @rollback[caller.count]!="NO"   # -1?
+    @rollback[caller.count]!="NO" # -1?
   end
 
   # same as try but throws if no result
   @throwing=true #[]
   @level=0
+
   def any(&block)
     raiseEnd
     #return if checkEnd
@@ -211,8 +204,8 @@ class Parser #<MethodInterception
     begin
       result=yield # <--- !!!!!
       if not result
-      @string=oldString
-      raise NoResult.new(to_source block)
+        @string=oldString
+        raise NoResult.new(to_source block)
       end
       return result
     rescue EndOfDocument
@@ -284,17 +277,17 @@ class Parser #<MethodInterception
       if result
         @rollback[caller.count..-1]="YES" #Succeeded
       else
-        (@nodes-old_nodes).each{|n| n.valid=false}
+        (@nodes-old_nodes).each { |n| n.valid=false }
         @string=old
       end
       @last_node=@current_node
       return result
-    rescue NotMatching,EndOfLine => e
+    rescue NotMatching, EndOfLine => e
       @current_value=nil
       verbose "Tried #{to_source block}"
       verbose e
       string_pointer if @verbose
-      (@nodes-old_nodes).each{|n|
+      (@nodes-old_nodes).each { |n|
         n.destroy
       } #n.valid=false;
 
@@ -320,15 +313,16 @@ class Parser #<MethodInterception
     rescue => e
       error e
       raise e #SyntaxError.new(e)
-      #exit
+              #exit
     end
     @string=old #if rollback
     return false
   end
 
   def one_or_more(&block)
-    yield
-    star{yield}
+    all=[yield]
+    @current_value=[]
+    all+[star { yield }].flatten
   end
 
   def many(&block)
@@ -342,9 +336,9 @@ class Parser #<MethodInterception
         break if @string.blank? # TODO! loop criterion too week
         if not result or result==[] #or @string==""
           raise NotMatching.new to_source(block)+"\n"+string_pointer_s
-          #exit
+                                    #exit
         end
-      rescue =>e
+      rescue => e
         error e
       end
     end
@@ -377,7 +371,7 @@ class Parser #<MethodInterception
         #verbose "expected any of "+tokens.to_s if tokens and tokens.count>0
         string_pointer if @verbose
       end
-    rescue EndOfDocument =>e
+    rescue EndOfDocument => e
       #raise e
       verbose "EndOfDocument"
         #break
@@ -404,7 +398,7 @@ class Parser #<MethodInterception
 
 
   def ignore_rest_of_line
-    @string.gsub!(/.*?\n/,"\n")
+    @string.gsub!(/.*?\n/, "\n")
   end
 
 
@@ -419,7 +413,7 @@ class Parser #<MethodInterception
   end
 
   def clean_backtrace x
-    x=x.select{|x|not x.match(/ruby/)}
+    x=x.select { |x| not x.match(/ruby/) }
     x
   end
 
@@ -431,8 +425,8 @@ class Parser #<MethodInterception
       puts e.class.to_s+" "+e.message.to_s
       string_pointer
       show_tree
-      raise e# SyntaxError.new(e)
-      #exit
+      raise e # SyntaxError.new(e)
+              #exit
     end
   end
 
@@ -450,7 +444,7 @@ class Parser #<MethodInterception
         return match if match and not match.is_a? Symbol
         result =send(match) if match.is_a? Symbol
         return result #if result
-      rescue NotMatching =>e
+      rescue NotMatching => e
         verbose "NotMatching one "+match.to_s+"("+e.to_s+")"
         #raise GivingUp.new
         error e if not check_rollback_allowed
@@ -465,22 +459,21 @@ class Parser #<MethodInterception
   end
 
 
-
-  def method_missing(sym, *args, &block)  # <- NoMethodError use node.blah to get blah!
+  def method_missing(sym, *args, &block) # <- NoMethodError use node.blah to get blah!
     syms=sym.to_s
     cut=syms[0..-2]
     #return send(cut) if(syms.end_with?"!")
-    if(syms.end_with?"?")
+    if (syms.end_with? "?")
       old_last=@last_pattern
       @last_pattern=cut
-      x= try{send(cut)} if args.count==0
-      x= try{send(cut,args)} if args.count>0
+      x= try { send(cut) } if args.count==0
+      x= try { send(cut, args) } if args.count>0
       @last_pattern=old_last
       return x
     end
-    if(syms.end_with?"!")
+    if (syms.end_with? "!")
       puts "DEPRECATED!!"
-    return star{send(cut,args)}
+      return star { send(cut, args) }
     end
     #return star{send(cut)} if(syms.end_with?"*")
     #return plus{send(cut)} if(syms.end_with?"+")
@@ -493,12 +486,12 @@ class Parser #<MethodInterception
 
 
   def start
-    a=ARGV[0] ||  app_path+"/../examples/test.e"
+    a=ARGV[0] || app_path+"/../examples/test.e"
     #test_any
     #test_action
     #test_expression
     #test_method
-    if(File.exists?a)
+    if (File.exists? a)
       @lines=IO.readlines(a)
     else
       @lines=a.split("\n")
@@ -506,7 +499,6 @@ class Parser #<MethodInterception
     parse @lines[0]
     #parse IO.read(a)
   end
-
 
 
   def app_path
@@ -518,16 +510,17 @@ class Parser #<MethodInterception
   end
 
   def parse string
-    puts "PARSING"
+    verbose "PARSING"
     begin
+      allow_rollback
       init string
       root
     rescue => e
       error e
     end
-    puts "PARSED SUCCESSFULLY!!"
+    verbose "PARSED SUCCESSFULLY!!"
     show_tree
-    puts @svg
+    #puts @svg
     return interpretation # self# @result
   end
 

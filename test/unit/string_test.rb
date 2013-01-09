@@ -15,9 +15,9 @@ class StringTestParser<EnglishParser
   end
 
   def test_string_methods
-    p "invert 'hi'"
+    parse "invert 'hi'"
     assert @result=="ih"
-    p "x='hi' inverted"
+    parse "x='hi' inverted"
     assert @result=="ih"
     assert(@variables['x']== 'ih');
   end
@@ -47,9 +47,9 @@ class StringTestParser<EnglishParser
     #algebra
     #statement
     root
-    p "x + ' world'"
+    parse "x + ' world'"
     assert @result=="hi world"
-    p "x is 'hi'
+    parse "x is 'hi'
        y is ' world'
        z is x + y"
     assert(@variables['z']== 'hi world');
@@ -58,11 +58,11 @@ class StringTestParser<EnglishParser
     assert("x plus y == 'hi world'");
     assert("'hi'+ ' '+'world' == 'hi world'");
     assert("z is 'hi world'");
-    p "x is 'hi'; y is 'world';z is x ' ' y"
+    parse "x is 'hi'; y is 'world';z is x ' ' y"
     assert("z is 'hi world'");
-    p "x is 'hi'; y is 'world';z is x plus ' ' plus y"
+    parse "x is 'hi'; y is 'world';z is x plus ' ' plus y"
     assert("z is 'hi world'");
-    p "x is 'hi'; y is 'world';z is x and ' ' and y"
+    parse "x is 'hi'; y is 'world';z is x and ' ' and y"
     assert("type of z is string or type of z is list")
     #assert("type of z is string or list") // !+!+!
     assert("z is 'hi world' OR z is 'hi',' ','world'");
@@ -76,25 +76,25 @@ class StringTestParser<EnglishParser
     s "class of 'hi'"
     expression
     assert @result==String
-    p "class of 'hi'"
+    parse "class of 'hi'"
     assert @result==String
   end
 
 
   def test_type2
-    p "x='hi';
+    parse "x='hi';
       class of x"
-    p "x='hi';class of x"
+    parse "x='hi';class of x"
     assert @result==String
   end
 
 
   def test_result
-    p "x be 'hello world';show x;x; class of x"
+    parse "x be 'hello world';show x;x; class of x"
     assert("type of x is string")
     assert("class of x is string")
     assert("kind of x is string")
-    p "y is type of x"
+    parse "y is type of x"
     assert("y is string")
   end
 
@@ -105,12 +105,12 @@ class StringTestParser<EnglishParser
   end
 
   def test_type3
-  p "x be 'hello world';show x;x;y= class of x"
+  parse "x be 'hello world';show x;x;y= class of x"
     assert @variables['y']==String
     assert("type of x is string")
     assert("class of x is string")
     assert("kind of x is string")
-    p "y is type of x"
+    parse "y is type of x"
     assert("y is string")
   end
 

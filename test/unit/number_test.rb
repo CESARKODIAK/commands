@@ -15,14 +15,14 @@ class NumberTestParser<EnglishParser
   end
 
   def test_int_methods
-    p "invert 3"
+    parse "invert 3"
     assert @result=="1/3"
   end
 
   def test_type1
-    p "class of 1"
+    parse "class of 1"
     assert @result==Fixnum
-    p "class of 3.3"
+    parse "class of 3.3"
     assert @result==Float
   end
 

@@ -94,6 +94,8 @@ class EnglishParser < Parser
   end
 
   def da x #hackety hack for non-tree mode
+    return x.to_path if x.is_a? File
+    return x if x.is_a? String and x.index("/") #file, not regex!  ... notodo ...  x.match(/^\/.*[^\/]$/)
     x=x.join(" ") if x.is_a? Array
     do_evaluate x
   end
@@ -108,7 +110,7 @@ class EnglishParser < Parser
             bracelet?
       }
       if not $use_tree and @interpret
-        @result=da(x).send(op, da(y)) rescue SyntaxError
+        @result=do_send(x, op, y) rescue SyntaxError
       end
     }
     if @interpret
@@ -147,7 +149,7 @@ class EnglishParser < Parser
     @string.strip!
     raiseEnd
     if starts_with? t
-      @current_value=@string[0, t.length].strip
+      @current_value=t.strip
       @string=@string[t.length..-1].strip
       return @current_value
     else
@@ -164,7 +166,7 @@ class EnglishParser < Parser
       if t.match(/\w/)
         match=string.match(/^\s*#{t}/im)
         next if match and not match.post_match.match /[^\w]/ # next must be space or so!
-      else
+      else #special char
         match=string.match(/^\s*#{escape_token t}/im)
       end
       if match
@@ -187,9 +189,9 @@ class EnglishParser < Parser
     for t in tokenz
       # RUBY BUG?? @string.start_with?(/#{t}[^\w]/)
       if t.match(/\w/)
-        return true if string.match(/^#{t}[^\w]/im)
+        return t if string.match(/^#{t}[^\w]/im)
       else
-        return true if string.start_with? t #escape_token []
+        return t if string.start_with? t #escape_token []
       end
     end
     return false
@@ -224,7 +226,7 @@ class EnglishParser < Parser
   end
 
   def expression
-    ex=any {#expression
+    ex=any {#expression}
       try { evaluate_property } ||
           try { algebra } ||
           try { listSelector } ||
@@ -236,7 +238,7 @@ class EnglishParser < Parser
 
   def statement
     raiseNewline
-    x=any {
+    x=any {#statement}
       return @NEWLINE if checkNewline
       try { action }||
           try { expression } || # AS RETURN VALUE! DANGER!
@@ -523,10 +525,11 @@ class EnglishParser < Parser
     tokens? 'var', 'val', 'value of'
     mod||=modifier? # ??
     var=variable
+                    # _?("always") => pointer
     _?("to") or be
-    val=expression
     no_rollback!
-                    #val=endNode if not val
+    val=endNode
+                    #val=expression
                     #val=value
     @variables[var]=val if mod!="default" or not @variables.contains(var)
     checkEnd||newline
@@ -536,7 +539,11 @@ class EnglishParser < Parser
   end
 
   def variable
-    one_or_more { word }
+    article?
+    p=pronoun?
+    all=p ? [p] : []
+    all+=one_or_more { word }
+    all.join(" ")
   end
 
 
@@ -558,12 +565,13 @@ class EnglishParser < Parser
   end
 
   def no_keyword_except except=[]
-    raise NotMatching.new ("ShouldNotMatchKeyword") if starts_with? keywords-except
+    bad=starts_with? keywords-except
+    raise ShouldNotMatchKeyword.new bad if bad
+    return bad
   end
 
-  def no_keyword except=[]
-    except=except[:except] if except.is_a? Hash
-    raise NotMatching.new ("ShouldNotMatchKeyword") if starts_with? keywords-except
+  def no_keyword
+    no_keyword_except []
   end
 
   def constant
@@ -719,15 +727,18 @@ class EnglishParser < Parser
 # preposition nod  # ambivalent?  delete james, from china delete (james from china)
 
 # (who) > run like < rabbits
+# contains
   def verb_comparison
     star { adverb }
-    verb
-    preposition
+    @comp=nil
+    @comp=verb # WEAK !?
+    preposition?
+    @comp
   end
 
 
-  def comparison
-    @comp=try { verb_comparison }|| # run like
+  def comparison # WEAK pattern?
+    @comp=try { verb_comparison }|| # run like , contains
         try { comparation } # are bigger than
   end
 
@@ -763,16 +774,24 @@ class EnglishParser < Parser
   end
 
   def condition
-    a=expression
-    @comp=comparison
-    #allow_rollback ??
-    b=expression
-    #endNode # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
+    a=endNode
+    #a=expression
+    @comp=use_verb=try { verb_comparison } # run like , contains
+    @comp=try { comparation } if not use_verb # are bigger than
+    #allow_rollback # upto where??
+    #b=expression
+    b=endNode
     if @interpret
       begin
-        return @result=do_compare(a, @comp, b)
-      rescue => x
-        debug x
+        @result=do_send(a, @comp, b) if use_verb
+        @result=do_compare(a, @comp, b) if not use_verb
+        if not @result
+          debug "condition not met"
+        end
+        return @result
+      rescue => e
+        #debug x #soft message
+        error e #exit!
       end
     end
     return parent_node
@@ -833,7 +852,61 @@ class EnglishParser < Parser
     @current_value
   end
 
+  def do_evaluate x
+    begin
+      return x if x.is_a? Array
+      $variables=@variables
+      return @variables[x] if @variables.contains x
+      return x.eval_node if x.is_a? TreeNode
+      return resolve x if x.is_a? String and match_path(x)
+      return eval(x) rescue x # system.jpg  DANGER? OK ^^
+                              # ... todo!
+    rescue SyntaxError
+      return x
+    end
+  end
+
+  def resolve x
+    return Dir.new x if is_dir x
+    return File.new x if is_file x
+    x
+  end
+
+  def do_evaluate_property x, y
+    # todo : eval NODE !@!!
+    x="class" if x=="type" # !@!@*)($&@) NOO
+    x=x.value_string if x.is_a? TreeNode
+    x=x.join(" ") if x.is_a? Array
+    y=y.to_s if y.is_a? Array
+    all=x+" of "+y
+    x=x.gsub(" ", " :")
+    begin
+      @result=nil #delete old!
+      @result=eval(y+"."+x) rescue nil
+      @result=eval("'"+y+"'."+x) if not @result rescue SyntaxError #string method
+                  #@result=eval('"'+y+'".'+x) if not @result  rescue SyntaxError #string method
+      @result=eval(all) if not @result rescue SyntaxError
+    end
+    @result
+  end
+
+
+  def do_send x, op, y
+    obj=resolve(x)
+    args=da(y)
+    if obj.respond_to? op
+      # OK
+    elsif  obj.respond_to? op+"s"
+      op=op+"s"
+    elsif  obj.respond_to? op.gsub(/s$/, "")
+      op=op.gsub(/s$/, "")
+    end
+    return @result=obj.send(op, args) #rescue SyntaxError
+  end
+
   def do_compare a, comp, b
+    a=da(a)
+    b=da(b)
     if comp=="smaller"||comp=="tinier"||comp=="<"
       return a<b
     elsif comp=="bigger"||comp=="larger"||comp==">"
@@ -851,6 +924,7 @@ class EnglishParser < Parser
   end
 
   def filter list, criterion
+    return list if not criterion
     list=da(list)
     list=get_iterator(list) if not list.is_a? Array
     if $use_tree
@@ -867,20 +941,21 @@ class EnglishParser < Parser
 
   def selectable
     tokens? "every", "all", "those"
-    xs=endNoun? || true_variable
+    xs=try { endNoun } || true_variable
     s=try { selector }
-    x=filter(xs, s) if @interpret rescue x
+    x=filter(xs, s) if @interpret rescue xs
     x
   end
 
-
+  # # || endNode have adjective || endNode attribute || endNode verbTo verb #||endNode auxiliary gerundium
   def endNode
     raiseEnd
-    #return true if checkEnd  #!?! NEE!?
-    x=any {
-      #typeName? ||
-      #try { plural} ||
-      try { evaluate_property }||
+    x=any {# NODE }
+           #try { plural} ||
+      try { rubyThing } ||
+          try { fileName } ||
+          try { linuxPath } ||
+          try { evaluate_property }||
           try { selectable } ||
           try { true_variable } ||
           try { article?; word } ||
@@ -900,9 +975,9 @@ class EnglishParser < Parser
     adjs=star { adjective } #  first second ... included
     obj=noun include
     return parent_node if $use_tree
-    adjs=adjs.join(" ") if adjs
+    adjs=' ' + adjs.join(" ") if adjs
                             #return adjs.to_s+" "+obj.to_s # hmmm
-    return obj.to_s + ' ' + adjs.to_s # hmmm
+    return obj.to_s + adjs.to_s # hmmm
   end
 
   def any_ruby_line
@@ -916,7 +991,7 @@ class EnglishParser < Parser
     #require 'evil'
     lines=ruby_block
     result=eval(lines.join("\n"))
-    p result
+    puts result
     #result=class_eval(lines.join("\n"))
     #p result
     #A.instance_method(:m).force_bind(B.new).call
@@ -998,50 +1073,16 @@ class EnglishParser < Parser
     return s
   end
 
-
-  def do_evaluate x
-    begin
-      return x if x.is_a? Array
-      $variables=@variables
-      return @variables[x] if @variables.contains x
-      return x.eval_node if x.is_a? TreeNode
-      return eval(x)
-        # ... todo!
-    rescue SyntaxError
-      return x
-    end
-  end
-
   def evaluate_property
+    _? "all" # list properties (all files in x)
     must_contain "of", "in"
     raiseNewline
     x=endNoun type_keywords
     __ "of", "in"
     y=expression
     return parent_node if not @interpret
-    # todo : eval NODE !@!!
-    x="class" if x=="type" # !@!@*)($&@) NOO
-    if x.is_a? TreeNode
-      if x.nodes.count==1
-        x=x.to_s
-      else
-        r="" # argument hack
-        for n in x.nodes
-          r=n.value+" "+r if n.value and n.valid
-        end
-      end
-      #x=x.full_value.flip  # argument hack NEEE color= green  color of the sun => sun.green --
-    end
-    x=x.join(" ") if x.is_a? Array
-    y=y.to_s if y.is_a? Array
-    all=x+" of "+y
-    x=x.gsub(" ", " :")
     begin
-      @result=nil #delete old!
-      @result=eval(y+"."+x) rescue nil
-      @result=eval("'"+y+"'."+x) if not @result rescue SyntaxError #string method
-                  #@result=eval('"'+y+'".'+x) if not @result  rescue SyntaxError #string method
-      @result=eval(all) if not @result rescue SyntaxError
+      do_evaluate_property(x, y)
     rescue SyntaxError => e
       #@result=jeannie all if not @result
     rescue => e

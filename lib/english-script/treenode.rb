@@ -34,6 +34,20 @@ class TreeNode
     end
   end
 
+  def value_string
+    if x.nodes.count==1
+      return x.to_s
+    else
+      r="" # argument hack
+      for n in x.nodes
+        r=n.value+" "+r if n.value and n.valid
+      end
+    end
+    return r
+    #x=x.full_value.flip  # argument hack NEEE color= green  color of the sun => sun.green --
+  end
+
+
   def eval_node
     whot=full_value
     begin

@@ -45,7 +45,7 @@ class ListTestParser<EnglishParser
 
 
   def _test_list_methods
-    p "invert [1,2,3]"
+    parse "invert [1,2,3]"
     assert @result=="[3,2,1]"
   end
 
@@ -91,7 +91,7 @@ class ListTestParser<EnglishParser
   end
 
   def test_concatenation
-    p "x is 1,2,3;y=4,5,6"
+    parse "x is 1,2,3;y=4,5,6"
     assert(@variables['x']== [1, 2, 3]);
     assert(@variables['y'].count== 3);
     s "x + y"
@@ -100,9 +100,9 @@ class ListTestParser<EnglishParser
   end
 
   def test_concatenation2
-    p "x + y"
+    parse "x + y"
     assert @result.length==6
-    p "x is 1,2
+    parse "x is 1,2
        y is 3,4
        z is x + y"
     assert(@variables['z']== [1, 2, 3, 4]);
@@ -119,13 +119,13 @@ class ListTestParser<EnglishParser
     s "class of [1,2,3]"
     expression
     assert @result==Array
-    p "class of 1,2,3"
+    parse "class of 1,2,3"
     assert @result==Array
   end
 
 
   def test_type2
-    p "x=1,2,3;class of x"
+    parse "x=1,2,3;class of x"
     assert @result==Array
   end
 
@@ -136,7 +136,7 @@ class ListTestParser<EnglishParser
   end
 
   def test_type3
-    p "x be 1,2,3;y= class of x"
+    parse "x be 1,2,3;y= class of x"
     assert @variables['y']==Array
     assert("type of x is Array")
     assert("class of x is Array")

@@ -32,7 +32,7 @@ class FunctionTest < ActiveSupport::TestCase
     root
   end
 
-  def p x,&block
+  def parse x,&block
     s x
     root
   end
@@ -51,7 +51,7 @@ class FunctionTest < ActiveSupport::TestCase
   end
 
   test "if" do
-    p "x=2;if x is smaller than three everything is fine;"
+    parse "x=2;if x is smaller than three everything is fine;"
     a "everything is fine"
   end
 

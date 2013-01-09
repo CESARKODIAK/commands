@@ -217,7 +217,7 @@ done"
 
   def test_ruby_method_call
     test_ruby_def
-    p "NOW CALL via english"
+    parse "NOW CALL via english"
     s "call ruby_block_test 'yeah'"
     assert ruby_method_call
   end

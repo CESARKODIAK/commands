@@ -1,5 +1,6 @@
 require_relative "MethodInterception"
 require_relative "exceptions"
+require_relative "extensions"
 
 module EnglishParserTokens #< MethodInterception
   include MethodInterception
@@ -267,7 +268,6 @@ module EnglishParserTokens #< MethodInterception
     #plus{tokens '1','2','3','4','5','6','7','8','9','0'}
   end
 
-
   def real
     raiseEnd
     match=@string.match(/^\d*\\.\d+/)
@@ -292,12 +292,71 @@ module EnglishParserTokens #< MethodInterception
     return false
   end
 
+  def fileName
+    raiseEnd
+    match=is_file(@string,false)
+    if match
+      path=match[0]
+      path=path.gsub(/^\/home/,"/Users")
+      path=File.new path rescue path
+      @string=match.post_match.strip
+      return @current_value=path
+    end
+    return false
+  end
+
+
+  def match_path string
+    string.to_s.match /^(\/[\w\/\.]+)/
+  end
+
+  def is_file string, must_exist=true
+    m=string.to_s.match /^([\w\/\.]+\.\w+)/ || match_path(string)
+    must_exist ? m && File.file?(m) : m
+  end
+
+
+  def is_dir string, must_exist=true
+    #(@string+" ").match(/^(\/)?([^\/\\0]+(\/)?)+ /)
+    m=match_path string
+    must_exist ? m && File.directory?(m[0]) : m
+  end
+
+  def linuxPath
+    raiseEnd
+    match=match_path @string
+    if match
+      path=match[0]
+      path=path.gsub(/^\/home/,"/Users")
+      path=Dir.new path rescue path
+      @string=match.post_match.strip
+      return @current_value=path
+    end
+    return false
+  end
+
+  def rubyThing
+    raiseEnd
+    match=@string.match(/^[A-Z]\w+\.\w+/)
+    if match
+      thing=match[0]
+      verbose "rubyThing: "+thing
+      @current_value=eval(thing) if @interpret
+      @string=match.post_match.strip
+      return @current_value
+    end
+    return false
+  end
+
+
+
   def variables_list
     return ['x','y','z','a','i']
   end
 
   def true_variable
-    tokens @variables.keys
+    v=tokens @variables.keys
+    return @variables[v] if @interpret
     #for v in @variables.keys
     #  if @string.start_with? v
     #    var=token v
@@ -310,9 +369,9 @@ module EnglishParserTokens #< MethodInterception
 
 
   def noun include=[]
-    no_keyword include
+    no_keyword_except include
     #return true if true_variable
-    @current_value=get_noun
+    @current_value=wordnet_is_noun
     #@current_value=call_is_noun
   end
 
@@ -321,11 +380,11 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def adjective
-    @current_value=get_adjective
+    @current_value=wordnet_is_adjective
     #tokens 'funny','big','small','good','bad'
   end
 
-  def get_noun
+  def wordnet_is_noun
     the_noun=@string.match(/^\s*(\w+)/)[1] rescue nil
     #return false if not the_noun
     raise NotMatching.new "no noun word" if not the_noun
@@ -334,7 +393,7 @@ module EnglishParserTokens #< MethodInterception
     the_noun
   end
 
-  def get_adjective
+  def wordnet_is_adjective
     the_adjective=@string.match(/^\s*(\w+)/)[1] rescue nil
     #return false if not the_adjective
     raise NotMatching.new "no adjective word" if not the_adjective
@@ -344,17 +403,19 @@ module EnglishParserTokens #< MethodInterception
   end
 
 
-  def get_verb
+  def wordnet_is_verb
     the_verb=@string.match(/^\s*(\w+)/)[1] rescue nil
     return false if not the_verb
-    raise NotMatching.new "no verb" if not the_verb.is_verb
+    raise NotMatching.new "no verb" if the_verb.synsets(:verb).empty?
+    #raise NotMatching.new "no verb" if not the_verb.is_verb
     @string=@string.strip[the_verb.length..-1]
     the_verb
   end
 
 
   def call_is_verb
-  test=@string.match(/^\s*(\w+)/)[1] rescue nil
+    # eats=>eat todo lifted => lift
+  test=@string.match(/^\s*(\w+)s?/)[1] rescue nil
   return false if not test
   command=app_path+"/../word-lists/is_verb "+test
   #puts command
@@ -378,13 +439,10 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def verb
-    except=auxiliary_verbs
-    no_keyword except
-    #if not @verbs
-    #  @verbs=IO.readlines(dictionary_path + "/english.verbs.list")
-    #end
-    #found_verb= tokens @verbs,special_verbs
-    @current_value=get_verb# call_is_verb
+    system_verbs=['contains','contain']+special_verbs+auxiliary_verbs
+    no_keyword_except system_verbs-be_words
+    found_verb= tokens? system_verbs-be_words #@verbs,
+    @current_value=found_verb||wordnet_is_verb # call_is_verb
   end
 
 end

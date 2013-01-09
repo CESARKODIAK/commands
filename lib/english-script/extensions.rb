@@ -1,4 +1,75 @@
+def grep xs,x
+  xs.select{|y|y.to_s.match(x)}
+end
+class File
+  def to_s
+    path
+  end
+
+  def move to
+    require 'fileutils'
+    FileUtils.mv(path, to)
+  end
+
+  def contain x
+    path.index(x)
+  end
+
+  def contains x
+    path.index(x)
+  end
+
+  def delete
+    raise SecurityError "cannot delete files"
+    #FileUtils.remove_dir(to_path, true)
+  end
+end
+
+class Dir
+  def to_s
+    path
+  end
+
+
+  def files
+    to_a
+  end
+
+  def contains x
+    select { |f| f == x }
+    #Dir.cd
+    #  Dir.glob "*.JPG"
+  end
+
+  require 'fileutils'
+
+  def remove_leaves(dir=".", matching= ".svn")
+    Dir.chdir(dir) do
+      entries=Dir.entries(Dir.pwd).reject { |e| e=="." or e==".." }
+      if entries.size == 1 and entries.first == matching
+        puts "Removing #{Dir.pwd}"
+        FileUtils.rm_rf(Dir.pwd)
+      else
+        entries.each do |e|
+          if File.directory? e
+            remove_leaves(e)
+          end
+        end
+      end
+    end
+  end
+
+  def delete
+    raise SecurityError "cannot delete directories"
+    #FileUtils.remove_dir(to_path, true)
+  end
+end
+
 class Object
+  def extensions
+    "blah"
+  end
+
   def log *x
     puts x
   end
@@ -39,6 +110,9 @@ end
 class Array
   #def = x  unexpected '='
   #  is x
+  #end
+  #def grep x
+  #  select{|y|y.to_s.match(x)}
   #end
 
   def fix_int i
@@ -144,11 +218,13 @@ class String
   end
 
   def is_noun
-    not synsets(:noun).empty?
+    not synsets(:noun).empty? or
+        not self.gsub(/s$/,"").synsets(:noun).empty?
   end
 
   def is_verb
-    not synsets(:verb).empty?
+    not synsets(:verb).empty? of
+    not self.gsub(/s$/,"").synsets(:verb).empty?
   end
 
   def is_adverb
