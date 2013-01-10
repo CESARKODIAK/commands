@@ -3,7 +3,7 @@ require_relative "exceptions"
 require_relative "extensions"
 
 module EnglishParserTokens #< MethodInterception
-  include MethodInterception
+  include TreeBuilder
   include Exceptions
 
 ##################/

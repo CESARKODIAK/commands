@@ -5,6 +5,12 @@ class TreeNode
   attr_accessor :parent
   attr_accessor :nodes
   attr_accessor :valid
+  attr_accessor :startPointer
+  attr_accessor :endPointer
+  #attr_accessor :start_line
+  #attr_accessor :end_line
+  #attr_accessor :start_offset
+  #attr_accessor :end_offset
 
   def show_node
     #true
@@ -13,6 +19,10 @@ class TreeNode
 
   def is_leaf
     nodes.empty?
+  end
+
+  def content
+    content_between startPointer,endPointer
   end
 
   def good_value

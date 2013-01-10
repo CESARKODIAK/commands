@@ -183,6 +183,13 @@ end
 
 class String
 
+  def contains *things
+    for t in things.flatten
+      return true if index(t)
+    end
+    return false
+  end
+
   def fix_int i
     i=count/2 if i.to_s=="middle"
     return i-1 if i.is_a? Numeric

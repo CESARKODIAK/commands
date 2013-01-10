@@ -10,6 +10,7 @@ end
 
 class Parser #<MethodInterception
   include Exceptions
+  attr_accessor :lines
 
   def initialize
     super # needs to be called by hand!
@@ -23,6 +24,7 @@ class Parser #<MethodInterception
     @tree=[]
     @line_number=0
     @lines=[]
+    @interpret_border=-1
   end
 
   def s string
@@ -79,9 +81,6 @@ class Parser #<MethodInterception
 #  return yield rescue true
 #end
 
-  @line_number=0
-  @lines=[]
-
   def raiseEnd
     if @string.blank?
       raise EndOfDocument.new if @line_number>=@lines.count
@@ -128,6 +127,8 @@ class Parser #<MethodInterception
       end
     end
     raise(NotMatching.new(x)) if not good
+    raise(NotMatching.new(x)) if good.pre_match.contains newline_tokens
+    @OK
   end
 
   def look_ahead x
@@ -169,6 +170,25 @@ class Parser #<MethodInterception
       @rollback[i] ="NO"
     end
     @method=caller #_name
+  end
+
+
+
+
+  def dont_interpret
+    if @interpret_border<0
+    @interpret_border= caller.count
+    @did_interpret=@interpret
+    end
+    @interpret=false
+  end
+
+  def check_interpret n=0
+    if(@interpret_border>=caller.count-n)
+      @interpret= @did_interpret
+      @interpret_border=-1
+    end
+    @interpret
   end
 
   def allow_rollback n=0
@@ -282,6 +302,7 @@ class Parser #<MethodInterception
       return result
     rescue NotMatching, EndOfLine => e
       @current_value=nil
+      check_interpret 2
       verbose "Tried #{to_source block}"
       verbose e
       string_pointer if @verbose
@@ -341,6 +362,47 @@ class Parser #<MethodInterception
         error e
       end
     end
+  end
+
+
+  def pointer
+    #@line_number copy by ref?????????
+    Pointer.new @line_number,@original_string.length-@string.length,self
+  end
+
+  class Pointer
+    attr_accessor :line_number, :offset,:parser
+    def - start
+      content_between start,self
+    end
+    def initialize line_number,offset,parser
+      @line_number=line_number
+      offset=0 if line_number>=parser.lines.count
+      @offset=offset
+      @parser=parser
+    end
+
+    def to_s
+      @line_number.to_s+" "+@offset.to_s#+" "+@parser.lines[@line_number][@offset]
+    end
+
+    def content_between start_pointer,end_pointer
+      line=start_pointer.line_number
+      all=[]
+      if line==end_pointer.line_number
+        all<<@parser.lines[line][start_pointer.offset..end_pointer.offset-1]
+        return all
+      else
+        all<<@parser.lines[line][start_pointer.offset..-1]
+      end
+      line=line+1
+      while line<end_pointer.line_number and line<@parser.lines.count
+        all<<@parser.lines[line]
+        line=line+1
+      end
+      all<<@parser.lines[line][0..end_pointer.offset-1] if line<@parser.lines.count
+    end
+
   end
 
   def star(&block)

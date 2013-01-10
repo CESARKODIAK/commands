@@ -13,15 +13,14 @@ Linguistics.use(:en, :monkeypatch => true)
 
 # look at java AST http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations
 class EnglishParser < Parser
-  include MethodInterception
+  include TreeBuilder
   include CoreFunctions
   include EnglishParserTokens # module
-  @methods=[]
-
+  attr_accessor :variables
 
   def initialize
     super
-    @interpret=true
+    @interpret=@did_interpret=true
     @javascript=""
     @context=""
     @variables={}
@@ -35,6 +34,7 @@ class EnglishParser < Parser
 
   # world this method here to resolve the @string
   def init string0
+    @line_number=0
     @lines=string0.split("\n")
     @string=@lines[0]
     @original_string=@string
@@ -57,17 +57,6 @@ class EnglishParser < Parser
     i.result=@result
     i
   end
-
-
-  def dont_interpret
-    @did_interpret=@interpret
-    @interpret=false
-  end
-
-  def check_interpret
-    @interpret=@did_interpret
-  end
-
 
   def root
     many {#root}
@@ -144,13 +133,15 @@ class EnglishParser < Parser
 
 
   def block
+    start=pointer
     statement
     star {
       newlines
       statement
     }
     newline? # danger might act as block end!
-    parent_node if $use_tree
+    return parent_node if $use_tree
+    return pointer-start if not $use_tree
   end
 
   #direct_token : WITH space!
@@ -240,23 +231,24 @@ class EnglishParser < Parser
     v=variable
     _ "+="
     e=expression0
-    @result=do_evaluate(v)+e if @interpret
-    @variables[v]=@result
+    @variables[v]=@result=do_evaluate(v)+e if @interpret
+    v
   end
 
 
   def plusPlus
     v=variable
     _ "++"
-    @variables[v]=@result=do_evaluate(v)+1
+    @variables[v]=@result=do_evaluate(v)+1 if @interpret
+    v
   end
 
 
   def orEqual
     v=variable
     __ "|=", "||="
-    @result=do_evaluate(v) or (do_evaluate expression0)
-    @variables[v]=@result
+    @variables[v]=@result=do_evaluate(v) or (do_evaluate expression0) if @interpret
+    v
   end
 
   def selfModify
@@ -267,6 +259,7 @@ class EnglishParser < Parser
   end
 
   def expression0
+    start=pointer
     ex=any {#expression}
       try { evaluate_property } ||
           try { algebra } ||
@@ -275,11 +268,9 @@ class EnglishParser < Parser
           try { list } ||
           try { endNode }
     }
-    return ex if not @interpret
+    return pointer-start if not @interpret
     @result=do_evaluate ex if ex and @interpret rescue SyntaxError
-    if not @result or @result==SyntaxError and not ex==SyntaxError
-      return @result=ex
-    end
+    @result=ex if not @result or @result==SyntaxError and not ex==SyntaxError # keep false
     return @result
   end
 
@@ -510,6 +501,7 @@ class EnglishParser < Parser
 
   #	||'say' x=(.*) -> 'bash "say $quote"'
   def action
+    start=pointer
     bla?
     result=any {#action
       try { javascript } ||
@@ -526,6 +518,7 @@ class EnglishParser < Parser
     }
     raise NoResult.new if not result
     newline? #cut rest, BUT:
+    return pointer-start if not $use_tree and not @interpret
     return result
   end
 
@@ -611,7 +604,11 @@ class EnglishParser < Parser
   end
 
   def do_execute_block b
-    do_evaluate b
+    block_parser=EnglishParser.new
+    block_parser.variables=@variables
+    block_parser.parse b.join("\n")
+    @variables=block_parser.variables
+    #do_evaluate b
   end
 
   def repeat_n_times
@@ -623,7 +620,7 @@ class EnglishParser < Parser
     b=try { action }
     #b=block if not b
     end_block
-    n.times { do_evaluate b } if check_interpret
+    r=n.times { do_execute_block b } if check_interpret
     b
     #parent_node if $use_tree
   end
@@ -662,7 +659,9 @@ class EnglishParser < Parser
     val=expression0
                     #val=endNode
                     #val=value
-    @variables[var]=val if mod!="default" or not @variables.contains(var)
+    if @interpret and (mod!="default" or not @variables.contains(var))
+      @variables[var]=val
+    end
     end_expression
     return var if @interpret
     return parent_node if $use_tree
@@ -934,7 +933,7 @@ class EnglishParser < Parser
     #b=expression
     @b=endNode
     if @interpret
-      check_condition # nil
+      return check_condition # nil
     end
     return parent_node
   end
@@ -1282,9 +1281,10 @@ class EnglishParser < Parser
   def checkNewline
     comment if not @string.blank?
     if @string.blank? or @string.strip.blank?
-      @line_number=@line_number+1
+      @line_number=@line_number+1 if @line_number<@lines.count
+      @original_string="" if @line_number>=@lines.count #!
       return @NEWLINE if @line_number>=@lines.count
-      #raise EndOfDocument.new if @line_number==@lines.count
+                                                        #raise EndOfDocument.new if @line_number==@lines.count
       @string=@lines[@line_number];
       @original_string=@string
       checkNewline
@@ -1292,9 +1292,13 @@ class EnglishParser < Parser
     end
   end
 
+  def newline_tokens
+    ["\.\n", "\. ", "\n", "\r\n", ";"] #,'\.\.\.' ,'end','done' NO!! OPTIONAL!
+  end
+
   def newline
     return @NEWLINE if checkNewline==@NEWLINE
-    found=tokens "\.\n", "\. ", "\n", "\r\n", ";" #,'\.\.\.' ,'end','done' NO!! OPTIONAL!
+    found=tokens newline_tokens
     return @NEWLINE if checkNewline==@NEWLINE # get new line
     return found
   end

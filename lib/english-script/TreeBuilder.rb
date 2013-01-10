@@ -3,7 +3,7 @@ require_relative "treenode"
 require_relative "extensions"
 
 #class MethodInterception
-module MethodInterception
+module TreeBuilder
 
   def initialize
     super # needs to be called by hand!
@@ -129,6 +129,7 @@ module MethodInterception
       @current_value=nil # if not keepers.index name.to_s
                          #parent=@current_node
       @current_node=TreeNode.new(parent: parent_node, name: name)
+      @current_node.startPointer=pointer
       @root=@current_node if @nodes.count==0
       @nodes<<@current_node
     end
@@ -142,6 +143,7 @@ module MethodInterception
     if not bad name
       @current_node.valid=true if @current_value or not @current_node.nodes.blank?
       @current_node.value=@current_value if @current_node.is_leaf
+      @current_node.endPointer=pointer
       @nodes.pop
       @current_node=@nodes[-1]
       @new_nodes<<@current_node

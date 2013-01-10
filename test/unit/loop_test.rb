@@ -7,8 +7,8 @@ class LoopTestParser<EnglishParser
   def current
     #test_loops
     #test_forever
-    test_expressions
-    #test_repeat
+    #test_expressions
+    test_repeat
   end
 
   def test_forever
@@ -54,16 +54,18 @@ class LoopTestParser<EnglishParser
     #parse "repeat three times: beep; okay"
     #parse "repeat three times: beep"
     #parse "counter =0; repeat three times: increase the counter; okay"
-    #assert "counter =5"
-    s "counter=counter+1;"
-    action
+    #assert "counter =3This is very"
+    #s "counter=counter+1;"
+    #@interpret=false
+    #action
+    #@interpret=true
     parse "counter =0; repeat three times: counter=counter+1; okay"
-    assert "counter =5" if $use_tree # counter=counter+1 not repeatable as string
+    assert "counter =3" #if $use_tree # counter=counter+1 not repeatable as string
     parse "counter =0; repeat three times: counter+=1; okay"
-    assert "counter =5"
+    assert "counter =3"
     parse "counter =0; repeat three times: counter++; okay"
     counter=@variables['counter']
-    assert "counter =5"
+    assert "counter =3"
     #parse "counter =0; repeat three times: increase the counter by two; okay"
     #assert "counter =10"
   end
