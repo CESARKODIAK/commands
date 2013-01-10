@@ -1,5 +1,6 @@
 module Exceptions
 NotMatching = Class.new StandardError
+NotPassing = Class.new StandardError
 NoResult = Class.new NotMatching
 EndOfDocument = Class.new StandardError
 EndOfLine=  Class.new NotMatching

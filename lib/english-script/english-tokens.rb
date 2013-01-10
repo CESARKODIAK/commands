@@ -1,4 +1,4 @@
-require_relative "MethodInterception"
+require_relative "TreeBuilder"
 require_relative "exceptions"
 require_relative "extensions"
 
@@ -148,8 +148,9 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def done_words
-    ['}','done','end','ok','OK','O.K.','alright','alrighty','that\'s it','thats it',"I'm done","i'm done", 'fine','fini',
-               'all set','finished','finish','fin','ende','the end','over and out','over','q.e.d.','qed',"<end>"]# NL+ # NL verbium?]
+    ['}','done','ende','end','okay','ok','OK','O.K.','alright','alrighty','that\'s it','thats it',"I'm done","i'm done",
+        'fine',
+        'fini','all set','finished','finish','fin','the end','over and out','over','q.e.d.','qed',"<end>"]# NL+ # NL verbium?]
   end
 
 
@@ -254,7 +255,7 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def number # complex ||
-    real || integer || __(numbers).parse_integer
+    real? || integer? || __(numbers).parse_integer
   end
 
   def integer
@@ -264,7 +265,8 @@ module EnglishParserTokens #< MethodInterception
       @string=match.post_match.strip
       return @current_value
     end
-    return false
+    #return false
+    raise NotMatching.new "no integer"
     #plus{tokens '1','2','3','4','5','6','7','8','9','0'}
   end
 
@@ -276,7 +278,8 @@ module EnglishParserTokens #< MethodInterception
       @string=match.post_match.strip
       return @current_value
     end
-    return false
+    #return false
+    raise NotMatching.new "no real"
   end
 
   def complex

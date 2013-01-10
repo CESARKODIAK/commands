@@ -4,10 +4,13 @@ require_relative "../../lib/english-script/english-parser"
 
 class MacTestParser<EnglishParser
   def current
-    test_files1
+    test_contains_file
     test_variable_transitivity
   end
 
+  def test_mail
+
+  end
 
   def test_files
     @variables['x']="/Users/me"
@@ -39,7 +42,7 @@ class MacTestParser<EnglishParser
     assert "xs = /Users/me" #WOW!
   end
 
-  def test_files1
+  def test_contains_file
     parse "xs= all files in Dir.home"
     assert "xs contains photo.JPG"
 

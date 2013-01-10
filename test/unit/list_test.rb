@@ -117,7 +117,7 @@ class ListTestParser<EnglishParser
     evaluate_property
     assert @result==Array
     s "class of [1,2,3]"
-    expression
+    expression0
     assert @result==Array
     parse "class of 1,2,3"
     assert @result==Array

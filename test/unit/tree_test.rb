@@ -92,7 +92,7 @@ done"
     #assert @current_node==@root
     full_value=@current_node.full_value
     assert eval(full_value)==26
-    assert @current_node.eval_node==26
+    assert @current_node.eval_node(@variables)==26
   end
 
 end

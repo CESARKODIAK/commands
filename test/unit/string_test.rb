@@ -74,7 +74,7 @@ class StringTestParser<EnglishParser
     evaluate_property
     assert @result==String
     s "class of 'hi'"
-    expression
+    expression0
     assert @result==String
     parse "class of 'hi'"
     assert @result==String

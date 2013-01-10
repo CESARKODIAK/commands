@@ -1,6 +1,13 @@
 def grep xs,x
   xs.select{|y|y.to_s.match(x)}
 end
+
+def beep
+  print "\a"
+  system "say 'beep'"
+  'beeped'
+end
+
 class File
   def to_s
     path
@@ -114,6 +121,9 @@ class Array
   #def grep x
   #  select{|y|y.to_s.match(x)}
   #end
+  def names
+    map &:to_s
+  end
 
   def fix_int i
     i=count/2 if i.to_s=="middle"
@@ -137,6 +147,10 @@ class Array
   #EVIL!!
   def blank?
     nil? or empty?
+  end
+
+  def get x
+    self[index x]
   end
 
   def contains x
@@ -336,6 +350,15 @@ end
 
 #class Fixnum Float
 class Numeric
+
+  def add x
+    self+x
+
+  end
+  def increase by=1
+    self+by # Can't change the value of numeric self!!
+  end
+
   def bigger? x
     self>x
   end

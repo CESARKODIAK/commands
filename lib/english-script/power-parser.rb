@@ -35,29 +35,22 @@ class Parser #<MethodInterception
   def assert x=nil, &block
     x=yield if not x and block
     #raise Exception.new (to_source(block)) if not x
-    raise ScriptError.new to_source(block) if block and not x
+    raise NotPassing.new to_source(block) if block and not x
+    raise NotPassing.new if not x
     if x.is_a? String
       begin
+        #root if @string
         s x
         ok=condition
       rescue SyntaxError => e
         raise e # ScriptError.new "NOT PASSING: SyntaxError : "+x+" \t("+e.class.to_s+") "+e.to_s
       rescue => e
-        raise ScriptError.new "NOT PASSING: "+x+" \t("+e.class.to_s+") "+e.to_s
+        raise NotPassing.new "NOT PASSING: "+x+" \t("+e.class.to_s+") "+e.to_s
       end
-      raise StandardError.new "NOT PASSING: "+x if not ok
+      raise NotPassing.new "NOT PASSING: "+x if not ok
       puts x
     end
     puts "TEST PASSED! " +x.to_s+" \t" +to_source(block).to_s
-  end
-
-  def init string
-    @lines=string.split("\n")
-    @string=@lines[0]
-    @original_string=@string
-    @root=nil
-    @nodes=[]
-    @interpret=true
   end
 
   def interpretation
@@ -178,8 +171,11 @@ class Parser #<MethodInterception
     @method=caller #_name
   end
 
-  def allow_rollback
-    @rollback=[]
+  def allow_rollback n=0
+    return @rollback=[] if n==0
+    for i in 0..(caller.count+n-2)
+      @rollback[i] ="YES"
+    end
   end
 
   def check_rollback_allowed
@@ -269,6 +265,7 @@ class Parser #<MethodInterception
 
   def try(&block)
     #return if checkEnd
+    allow_rollback 1
     old=@string
     @original_string=@string if @original_string.blank?
     begin
@@ -277,6 +274,7 @@ class Parser #<MethodInterception
       if result
         @rollback[caller.count..-1]="YES" #Succeeded
       else
+      #DANGER RETURNING false as VALUE!! use RAISE ONLY todo
         (@nodes-old_nodes).each { |n| n.valid=false }
         @string=old
       end
@@ -296,19 +294,20 @@ class Parser #<MethodInterception
       #puts caller.count
       #puts rollback
       if not check_rollback_allowed
-        #puts
-        #puts @method.join("\n")
-        show_tree #Not reached
-        error e
-        string_pointer
         error "NO ROLLBACK, GIVING UP!!!"
+        show_tree #Not reached
+        error e #exit
         raise SyntaxError.new(e)
-        #exit
-        #raise GivingUp.new
+        #raise GivingUp.new(e)
       end
     rescue EndOfDocument => e
+      (@nodes-old_nodes).each { |n|
+        n.destroy
+      } #n.valid=false;
+      @string=old
       verbose "EndOfDocument"
-      raise e
+      #raise e
+      return false
         #return true
     rescue => e
       error e
@@ -348,7 +347,7 @@ class Parser #<MethodInterception
     #checkEnd
     was_throwing=@throwing
     @throwing=true
-    old_state=@current_value
+    old_state=@current_value # DANGER! must set @current_value=nil :{
     max=100
     current=0
     good=[]

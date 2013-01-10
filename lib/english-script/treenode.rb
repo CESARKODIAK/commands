@@ -48,9 +48,11 @@ class TreeNode
   end
 
 
-  def eval_node
+  def eval_node variables
+    $variables||=variables
     whot=full_value
     begin
+      whot.gsub!("\\","") # where from?? token?
       res=eval(whot) rescue nil ## v0.0
       return res
     rescue SyntaxError => se

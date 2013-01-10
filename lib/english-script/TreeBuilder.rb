@@ -28,19 +28,23 @@ module MethodInterception
   end
 
 
+  # operator:algebra BUG!?!
+
   def ignore
     #"newline","newlines","newline?",
     #test_setter Should never be set ("")!?
-    #"token","tokens",
-    [ "_", "_?", "subnode", "tokens", "ignore", "initialize", "bad", "checkNewline", "newline",
+    #"token","tokens","number",
+    [ "_", "_?","pronouns","end_expression","do_evaluate", "subnode","numbers", "tokens", "ignore", "initialize",
+      "bad",  "wordnet_is_noun", "true_comparitons", "special_verbs", "wordnet_is_verb",
+      "checkNewline", "newline", "wordnet_is_adjective",
      "newline?", "ruby_block_test","subnode_token","get_adjective","get_noun","get_verb",
      "substitute_variables", "raiseNewline", "any", "initialize", "one_or_more", "expression",
-     "endNode", "the_noun_that", "nod", "star", "rest_of_line", "setter", "action", "parse", "number",
+     "endNode", "the_noun_that", "nod", "star", "rest_of_line", "setter", "action", "parse",
      "allow_rollback",  "init", "type_keywords", "articles",  "modifiers", "auxiliary_verbs",
      "test_setter", "try_action", "method_missing", "endNode2", "no_rollback!", "raiseEnd",
      "string_pointer", "verbose", "try", "checkEnd", "to_source", "rest", "keywords",
      "starts_with?", "be_words", "no_keyword", "no_keyword_except", "prepositions", "variables_list", "the?",
-     "app_path",
+     "app_path","escape_token",
      "constants", "comment", "any_ruby_line"
     ] #"call_is_verb",
   end
