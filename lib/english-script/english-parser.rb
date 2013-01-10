@@ -240,7 +240,7 @@ class EnglishParser < Parser
     v=variable
     _ "+="
     e=expression0
-    @result=do_evaluate(v)+e
+    @result=do_evaluate(v)+e if @interpret
     @variables[v]=@result
   end
 
@@ -254,39 +254,44 @@ class EnglishParser < Parser
 
   def orEqual
     v=variable
-    __ "|=","||="
+    __ "|=", "||="
     @result=do_evaluate(v) or (do_evaluate expression0)
     @variables[v]=@result
   end
 
   def selfModify
-        try { plusEqual } ||
+    try { plusEqual } ||
         try { plusPlus } ||
         try { orEqual }
-        #orEqual
+    #orEqual
   end
 
   def expression0
     ex=any {#expression}
-          try { evaluate_property } ||
+      try { evaluate_property } ||
           try { algebra } ||
           try { selfModify } ||
           try { listSelector } ||
           try { list } ||
           try { endNode }
     }
+    return ex if not @interpret
     @result=do_evaluate ex if ex and @interpret rescue SyntaxError
+    if not @result or @result==SyntaxError and not ex==SyntaxError
+      return @result=ex
+    end
+    return @result
   end
 
   def statement
     raiseNewline
     x=any {#statement}
       return @NEWLINE if checkNewline
-          try { loops }||
+      try { loops }||
           try { if_then } ||
           try { once } ||
           try { action } ||
-          try { expression0 }  # AS RETURN VALUE! DANGER!
+          try { expression0 } # AS RETURN VALUE! DANGER!
     }
     x
     #one :action, :if_then ,:once , :looper
@@ -616,15 +621,16 @@ class EnglishParser < Parser
     dont_interpret
     start_block
     b=try { action }
-    b=block if not b
+    #b=block if not b
     end_block
     n.times { do_evaluate b } if check_interpret
+    b
     #parent_node if $use_tree
   end
 
   def loops
-    any { #loops }
-          try { repeat_n_times }||
+    any {#loops }
+      try { repeat_n_times }||
           try { while_loop }||
           try { looped_action }||
           try { times }||
@@ -648,6 +654,7 @@ class EnglishParser < Parser
     mod=modifier?
     tokens? 'var', 'val', 'value of'
     mod||=modifier? # ??
+    old=@string
     var=variable
                     # _?("always") => pointer
     _?("to") or be
@@ -657,9 +664,11 @@ class EnglishParser < Parser
                     #val=value
     @variables[var]=val if mod!="default" or not @variables.contains(var)
     end_expression
-    var
-# ||'to'
-#'initial'?	let? the? ('initial'||'var'||'val'||'value of')? variable (be||'to') value
+    return var if @interpret
+    return parent_node if $use_tree
+    return old-@string if not @interpret # for repeatable, BAD
+                                         # ||'to'
+                                         #'initial'?	let? the? ('initial'||'var'||'val'||'value of')? variable (be||'to') value
   end
 
   def variable
@@ -706,7 +715,7 @@ class EnglishParser < Parser
     @current_value=nil
     no_keyword_except constants+numbers
     @current_value=x=any {
-          try { quote }||
+      try { quote }||
           try { number } ||
           try { true_variable } ||
           try { constant }||
