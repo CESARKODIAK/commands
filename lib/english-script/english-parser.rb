@@ -1411,7 +1411,22 @@ class EnglishParser < Parser
     @svg<<x
   end
 
+  def self.start_shell
+      if ARGV.count==0 #and not ARGF
+        puts "usage: \n ./english-script.sh 6 plus six\n ./english-script.sh examples/test.e"  
+        exit
+     end
+    a=ARGV[0].to_s
+    # read from commandline argument or pipe!!
+    @all=ARGF.read||File.read(a) rescue a
+    @all=@all.split("\n") if @all.is_a?(String)
+    for line in @all
+    interpretation=EnglishParser.new.parse line
+    puts interpretation.result
+    end
+  end
+
+
 end
 
-#EnglishParser.new.parse "x=7" if nil
-#EnglishParser.new.start if not ARGV.blank?
+EnglishParser.start_shell if not ARGV.blank?
