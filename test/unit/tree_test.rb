@@ -87,12 +87,14 @@ done"
     #s "2*(3+10)"
     puts "Parse #{@string} as algebra?"
     ok=algebra
-    assert @result==26
+    assert_equals @result,26
     assert @current_node!=nil
     #assert @current_node==@root
     full_value=@current_node.full_value
-    assert eval(full_value)==26
-    assert @current_node.eval_node(@variables)==26
+    val=eval(full_value)
+    assert_equals val,26
+    val=@current_node.eval_node(@variables)
+    assert_equals val,26
   end
 
 end
@@ -111,7 +113,7 @@ class TreeParserTest < ActiveSupport::TestCase
   end
 
   test "ALL" do
-    puts "$use_tree must be true in three tests" if not $use_tree
+    puts "$use_tree must be true in tree tests!" if not $use_tree
     @testParser.methods.each{|m|
       if m.to_s.starts_with?"test"
         @testParser.send(m)

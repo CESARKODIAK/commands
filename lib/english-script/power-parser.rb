@@ -33,6 +33,9 @@ class Parser #<MethodInterception
     #@@parser.init string
   end
 
+  def assert_equals a,b
+    raise NotPassing.new "#{a} should equal #{b}" if a!=b
+  end
 
   def assert x=nil, &block
     x=yield if not x and block
@@ -47,9 +50,9 @@ class Parser #<MethodInterception
       rescue SyntaxError => e
         raise e # ScriptError.new "NOT PASSING: SyntaxError : "+x+" \t("+e.class.to_s+") "+e.to_s
       rescue => e
-        raise NotPassing.new "NOT PASSING: "+x+" \t("+e.class.to_s+") "+e.to_s
+        raise NotPassing.new "NOT PASSING: "+x.to_s+" \t("+e.class.to_s+") "+e.to_s
       end
-      raise NotPassing.new "NOT PASSING: "+x if not ok
+      raise NotPassing.new "NOT PASSING: "+x.to_s if not ok
       puts x
     end
     puts "TEST PASSED! " +x.to_s+" \t" +to_source(block).to_s
@@ -128,7 +131,7 @@ class Parser #<MethodInterception
     end
     raise(NotMatching.new(x)) if not good
     raise(NotMatching.new(x)) if good.to_s.contains newline_tokens # ;while
-    raise(NotMatching.new(x)) if good.pre_match.contains newline_tokens
+    raise(NotMatching.new(x)) if good.pre_match.contains newline_tokens rescue nil
     @OK
   end
 
@@ -251,14 +254,16 @@ class Parser #<MethodInterception
     raiseEnd
     #return if checkEnd
     # todo :match ".*?"
-    if @string[0]=="'"
+    if @string.strip[0]=="'"
+      @string.strip!
       to=@string[1..-1].index("'")
       @current_value=@string[1..to];
       @string= @string[to+2..-1].strip
       return @current_value
       #return "'"+@current_value+"'"
     end
-    if @string[0]=='"'
+    if @string.strip[0]=='"'
+      @string.strip!
       to=@string[1..-1].index('"')
       @current_value=@string[1..to];
       @string= @string[to+2..-1].strip

@@ -16,16 +16,23 @@ class StringTestParser<EnglishParser
 
   def test_string_methods
     parse "invert 'hi'"
-    assert @result=="ih"
+    assert_equals @result,"ih"
+  end
+
+  def _test_advanced_string_methods
     parse "x='hi' inverted"
     assert @result=="ih"
     assert(@variables['x']== 'ih');
   end
 
-  def test_select
+
+  def _test_select_character
     assert "first character of 'hi' is 'h'"
     assert "second character of 'hi' is 'i'"
     assert "last character of 'hi' is 'i'"
+  end
+
+  def _test_select_word
     assert "first word of 'hi you' is 'hi'"
     assert "second word of 'hi you' is 'you'"
     assert "last word of 'hi you' is 'you'"
@@ -52,6 +59,12 @@ class StringTestParser<EnglishParser
     parse "x is 'hi'
        y is ' world'
        z is x + y"
+    assert(@variables['z']== 'hi world');
+  end
+
+  def test_concatenation2
+    # todo !
+    assert("z = x and y");
     assert(@variables['z']== 'hi world');
     assert("x and y == 'hi world'");
     assert("x + y == 'hi world'");
@@ -93,7 +106,7 @@ class StringTestParser<EnglishParser
     parse "x be 'hello world';show x;x; class of x"
     assert("type of x is string")
     assert("class of x is string")
-    assert("kind of x is string")
+    #assert("kind of x is string")
     parse "y is type of x"
     assert("y is string")
   end
@@ -121,9 +134,9 @@ class StringTestParser<EnglishParser
     #test_type3
     #test_concatenation
     #test_gerunds
-    #test_string_methods
+    test_string_methods
     #test_select
-    test_concatenation
+    #test_concatenation
   end
 
 end

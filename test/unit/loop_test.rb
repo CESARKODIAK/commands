@@ -89,7 +89,7 @@ class LoopTestParser<EnglishParser
   end
 end
 
-class ListTest < ActiveSupport::TestCase
+class LoopTest < ActiveSupport::TestCase
 
   def self._test x
     puts "NOT testing "+x.to_s

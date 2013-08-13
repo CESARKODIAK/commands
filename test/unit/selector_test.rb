@@ -23,15 +23,22 @@ class SelectorTestParser<EnglishParser
   end
 
   def test_selector0
+    s "2,3,8,9"
+    list
+    s "xs= 2,3,8,9"
+    setter
     parse "xs= 2,3,8,9"
     s " xs that are smaller than 7 "
     z=selectable
-    s " xs that are smaller than 7 == [2,3]"
-    condition
-    assert " xs that are smaller than 7 == [2,3]"
-    assert "those xs that are smaller than seven are 2,3"
-    assert "those xs that are smaller than seven are the same as 2,3"
-    assert " {xs<7} = 2,3 "
+    assert_equals z,[2,3]
+    #z=parse "let z be xs that are smaller than 7 "
+    #assert_equals z,[2,3]
+    #assert " {xs<7} = 2,3 "
+    #s " xs that are smaller than 7 == [2,3]"
+    #condition
+    #assert " xs that are smaller than 7 == [2,3]"
+    #assert "those xs that are smaller than seven are 2,3"
+    #assert "those xs that are smaller than seven are the same as 2,3"
   end
 
   #todo simplify
@@ -40,8 +47,9 @@ class SelectorTestParser<EnglishParser
   def  test_selector1
     parse "xs= 1,2,3"
     assert " xs that are bigger than one == [2,3]"
-    #s " xs that are bigger than one"
-    #z=selectable
+    s " xs that are bigger than one"
+    z=selectable
+    assert_equals z,[2,3]
     #s " xs that are bigger than one == [2,3]"
     #condition
     #assert " xs that are bigger than one == [2,3]"
@@ -74,7 +82,7 @@ class SelectorTest < ActiveSupport::TestCase
     super args
   end
 
-  test "ALL" do
+  _test "ALL" do
     @testParser.methods.each { |m|
       if m.to_s.starts_with? "test"
         begin

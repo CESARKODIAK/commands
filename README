@@ -9,10 +9,13 @@ https://github.com/pannous/natural-english-script/tree/master/test/unit
 Or at the grammar:
 https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb
 
+EXPERIMENT by typing
+./english-script.sh eval 6 plus six
+./english-script.sh examples/test.e
+
 The Ruby on rails project is really just a wrapper for the core submodule
 https://github.com/pannous/natural-english-script/tree/master/lib/english-script
 It will be divided into two proper projects.
-
 
 DOSSIER
 

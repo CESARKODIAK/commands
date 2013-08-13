@@ -183,6 +183,11 @@ end
 
 class String
 
+  def show x=nil
+    puts self
+    puts x if x
+  end
+
   def contains *things
     for t in things.flatten
       return true if index(t)

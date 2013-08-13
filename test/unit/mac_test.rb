@@ -60,7 +60,7 @@ class MacTestParser<EnglishParser
   end
 end
 
-class ListTest < ActiveSupport::TestCase
+class MacTest < ActiveSupport::TestCase
 
   def self._test x
     puts "NOT testing "+x.to_s

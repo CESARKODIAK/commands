@@ -263,11 +263,11 @@ class EnglishParser < Parser
     start=pointer
     ex=any {#expression}
       try { evaluate_property } ||
-          try { algebra } ||
-          try { selfModify } ||
-          try { listSelector } ||
-          try { list } ||
-          try { endNode }
+      try { selfModify } ||
+      try { list } ||
+      try { algebra } ||
+      try { listSelector } ||
+      try { endNode }
     }
     return pointer-start if not @interpret
     @result=do_evaluate ex if ex and @interpret rescue SyntaxError
@@ -481,10 +481,13 @@ class EnglishParser < Parser
     true
   end
 
-  def has_args m
-    object_method = Object.method(m) rescue false
+  def has_args m,clazz=Object
+    object_method = clazz.method(m) rescue false
+    clazz=clazz.class if not clazz.is_a? Class #lol
+    # todo : better
+    object_method = clazz.method(m) if not object_method rescue false
+    object_method = clazz.public_instance_method(m) if not object_method rescue false
     if object_method # Bad approach:  that might be another method Tree.beep!
-                     # todo : find OTHER! not just Object.
       return object_method.arity>0
     end
     return true
@@ -500,10 +503,11 @@ class EnglishParser < Parser
   def method_call
     #verb_node
     method=true_method
+    obj=nil
     if has_object(method)
       obj=try { nod }
     end
-    if has_args(method)
+    if has_args(method,obj)
       @current_value=nil
       args=star { arg }
     end
@@ -678,7 +682,7 @@ class EnglishParser < Parser
 #  CAREFUL WITH WATCHES!!! THEY manipulate the current system, especially variable
 #/*	 let nod be nods */
   def setter
-    let?
+    no_rollback! if let?
     the?
     mod=modifier?
     tokens? 'var', 'val', 'value of'
@@ -1095,8 +1099,8 @@ class EnglishParser < Parser
     end
     obj=Object if not obj or not has_object op
     #todo : call FUNCTIONS!
-    return @result=obj.send(op) if not has_args op #rescue SyntaxError
-    return @result=obj.send(op, args) if has_args op #rescue SyntaxError
+    return @result=obj.send(op) if not has_args op,obj #rescue SyntaxError
+    return @result=obj.send(op, args) if has_args op,obj #rescue SyntaxError
   end
 
   def do_compare a, comp, b
@@ -1147,7 +1151,7 @@ class EnglishParser < Parser
     raiseEnd
     x=any {# NODE }
            #try { plural} ||
-      try { rubyThing } ||
+          try { rubyThing } ||
           try { fileName } ||
           try { linuxPath } ||
           try { evaluate_property }||
@@ -1170,7 +1174,7 @@ class EnglishParser < Parser
     adjs=star { adjective } #  first second ... included
     obj=noun include
     return parent_node if $use_tree
-    adjs=' ' + adjs.join(" ") if adjs
+    adjs=' ' + adjs.join(" ") if adjs and adjs.is_a? Array
                             #return adjs.to_s+" "+obj.to_s # hmmm
     return obj.to_s + adjs.to_s # hmmm
   end
@@ -1413,9 +1417,9 @@ class EnglishParser < Parser
     @svg<<x
   end
 
-  def self.start_shell 
+  def self.start_shell
       if ARGV.count==0 #and not ARGF
-        puts "usage: \n ./english-script.sh eval 6 plus six\n ./english-script.sh examples/test.e"  
+        puts "usage: \n ./english-script.sh eval 6 plus six\n ./english-script.sh examples/test.e"
         exit
      end
     a=ARGV[0].to_s
@@ -1431,4 +1435,4 @@ class EnglishParser < Parser
 
 end
 
-EnglishParser.start_shell if ARGV
+EnglishParser.start_shell if ARGV and not @@testing

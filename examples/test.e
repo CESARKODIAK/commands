@@ -1,7 +1,9 @@
 bla = true
 var x = 8;
-msg = "heee"
+msg = "heee";
 //class x = z;
+
+if x is bigger than zero then beep;
 
 context svg
   set color to red
