@@ -94,7 +94,7 @@ module EnglishParserTokens #< MethodInterception
   end
 
   def postpositions
-    ['ago','apart','aside','away','hence','notwithstanding','on','through','withal']
+    ['ago','apart','aside','away','hence','notwithstanding','on','through','withal','again']
   end
 
   def conjunctions
@@ -127,7 +127,7 @@ module EnglishParserTokens #< MethodInterception
 
   def be_words
     ['is','be','was','are','will be','were','have been','shall be','should be', ':=','=','==','equals','equal',
-     'is equal to']
+     'is equal to',"consist of","consists of","is made up of"]
   end
 
   def fillers
@@ -137,9 +137,19 @@ module EnglishParserTokens #< MethodInterception
 #Classifiers==#measure word="litre","cups","kernels","ears","bushels",
 
   # nicer, sweeter, ....
+  #  '=>' '<=', DANGER
   def true_comparitons
-    ['be','is','are','were','=','<','>=','==','<','=<','gt','lt','eq','bigger','greater','equals','identical to',
+    ['be','is','are','were','=','>','>=','==','<=','<','=<','gt','lt','eq','bigger','greater','equals','identical to',
                      'smaller','less','equal to','more','less','the same as','same as','similar']
+  end
+
+  def once_words
+    ['on the occasion that', 'whenever', 'wherever',"as soon as","once"]
+  end
+
+  def if_words
+    ['if','in case that','provided that','assuming that', 'conceding that', 'granted that',
+'on the assumption that', 'supposing that', 'with the condition that']
   end
 
   def nill_words
@@ -149,7 +159,7 @@ module EnglishParserTokens #< MethodInterception
 
   def done_words
     ['}','done','ende','end','okay','ok','OK','O.K.','alright','alrighty','that\'s it','thats it',"I'm done","i'm done",
-        'fine',
+        'fine','fi',
         'fini','all set','finished','finish','fin','the end','over and out','over','q.e.d.','qed',"<end>"]# NL+ # NL verbium?]
   end
 

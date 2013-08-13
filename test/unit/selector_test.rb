@@ -74,7 +74,7 @@ class SelectorTest < ActiveSupport::TestCase
     super args
   end
 
-  _test "ALL" do
+  test "ALL" do
     @testParser.methods.each { |m|
       if m.to_s.starts_with? "test"
         begin

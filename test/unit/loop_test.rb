@@ -25,6 +25,24 @@ class LoopTestParser<EnglishParser
     parse "repeat three times: beep; okay"
   end
 
+  def test_try_until
+    parse "repeat until x>4: x++"
+    parse "repeat x++ until x>4"
+    parse "repeat while x<4: x++"
+    parse "repeat x++ while x<4"
+
+    parse "try until x>4: x++"
+    #parse "try x++ until x>4"
+    parse "try while x<4: x++"
+    #parse "try x++ while x<4"
+    parse "increase x until x>4"
+  end
+
+  def test_every_date
+    parse "beep every three seconds"
+    parse "every three seconds make a beep"
+  end
+
   def test_expressions
     #s "counter=0"
     #setter

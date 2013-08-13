@@ -99,17 +99,18 @@ class EnglishParser < Parser
   end
 
   def algebra
-    @result=x=any { try { value } or bracelet? }
+    result=any { try { value } or try{bracelet} }
     star {
       op=operator #operator KEYWORD!?! ==> @string="" BUG
       no_rollback!
       @string=""+@string2 #==> @string="" BUG WHY??
       y=try { value } || bracelet
       if not $use_tree and @interpret
-        @result=do_send(x, op, y) rescue SyntaxError
+        result=do_send(result, op, y) rescue SyntaxError
       end
       true
     }
+    return result
     if @interpret
       @result=parent_node.eval_node @variables if $use_tree #wasteful!!
     end
@@ -330,37 +331,66 @@ class EnglishParser < Parser
   end
 
 
-  def if_then_line
-    _ 'if'
-    condition
-    _ 'then'
-    action
+
+  def condition_tree
+    brace=_? "("
+    condition_tree if brace
+    condition if not brace
+    star{
+      __ "and","or","xor","nand"
+      condition_tree
+    }
+    _ ")" if brace
   end
 
-  def if_then_block
-    If
-    condition
+
+
+  def if_then
+    __ if_words
+    no_rollback!
+    dont_interpret
+    c=condition
+    _? 'then'
+    use_block=start_block?
+    b=block if use_block # interferes with @comp/condition
+    b=action if not use_block
+    done
+    return do_execute_block b if check_interpret and check_condition c
+    return b
+  end
+
+  def once_trigger
+    __ once_words
+    dont_interpret
+    c=condition
     no_rollback!
     _? 'then'
-    newline?
-    block
-    done
+    use_block=start_block?
+    b=action and end_expression if not use_block
+    b=block and done if use_block
+    add_trigger c,b
   end
 
-  def if_then # ( options {greedy=false } )
-    if_then_line || if_then_block
-              #	|| action If condition newline
+
+  def action_once
+    must_contain once_words # if not _do and newline
+    _do=_? "do"
+    dont_interpret
+    b=action if not _do
+    b=block and done? if _do
+    __ once_words
+    c=condition
+    end_expression
+    add_trigger c,b
   end
 
 
   def once
-    _ 'once'
-    condition
-    _? 'then'
-    action
+#	|| 'as soon as' condition \n block 'ok'
+#	|| 'as soon as' condition 'then' action;
+    try{once_trigger}||
+        action_once
 #	|| action 'as soon as' condition
-#	|| action 'once' condition
-#	|| 'as soon as' condition 'then'? action
   end
 
 #/*n_times
@@ -528,10 +558,11 @@ class EnglishParser < Parser
     no_rollback!
     c=condition
     start_block
-    no_rollback! 13 # arbitrary value ! :{
+    #no_rollback! 13 # arbitrary value ! :{
     a=block
     end_block
-    do_execute_block a while (check_condition c) if check_interpret
+    r=do_execute_block a while (check_condition c) if check_interpret
+    r
   end
 
 #
@@ -606,8 +637,9 @@ class EnglishParser < Parser
   def do_execute_block b
     block_parser=EnglishParser.new
     block_parser.variables=@variables
-    block_parser.parse b.join("\n")
+    @result=block_parser.parse(b.join("\n")).result
     @variables=block_parser.variables
+    @result
     #do_evaluate b
   end
 
@@ -620,7 +652,7 @@ class EnglishParser < Parser
     b=try { action }
     #b=block if not b
     end_block
-    r=n.times { do_execute_block b } if check_interpret
+    n.times { do_execute_block b } if check_interpret
     b
     #parent_node if $use_tree
   end
@@ -653,13 +685,12 @@ class EnglishParser < Parser
     mod||=modifier? # ??
     old=@string
     var=variable
-                    # _?("always") => pointer
-    _?("to") or be
+    # _?("always") => pointer
+    setta=_?("to")or be # or not_to_be 	contain -> add or create
     no_rollback!
     val=expression0
-                    #val=endNode
-                    #val=value
-    if @interpret and (mod!="default" or not @variables.contains(var))
+    val=[val].flatten if setta=="are" or setta=="consist of" or setta=="consists of"
+    if @interpret and (mod!="default" ) or not @variables.contains(var)
       @variables[var]=val
     end
     end_expression
@@ -882,7 +913,7 @@ class EnglishParser < Parser
     # danger: is
     eq=tokens? be_words
     tokens? 'either', 'neither'
-    tokens? 'not'
+    @not=tokens? 'not'
     try { adverb } #'quite','nearly','almost','definitely','by any means','without a doubt'
     if (eq) # is (equal) optional
       comp=tokens? true_comparitons
@@ -891,7 +922,7 @@ class EnglishParser < Parser
       no_rollback!
     end
     tokens? 'and', 'or', 'xor', 'nor'
-    tokens? true_comparitons
+    tokens? true_comparitons # bigger or equal  != SEE condition_tree
     _? 'than', 'then' #_?'then' ;}
     @comp=comp||eq
   end
@@ -910,10 +941,17 @@ class EnglishParser < Parser
     true_comparitons.contains(c)
   end
 
-  def check_condition c=nil #later:node?
+  def check_condition cond=nil #later:node?
     begin
+      if cond #HAAACK DANGARRR
+      #@a,@comp,@b= extract_condition c if c
+      evals=""
+      @variables.each{|var,val|evals+= "#{var}=#{val};"}
+      return @result=eval(evals+cond.join(" "))
+      end
       @result=do_compare(@a, @comp, @b) if is_comparator @comp
       @result=do_send(@a, @comp, @b) if not is_comparator @comp
+      @result=!@result if @not
       if not @result
         debug "condition not met"
       end
@@ -922,20 +960,31 @@ class EnglishParser < Parser
       #debug x #soft message
       error e #exit!
     end
+    return false
   end
 
   def condition
+    start=pointer
+    brace=_? "("
+    no=_? "not"
+    not_brace=_? "("
     @a=endNode
     #a=expression
+    @not=false
     @comp=use_verb=try { verb_comparison } # run like , contains
     @comp=try { comparation } if not use_verb # are bigger than
     #allow_rollback # upto where??
     #b=expression
     @b=endNode
+    _ ")" if brace
+    _ ")" if not_brace
+    negate = (no||@not)&& !(no and @not)
+    subnode negate: negate
     if @interpret
-      return check_condition # nil
+      return negate ? !check_condition  : check_condition # nil
     end
-    return parent_node
+    return start-pointer if not $use_tree
+    return parent_node  if $use_tree
   end
 
 # todo  I hate to ...
@@ -1246,6 +1295,7 @@ class EnglishParser < Parser
   #  those attributes. hacky? do better / don't use
   def subnode attributes={}
     return if not $use_tree
+     return if not @current_node #raise!
     attributes.each do |name, value|
       @current_node.nodes<<TreeNode.new(name: name, value: value)
       @current_value=value

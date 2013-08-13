@@ -1,3 +1,21 @@
+ENGLISH SCRIPT
+
+This is an experimental alpha implementation of English as a programming language.
+The main purpose of this language is to facilitate programming computers via Voice.
+The grammar is not meant to be complete, but easily extendable.
+
+To check out the current capabilities of this language have a look at the TESTS:
+https://github.com/pannous/natural-english-script/tree/master/test/unit
+Or at the grammar:
+https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb
+
+The Ruby on rails project is really just a wrapper for the core submodule
+https://github.com/pannous/natural-english-script/tree/master/lib/english-script
+It will be divided into two proper projects.
+
+
+DOSSIER
+
 ★English as a programming language★
 
 A revolution will break loose. Soon every English speaker will be able to completely control their devices via voice. people will realize that by giving their devices commands, which should be executed at specific times, they are actually programming them. Now imagine you could not just say “remind me to take out the trash next Sunday”, But also complicated sequences like:

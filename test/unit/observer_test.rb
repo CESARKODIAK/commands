@@ -7,53 +7,31 @@ $use_tree=false
 #require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"
 
-class NumberTestParser<EnglishParser
+class ObserverTestParser<EnglishParser
 
   def initialize
     @@testing=true
     super
   end
 
-  def test_int_methods
-    parse "invert 3"
+  def test_whenever
+    parse "beep whenever x is 5"
+    parse "beep once x is 5"
+    parse "once x is 5 do beep"
+    parse "once x is 5 beep "
+    parse "x is 5"
+    parse "beep whenever that clock shows five seconds"
+    parse "whenever that clock shows five seconds do beep"
+    #parse "whenever that clock shows five seconds beep"
     assert @result=="1/3"
   end
 
-  def test_type1
-    parse "class of 1"
-    assert @result==Fixnum
-    parse "class of 3.3"
-    assert @result==Float
-  end
-
-  def test_type2
-    assert "3.2 is a Float"
-    assert "3.2 is a Numeric"
-    assert "3.2 is a number"
-    assert "3.2 is a real number"
-    assert "3.2 is a real"
-    assert "3.2 is a float"
-    assert "3.2 is a float number"
-  end
-
-  def test_type3
-    assert "3 is a Fixnum"
-    assert "3 is a Numeric"
-    assert "3 is an Integer"
-    assert "3 is a number"
-    assert "3 is an integer"
-  end
-
   def current
-    test_type1
-    test_type2
-    test_type
-    test_type3
   end
 
 end
 
-class NumberTest < ActiveSupport::TestCase
+class ObserverTest < ActiveSupport::TestCase
 
   def NOmethod_missing(sym, *args, &block) # <- NoMethodError use node.blah to get blah!
     syms=sym.to_s
@@ -71,7 +49,7 @@ class NumberTest < ActiveSupport::TestCase
   end
 
   def initialize args
-    @testParser=NumberTestParser.new
+    @testParser=ObserverTestParser.new
     super args
   end
 

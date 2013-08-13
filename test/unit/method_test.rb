@@ -1,7 +1,7 @@
 require 'test_helper'
 #require '../test_helper'
 
-$use_tree=true
+#$use_tree=true
 
 #require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"

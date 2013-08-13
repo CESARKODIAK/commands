@@ -1,7 +1,7 @@
 require 'test_helper'
 #require '../test_helper'
 
-$use_tree=true
+#$use_tree=true
 
 #require_relative "../lib/english-script/english-parser"
 require_relative "../../lib/english-script/english-parser"
@@ -110,7 +110,8 @@ class TreeParserTest < ActiveSupport::TestCase
     puts "NOT testing "+x.to_s
   end
 
-  _test "ALL" do
+  test "ALL" do
+    puts "$use_tree must be true in three tests" if not $use_tree
     @testParser.methods.each{|m|
       if m.to_s.starts_with?"test"
         @testParser.send(m)

@@ -26,7 +26,6 @@ class EnglishParserTestParser<EnglishParser
   end
 
   def test_substitute_variables
-    use_tree=false
     @variables={"x" => 3}
     assert(" 3 "== substitute_variables(' #{x} '))
     assert('"3"'== substitute_variables('"#{x}"'))

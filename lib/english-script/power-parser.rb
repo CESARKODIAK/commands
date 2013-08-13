@@ -119,7 +119,7 @@ class Parser #<MethodInterception
 
   def must_contain *args
     good=false
-    for x in args
+    for x in args.flatten
       if x.match(/^\w+$/)
         good||=(" "+@string+" ").match(/[^\w]#{x}[^\w]/)
       else
@@ -127,6 +127,7 @@ class Parser #<MethodInterception
       end
     end
     raise(NotMatching.new(x)) if not good
+    raise(NotMatching.new(x)) if good.to_s.contains newline_tokens # ;while
     raise(NotMatching.new(x)) if good.pre_match.contains newline_tokens
     @OK
   end
@@ -372,9 +373,16 @@ class Parser #<MethodInterception
 
   class Pointer
     attr_accessor :line_number, :offset,:parser
+
     def - start
-      content_between start,self
+      return  content_between self,start if start>self
+      return  content_between start,self
     end
+
+    def > x
+      line_number>=x.line_number and offset>x.offset
+    end
+
     def initialize line_number,offset,parser
       @line_number=line_number
       offset=0 if line_number>=parser.lines.count
@@ -389,6 +397,7 @@ class Parser #<MethodInterception
     def content_between start_pointer,end_pointer
       line=start_pointer.line_number
       all=[]
+      return all if line>=@parser.lines.count
       if line==end_pointer.line_number
         all<<@parser.lines[line][start_pointer.offset..end_pointer.offset-1]
         return all
@@ -401,6 +410,7 @@ class Parser #<MethodInterception
         line=line+1
       end
       all<<@parser.lines[line][0..end_pointer.offset-1] if line<@parser.lines.count
+      all
     end
 
   end

@@ -3,7 +3,7 @@ require 'test_helper'
 $use_tree=false
 require_relative "../../lib/english-script/english-parser"
 
-class FunctionTest < ActiveSupport::TestCase
+class FunctionTest #< ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

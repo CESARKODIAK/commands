@@ -1,4 +1,4 @@
-#require File.expand_path(File.dirname(__FILE__) + '/../node.rb')
+Do you want to go out with me#require File.expand_path(File.dirname(__FILE__) + '/../node.rb')
 require_relative "treenode"
 require_relative "extensions"
 
