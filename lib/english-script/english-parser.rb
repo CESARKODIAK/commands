@@ -1084,6 +1084,8 @@ class EnglishParser < Parser
   def do_send x, op, y
     obj=resolve(x)
     args=eval_string(y)
+    return false if not obj
+    return false if not op
     if obj.respond_to? op
       # OK
     elsif  obj.respond_to? op+"s"
@@ -1411,9 +1413,9 @@ class EnglishParser < Parser
     @svg<<x
   end
 
-  def self.start_shell
+  def self.start_shell 
       if ARGV.count==0 #and not ARGF
-        puts "usage: \n ./english-script.sh 6 plus six\n ./english-script.sh examples/test.e"  
+        puts "usage: \n ./english-script.sh eval 6 plus six\n ./english-script.sh examples/test.e"  
         exit
      end
     a=ARGV[0].to_s
@@ -1429,4 +1431,4 @@ class EnglishParser < Parser
 
 end
 
-EnglishParser.start_shell if not ARGV.blank?
+EnglishParser.start_shell if ARGV
