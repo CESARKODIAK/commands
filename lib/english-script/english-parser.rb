@@ -99,6 +99,7 @@ class EnglishParser < Parser
   end
 
   def algebra
+    must_contain operator
     result=any { try { value } or try{bracelet} }
     star {
       op=operator #operator KEYWORD!?! ==> @string="" BUG
@@ -201,6 +202,10 @@ class EnglishParser < Parser
   end
 
   def listSelector
+    functionalSelector
+  end
+
+  def functionalSelector
     _ "{"
     xs=true_variable
     crit=selector
@@ -262,11 +267,11 @@ class EnglishParser < Parser
   def expression0
     start=pointer
     ex=any {#expression}
+      try { listSelector } ||
       try { evaluate_property } ||
       try { selfModify } ||
       try { list } ||
       try { algebra } ||
-      try { listSelector } ||
       try { endNode }
     }
     return pointer-start if not @interpret
@@ -764,7 +769,8 @@ class EnglishParser < Parser
   def nod #options{generateAmbigWarnings=false}
     try { number } ||
         try { quote } ||
-        try { the_noun_that }
+        try { the_noun_that } #||
+        #try { variables_that } # see selectable
   end
 
   def article
@@ -1016,6 +1022,8 @@ class EnglishParser < Parser
     star { selector }
   end
 
+
+
   #def plural
   #  word #todo
   #end
@@ -1139,6 +1147,7 @@ class EnglishParser < Parser
   end
 
   def selectable
+    must_contain "that","whose","which"
     tokens? "every", "all", "those"
     xs=try { endNoun } || true_variable
     s=try { selector }
@@ -1435,4 +1444,5 @@ class EnglishParser < Parser
 
 end
 
+@@testing||=false
 EnglishParser.start_shell if ARGV and not @@testing

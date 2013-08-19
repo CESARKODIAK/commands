@@ -25,14 +25,14 @@ class SelectorTestParser<EnglishParser
   def test_selector0
     s "2,3,8,9"
     list
-    s "xs= 2,3,8,9"
-    setter
+    #s "xs= 2,3,8,9"
+    #setter
     parse "xs= 2,3,8,9"
     s " xs that are smaller than 7 "
     z=selectable
     assert_equals z,[2,3]
-    #z=parse "let z be xs that are smaller than 7 "
-    #assert_equals z,[2,3]
+    z=parse "let z be xs that are smaller than 7 "
+    assert_equals z,[2,3]
     #assert " {xs<7} = 2,3 "
     #s " xs that are smaller than 7 == [2,3]"
     #condition
