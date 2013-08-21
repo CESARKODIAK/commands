@@ -7,7 +7,7 @@ The grammar is not meant to be complete, but easily extendable.
 To check out the current capabilities of this language have a look at the [TESTS](https://github.com/pannous/natural-english-script/tree/master/test/unit)
 and at the the [grammar](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb)
 
-EXPERIMENT by typing
+EXPERIMENT by typing  
 `./english-script.sh "xs be 2,3,7,9; xs that are smaller than 7"`
 `./english-script.sh examples/test.e`
 
