@@ -8,8 +8,8 @@ To check out the current capabilities of this language have a look at the [TESTS
 and at the the [grammar](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb)
 
 EXPERIMENT by typing
-`./english-script.sh "xs be 2,3,7,9; xs that are smaller than 7"
-./english-script.sh examples/test.e`
+`./english-script.sh "xs be 2,3,7,9; xs that are smaller than 7"`
+`./english-script.sh examples/test.e`
 
 The Ruby on rails project is really just a wrapper for the core [submodule]
 (https://github.com/pannous/natural-english-script/tree/master/lib/english-script)
