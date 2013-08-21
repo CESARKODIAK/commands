@@ -17,6 +17,12 @@ The Ruby on rails project is really just a wrapper for the core submodule
 https://github.com/pannous/natural-english-script/tree/master/lib/english-script
 It will be divided into two proper projects.
 
+This language might soon be used in our successful Teddy and Jeannie assistant, which has over 3 million downloads so far:
+http://www.voice-actions.com
+
+Also check out this very cool similar project:
+https://github.com/rzimmerman/kal
+
 DOSSIER
 
 ★English as a programming language★
