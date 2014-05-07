@@ -7,7 +7,7 @@ The grammar is not meant to be complete, but easily extendable.
 To check out the current capabilities of this language have a look at the [TESTS](https://github.com/pannous/natural-english-script/tree/master/test/unit), at the [grammar](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb) and at the
 [keywords](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-tokens.rb)
 
-Here are some of our favorite examples from the tests:                      `
+Here are some of our favorite examples from the tests:                      
     `assert "first item in 'hi','you' is equal to 'hi'"                     `
     `assert "last item of ['hi','you'] is 'you'"                            `
     `assert "3rd word in 'hi my friend !!!' is 'friend'"                    `
