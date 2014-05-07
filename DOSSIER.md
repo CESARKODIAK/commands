@@ -32,18 +32,18 @@ After that or maybe in parallel the really interesting change in paradigms will 
 	Print Character 7
 Done`
 
-`How to check if someone is online on Skype
+```How to check if someone is online on Skype
 	Call java Skype.checkStaus(Someone)
 	Return yes If Result equals "online"
 	Return no otherwise
-Done`
+Done```
 
-``
+```
 While Peter is online on Skype
 	Make a beep
 	Sleep for 10 seconds
 Done
-``
+```
 
 1) Simple examples
 Whenever I received an email, You check if it's Sender is my girlfriend.
