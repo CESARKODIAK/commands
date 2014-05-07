@@ -211,7 +211,22 @@ Case c3
 We didn't contact Terrence the great Mastermind behind ANTLR yet, In order to ask him what it would take to create a word centric version of antler. Our fear is that something new and clean has to be designed from the ground up. It might not be rocket science but it could be a good load of hard work, deep thinking and many sideways and mistakes involved.
 That's just for the proper parser, Which ideally should be able to have semantic flow control as well, Similarily to what is already possible in antler. "Ideally" is an understatement, it will become a necessity in the process.
 
-* Last words *
+Roadmap
+-------
+
+Package program as a gem or similar.
+
+Use [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) not only for on-the-fly interpretation,
+ but also for **compilation** to JVM byte code, or even native code!
+
+First step: as an extension for JRuby.
+Second step: as a standalone Java jar.
+Third step: as native code.
+
+So far this language runs in the Ruby runtime environment (without any Java). It would be nice if we could keep it this way, even if compiling to Java byte code will become optionally possible.
+
+
+★ Last words ★
 --------------
 
 To those naysayers saying that draping a parser or even a grammar for English is impossible:
@@ -221,7 +236,7 @@ Thirdly modern C++ parsers probably have a much higher complexity of what we wan
 
 And lastly (this is only partly a joke and should illustrate some limitations of grandma theory): if we say that each statement has to be less then 100 Wurts we are not faced with a class 0 language but with a class four Grammar, namely a finite set of commands. Of course the practical truth lies in between.
 
-* TL;DR *
+★ TL;DR ★
 ---------
 In the near future a new programming language will appear which has the unique property of being speakable.
 It will get rid of all those braces and brakets, and it will consistently use English like syntax.

@@ -52,9 +52,7 @@ Run it and see yourself!
 `./english-script.sh "xs be 2,3,7,9; xs that are smaller than 7"`  
 `./english-script.sh examples/test.e`
 
-The Ruby on rails project is really just a wrapper for the core [submodule](https://github.com/pannous/natural-english-script/tree/master/lib/english-script). The idea was to store share all code on servers, to avoid reinventing the wheel. So when someone writes `do a fast fourier transformation of this input` this system would look up definitions of 'fast fourier transformation' globally and offer to download/fork this function/module/...
-
-The server and the client will be divided into two proper projects.
+The Ruby on rails project is really just a wrapper for the core [submodule](https://github.com/pannous/natural-english-script/tree/master/lib/english-script). The idea was to store share all code on servers, to avoid reinventing the wheel. So when someone writes `do a fast fourier transformation of this input` this system would look up definitions of 'fast fourier transformation' globally and offer to download/fork this function/module/... The server and the client will be divided into two proper projects.
 
 This language might soon be used in our successful beloved Jeannie assistant, which has over 3 million downloads so far:
 http://www.voice-actions.com
@@ -63,18 +61,5 @@ Also check out cool similar projects:
 https://github.com/rzimmerman/kal
 https://github.com/remixz/dogescript
 
-For a background story behind this project also read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER.md)
+For a background story/vision/philosophy/future of this project read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER.md)
 
-Roadmap
--------
-
-Package as a gem or similar.
-
-Use [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) not only for on-the-fly interpretation,
- but also for **compilation** to JVM byte code, or even native code!
-
-First step: as an extension for JRuby.
-Second step: as a standalone Java jar.
-Third step: as native code.
-
-So far this language runs in the Ruby runtime environment (without any Java). It would be nice if we could keep it this way, even if compiling to Java byte code will become optionally possible.
