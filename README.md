@@ -10,14 +10,23 @@ To check out the current capabilities of this language have a look at the [TESTS
 Here are some of our favorite examples from the tests:                      
 
 `assert "first item in 'hi','you' is equal to 'hi'"`
+
 `assert "last item of ['hi','you'] is 'you'"`
+
 `assert "3rd word in 'hi my friend !!!' is 'friend'"`
+
 `assert "1,2 and 3 is the same as [1,2,3]"`
+
 `assert "square of 1,2 and 3 == 1,4,9"`
+
 `assert "add one to every number in 1,2,3 == 2,3,4"`
+
 `parse "beep every three seconds"`
+
 `parse "every three seconds make a beep"`
+
 `parse "counter is zero; repeat three times: add 1 to counter; okay"`
+
 `assert "counter = 3"`
 	
 	
