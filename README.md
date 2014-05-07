@@ -45,3 +45,15 @@ Also check out this very cool similar project:
 https://github.com/rzimmerman/kal
 
 For a background story behind this project also read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER)
+
+# roadmap
+Package as a gem or similar.
+
+Use [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) not only for on-the-fly interpretation,
+ but also for **compilation** to JVM byte code, or even native code!
+
+First step: as an extension for JRuby.
+Second step: as a standalone Java jar.
+Third step: as native code.
+
+So far this language runs in the Ruby runtime environment (without any Java). It would be nice if we could keep it this way, even if compiling to Java byte code will become optionally possible.
