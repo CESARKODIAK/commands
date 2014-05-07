@@ -1,6 +1,7 @@
 DOSSIER
 
 ★English as a programming language★
+-----------------------------------
 
 A revolution will break loose. Soon every English speaker will be able to completely control their devices via voice. People will realize that by giving their devices commands, they are actually programming them. Now imagine you could not only say “remind me to take out the trash next Sunday”, but also complicated sequences like:
 Here is what you do when I enter my office
@@ -12,6 +13,8 @@ While Siri is already great for retrieving information it falls a bit short in a
 But this is only the first step in the evolution of speech control.
 
 ★ Voice operating systems ★
+---------------------------
+
 Next you will not only be able to control some specific apps but most applications on your device.
 Ultimately a voice operating system will enable complete new workflows, from taking pictures to modifying them, to putting them into documents, to sharing them ...
  Of course this requires the operating systems to specify mechanisms in which applications can promote their capabilities. In a Narrow way this is already done with Dragon NaturallySpeaking on Windows machines, where you can access all the functionality which is accessible through the menus by speech. A broader approach will allow applications to reveal patterns , Phrases or keywords for which they can provide a useful action. Alternatively the speech input flow will be forwarded to the active application which can then decide to do something useful with it or not itself.
@@ -20,24 +23,27 @@ After that or maybe in parallel the really interesting change in paradigms will 
 
 
 ★ Examples of English script  ★ 
+-------------------------------
 0) Simple-most examples
 
-Print all prime numbers that are smaller than 17
+`Print all prime numbers that are smaller than 17`
 
-How to make a beep
+`How to make a beep
 	Print Character 7
-Done
+Done`
 
-How to check if someone is online on Skype
+`How to check if someone is online on Skype
 	Call java Skype.checkStaus(Someone)
 	Return yes If Result equals "online"
 	Return no otherwise
-Done
+Done`
 
+``
 While Peter is online on Skype
 	Make a beep
 	Sleep for 10 seconds
 Done
+``
 
 1) Simple examples
 Whenever I received an email, You check if it's Sender is my girlfriend.
