@@ -197,7 +197,7 @@ And lastly (this is only partly a joke and should illustrate some limitations of
 In the near future a new programming language will appear which has the unique property of being speakable.
 It will get rid of all those braces and brakets, and it will consistently use English like syntax.
 
-The following test, embedded in the Ruby, passes TODAY!
+The following test, embedded in Ruby, passes TODAY!
 def test_selector0
   parse "xs be 2, 3, 8 and 9"
   z=parse "let z be xs that are smaller than 7 "
