@@ -4,9 +4,11 @@ DOSSIER
 -----------------------------------
 
 A revolution will break loose. Soon every English speaker will be able to completely control their devices via voice. People will realize that by giving their devices commands, they are actually programming them. Now imagine you could not only say “remind me to take out the trash next Sunday”, but also complicated sequences like:
+``
 Here is what you do when I enter my office
 You switch on the coffee machine
 You request the status report from all employees who haven't submitted the status report Voluntarily.
+``
 < Replace this example >
 
 While Siri is already great for retrieving information it falls a bit short in accessing some of the phones capabilities. In some of the existing assistants on android you can already say things like “enable Bluetooth, turn down the volume, open speech input settings” etc.
