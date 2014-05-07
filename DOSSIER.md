@@ -5,9 +5,9 @@ DOSSIER
 
 A revolution will break loose. Soon every English speaker will be able to completely control their devices via voice. People will realize that by giving their devices commands, they are actually programming them. Now imagine you could not only say “remind me to take out the trash next Sunday”, but also complicated sequences like:
 ``
-Here is what you do when I enter my office
-You switch on the coffee machine
-You request the status report from all employees who haven't submitted the status report Voluntarily.
+Here is what you do when I enter my office.
+You switch on the coffee machine.
+You request the status report from all employees who haven't submitted the status report yet.
 ``
 < Replace this example >
 
@@ -73,8 +73,8 @@ Ideally of course we would love to solve/avoid those shortcomings in EnglishScri
 ----------
 Even in the beginning we are not just trying to bring AppleScript to our environments, but to have a better syntax from the very start.
 We are also introducing new concepts and keywords 
-◦ 'once'/'whenever' keywords, to connect a programming block to the event notification system.
-◦ 'My' Keyword to access the synchronized user graph
+◦ **once** / **whenever** / **as long as** / ... keywords, to connect a programming block to the event notification system.
+◦ **My** Keyword to access the synchronized user graph.
 ◦ Even Listeners and triggers, “Clap my hand”, to be specified in other programming blocks.
 ◦ Clarification dialogs: If one of the mentioned objects or events is unknown, the system can ask things like:
 How do I know when you clap your hands
@@ -119,8 +119,8 @@ There are several paths in which this can be achieved:
 2) Create an annotation system which will resolve the issues around the text
 3) Create a proper representation Language which is sufficiently beautiful and deterministic. Parse every input sentence to that representation. For portability write down the original English and the interpretation next to each other when sending the file along. Reinterpret the English sentence whenever it is changed, Maybe taking into consideration's manual modifications to the representation if they Did Oakar.
 4) Ask the user to resolve this ambiguities when entering the phrase and then just compile the interpretation down to byte coat. This is the biggest disadvantage that a user might have picked the wrong resolution Blenhem Tehuti and will not see this error directly anymore.
-5) Have a lightweight disambiguation inside English, on demand:
-“Time[noun] flies[verb] (like an arrow)”
+5) Have a lightweight disambiguation inside English, on demand, through [annotations] and (through groupings):
+“Time[noun] flies[verb]  (like an arrow)”
 6) Have a pre-compile intermediate format, which is unambiguous, yet readable by humans and by computers, possibly Clojure?
 
 This has the big advantage of being perfectly readable yet having the property of being parsable in a deterministic way.
@@ -150,9 +150,11 @@ And many more.
 You might have noted that some of the keywords are redundant. We believe that this is not a bad thing.
 We want to give the program a bit more natural flexibility when it comes to ending blocks thus we also allow "done" "thats it" "ok" and other keywords to denote the ending of the block.
 
+``
 How to make a beep
 	Print 0x0a
 Done
+``
 
 Preferably long blocks can be ended by naturally annotating what the block was about:
 
@@ -171,12 +173,13 @@ One good way of doing this is through a grammar specification language/tool, for
 
 We can also create syntax highlighting to distinguish the structural Keywords are patterns from free "subject predicate object method calls" like: (computer) purge trash! A Textmate bundle is in the works. 
 There is a lot we can learn and from AppleScript here.
+UPDATE: A Textmate bundle is ready!
 
 ★ Experience and Experiments ★
 ------------------------------
-Update: We migrated our ANTLR experiment to a very nice domain specific language in Ruby: https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb
+Update: We migrated our ANTLR experiment to a very nice [domain specific language in ruby](https://github.com/pannous/english-script/blob/master/lib/english-script/english-parser.rb).
 We are thrilled by the speed of progress, by the cleanness and uniqueness of the syntax.
-Sure we are currently using much black Ruby magic, but our goal is to bootstrap the system so that it can finally compile itself in its own language, similar to https://github.com/rzimmerman/kal
+Sure we are currently using much black Ruby magic, but our goal is to bootstrap the system so that it can finally compile itself in its own language, similar to [kal](https://github.com/rzimmerman/kal)
 
 ★ History : ANTLR  ★
 --------------------
@@ -184,8 +187,10 @@ So far we did create semantic graphs which satisfies our needs. We started to wr
 We have a list of English verbs,nouns,prepositions,etc and naturally we wanted to include them in our grammar:
 
 To show the problem in a simplified way
+``
 Statement:: 'If' condition 'then' action
 Action:: verb 'the' noun
+``
 
 Forget for a moment that many verbs are also nouns and vice versa, we couldn't even include a list of verbs. It is easy to create a list of 20 burps but our list of 50,000 words just made the compiler crash.
  when we started to get into the in workings of antler we soon found out that the whole system is based on a character-centric state machine instead of a word state machine. This may create Larry efficient machines for parsers of arbitrary strings sets. However in our case we have cleanly tokenized strings sets and optimizing the parser by grouping different words until little subtrees just makes the code unreadable.
