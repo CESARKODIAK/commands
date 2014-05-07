@@ -30,12 +30,15 @@ Here are some of our favorite examples from the tests:
 
 Language Specification
 ----------------------
-
-Read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER) for a more complete **language specification**, vision and some background.
+Read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER.md) for a more complete **language specification**, vision and some background.
 
 To check out the current capabilities of this language have a look at the [TESTS](https://github.com/pannous/natural-english-script/tree/master/test/unit), at the [grammar](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb) and at the
 [keywords](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-tokens.rb)
 
+EXPERIMENT
+----------
+Run it and see yourself!
+`./install.sh`	
 	
 **experiment** by typing  
 `./english-script.sh "xs be 2,3,7,9; xs that are smaller than 7"`  
@@ -52,7 +55,7 @@ Also check out cool similar projects:
 https://github.com/rzimmerman/kal
 https://github.com/remixz/dogescript
 
-For a background story behind this project also read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER)
+For a background story behind this project also read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER.md)
 
 roadmap
 -------
