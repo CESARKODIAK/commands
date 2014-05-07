@@ -2,7 +2,7 @@
 
 This is English as a programming language.
 The main purpose of this language is to facilitate programming computers via Voice.
-The grammar is not meant to be linguistically complete, but [functionality complete](https://en.wikipedia.org/wiki/Functional_completeness) and easily extendable.
+The grammar is not meant to be linguistically complete, but [functionality complete](https://en.wikipedia.org/wiki/Functional_completeness) and easily extendable. It is currently running in the [ruby](https://www.ruby-lang.org/en/) environment, but will soon compile to the [JVM](https://en.wikipedia.org/wiki/Java_Virtual_Machine) and as a final aim run natively.
 
 Examples
 --------
