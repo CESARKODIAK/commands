@@ -58,8 +58,8 @@ This language might soon be used in our successful beloved Jeannie assistant, wh
 http://www.voice-actions.com
 
 Also check out cool similar projects:
-https://github.com/rzimmerman/kal
-https://github.com/remixz/dogescript
+[kal](https://github.com/rzimmerman/kal)
+[dogescript](https://github.com/remixz/dogescript)
 
 For a background story/vision/philosophy/future of this project read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER.md)
 
