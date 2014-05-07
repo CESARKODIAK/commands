@@ -28,15 +28,19 @@ After that or maybe in parallel the really interesting change in paradigms will 
 
 `Print all prime numbers that are smaller than 17`
 
-`How to make a beep
+```
+How to make a beep
 	Print Character 7
-Done`
+Done
+```
 
-```How to check if someone is online on Skype
+```
+How to check if someone is online on Skype
 	Call java Skype.checkStaus(Someone)
 	Return yes If Result equals "online"
 	Return no otherwise
-Done```
+Done
+```
 
 ```
 While Peter is online on Skype
@@ -45,11 +49,13 @@ While Peter is online on Skype
 Done
 ```
 
-1) Simple examples
-Whenever I received an email, You check if it's Sender is my girlfriend.
-If so, You turn the light bulb in the living room green until I clap my hand.
+Advanced examples
+-----------------
+`Whenever I received an email, You check if it's Sender is my girlfriend.
+If so, You turn the light bulb in the living room green until I clap my hand.`
 
 * Predecessors *
+----------------
 Doesn't it remind you of https://en.wikipedia.org/wiki/AppleScript?
 It should, because AppleScript is the predecessor of real speakable programming languages. 
 Despite of its many shortcomings it should be a real inspiration to anyone in the language community.
@@ -62,6 +68,7 @@ The main shortcomings of AppleScript are:
 Ideally of course we would love to solve/avoid those shortcomings in EnglishScript
 
 * Future *
+----------
 Even in the beginning we are not just trying to bring AppleScript to our environments, but to have a better syntax from the very start.
 We are also introducing new concepts and keywords 
 ◦ 'once'/'whenever' keywords, to connect a programming block to the event notification system.
@@ -81,6 +88,7 @@ Our engine should be smart enough to semantically match "I clip my hand" against
 
 
 * Execution *
+-------------
 These seem like many steps to be done! The complexity of the task demanded that we first introduced these features in an existing language: Ruby. This dust in fact appear like a feasible intermediate step.
 To summarize the requested features:
 A personnel and general object graph with attached methods.
@@ -88,6 +96,7 @@ A semantic event system, with a simple syntax to connect with listeners: once(<e
 
 
 * Difficulties *
+----------------
 Difficulties in first implementations of such a system
 
 Users a.k.a. speakers of such a programming language will have the inherent problem of expecting too much.
@@ -99,6 +108,7 @@ But still the use cases for English as a programming language are so incredibly 
 
 
 * Ambiguities *
+---------------
 Naturally the phenomenon of ambiguities in English will extend to all our programming language.
  clearly we need mechanisms still results those ambiguities at programming time, at compile time and at runtime.
 
@@ -109,24 +119,30 @@ There are several paths in which this can be achieved:
 4) Ask the user to resolve this ambiguities when entering the phrase and then just compile the interpretation down to byte coat. This is the biggest disadvantage that a user might have picked the wrong resolution Blenhem Tehuti and will not see this error directly anymore.
 5) Have a lightweight disambiguation inside English, on demand:
 “Time[noun] flies[verb] (like an arrow)”
+6) Have a pre-compile intermediate format, which is unambiguous, yet readable by humans and by computers, possibly Clojure?
 
 This has the big advantage of being perfectly readable yet having the property of being parsable in a deterministic way.
 Maybe operator binding can make many braces unnecessary. However it's always the task of the compiler to suggest and insert the braces. Should the system for some reason become certain about whats the disambiguation of the parsetree, it can remove the braces itself.
 
 ★ Blocks ★
+----------
 Here we present blocks as example for the language syntax/structure:
 
 Just a quick reminder, this is how blocks look like in Ruby:
+```
 7.Times do
 	prints "I am happy"
 end
+```
 
 Blocks can be opened in many different ways. We want to add the following keywords or scenarios to the existing ruby blocks:
+```
 Once (trigger condition) do (block) end
 As long as...
 Infinitly do ...
 As soon as ...
 Repeat the following...
+```
 And many more.
 
 You might have noted that some of the keywords are redundant. We believe that this is not a bad thing.
@@ -138,11 +154,14 @@ Done
 
 Preferably long blocks can be ended by naturally annotating what the block was about:
 
+```
 how to calculate the volume of a mesh object:
 	// Long calculation block goes here
 done calculating the volume
+```
 
 ★Implementation ★
+-----------------
 As we pointed out there are different paths by which this language can come into existence. Therefore there are many possible different implementations. In fact what we should do first is clearly specify the syntax limitations and the desired features of our language.
 
 One good way of doing this is through a grammar specification language/tool, for example EBNF as in ANTLR.
@@ -152,11 +171,13 @@ We can also create syntax highlighting to distinguish the structural Keywords ar
 There is a lot we can learn and from AppleScript here.
 
 ★ Experience and Experiments ★
+------------------------------
 Update: We migrated our ANTLR experiment to a very nice domain specific language in Ruby: https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb
 We are thrilled by the speed of progress, by the cleanness and uniqueness of the syntax.
 Sure we are currently using much black Ruby magic, but our goal is to bootstrap the system so that it can finally compile itself in its own language, similar to https://github.com/rzimmerman/kal
 
 ★ History : ANTLR  ★
+--------------------
 So far we did create semantic graphs which satisfies our needs. We started to write the first Verizon of the grammar for English script. However we did run into the limitations of ANTLR. Specifically it's inability to include large sets in a natural way.
 We have a list of English verbs,nouns,prepositions,etc and naturally we wanted to include them in our grammar:
 
@@ -191,6 +212,7 @@ We didn't contact Terrence the great Mastermind behind ANTLR yet, In order to as
 That's just for the proper parser, Which ideally should be able to have semantic flow control as well, Similarily to what is already possible in antler. "Ideally" is an understatement, it will become a necessity in the process.
 
 * Last words *
+--------------
 
 To those naysayers saying that draping a parser or even a grammar for English is impossible:
 First we don't want to parse the whole richness of English
@@ -200,11 +222,14 @@ Thirdly modern C++ parsers probably have a much higher complexity of what we wan
 And lastly (this is only partly a joke and should illustrate some limitations of grandma theory): if we say that each statement has to be less then 100 Wurts we are not faced with a class 0 language but with a class four Grammar, namely a finite set of commands. Of course the practical truth lies in between.
 
 * TL;DR *
+---------
 In the near future a new programming language will appear which has the unique property of being speakable.
 It will get rid of all those braces and brakets, and it will consistently use English like syntax.
 
 The following test, embedded in Ruby, passes TODAY!
 def test_selector0
+```
   parse "xs be 2, 3, 8 and 9"
   z=parse "let z be xs that are smaller than 7 "
   assert_equals z,[2,3]
+```
