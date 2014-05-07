@@ -10,23 +10,31 @@ Here are some of our favorite examples from the tests:
 
 `assert "first item in 'hi','you' is equal to 'hi'"`
 
-`assert "last item of ['hi','you'] is 'you'"`
-
 `assert "3rd word in 'hi my friend !!!' is 'friend'"`
-
-`assert "1,2 and 3 is the same as [1,2,3]"`
 
 `assert "square of 1,2 and 3 == 1,4,9"`
 
-`assert "add one to every number in 1,2,3 == 2,3,4"`
+`assert "add one to every odd number in 1,2,3 == 2,2,4"`
 
 `parse "beep every three seconds"`
 
-`parse "every three seconds make a beep"`
+`parse "counter is zero; repeat three times: add 1 to counter; okay; assert that the counter is 3"`
 
-`parse "counter is zero; repeat three times: add 1 to counter; okay"`
 
-`assert "counter = 3"`	
+```
+While Peter is online on Skype
+	make a beep
+	sleep for 10 seconds
+Done
+```
+
+```
+How to check if someone is online on Skype
+	Call java Skype.checkStaus(someone)
+	Return yes If Result equals "online"
+	Return no otherwise
+Done
+```
 
 Language Specification
 ----------------------
