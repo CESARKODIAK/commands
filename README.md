@@ -6,7 +6,7 @@ The grammar is not meant to be linguistically complete, but [functionality compl
 
 Examples
 --------
-Here are some of our favorite examples from the tests:                      
+Here are some of our favorite examples from the tests, **working today**:                      
 
 `assert "first item in 'hi','you' is equal to 'hi'"`
 
