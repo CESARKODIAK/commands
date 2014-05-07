@@ -219,9 +219,12 @@ Package program as a gem or similar.
 Use [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) not only for on-the-fly interpretation,
  but also for **compilation** to JVM byte code, or even native code!
 
-First step: as an extension for JRuby.
-Second step: as a standalone Java jar.
-Third step: as native code.
+``
+First step: Use as an extension for JRuby.
+Second step: Deploy as a standalone Java jar.
+Third step: Compile to native code.
+Crazy step: compile to asm.js ??
+``
 
 So far this language runs in the Ruby runtime environment (without any Java). It would be nice if we could keep it this way, even if compiling to Java byte code will become optionally possible.
 
