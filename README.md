@@ -40,12 +40,14 @@ Language Specification
 ----------------------
 Read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER.md) for a more complete **language specification**, vision and some background.
 
-To check out the current capabilities of this language have a look at the [TESTS](https://github.com/pannous/natural-english-script/tree/master/test/unit), at the [grammar](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb) and at the
+To check out the current capabilities of this language have a look at the [tests](https://github.com/pannous/natural-english-script/tree/master/test/unit), at the [grammar](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb) and at the
 [keywords](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-tokens.rb)
 
 EXPERIMENT
 ----------
 Run it and see yourself!
+
+`git clone git@github.com:pannous/english-script.git`
 `./install.sh`	
 	
 **experiment** by typing  
