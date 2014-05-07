@@ -1,6 +1,0 @@
-Baad:
-The Penn Lambda Calculator
-www.ling.upenn.edu/lambda/
-
-FireNet:
-Netbase on axons
