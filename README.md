@@ -28,6 +28,9 @@ Here are some of our favorite examples from the tests:
 
 `assert "counter = 3"`	
 
+Language Specification
+----------------------
+
 Read the [DOSSIER](https://github.com/pannous/natural-english-script/tree/master/DOSSIER) for a more complete **language specification**, vision and some background.
 
 To check out the current capabilities of this language have a look at the [TESTS](https://github.com/pannous/natural-english-script/tree/master/test/unit), at the [grammar](https://github.com/pannous/natural-english-script/blob/master/lib/english-script/english-parser.rb) and at the
