@@ -69,6 +69,35 @@ The main shortcomings of AppleScript are:
 
 Ideally of course we would love to solve/avoid those shortcomings in EnglishScript
 
+In the past people came up with [crazy solutions](http://shorttalk-emacs.sourceforge.net/EmacsListen/from-listen/quickref.pdf) to cope with repetitive strain injuries! In five years programming computers by voice will be as commonplace as dictating emails by voice.
+
+Guiding principles 
+------------------
+The language is optimized for speakability and readability, without compromising functionality:
+Avoid special characters whenever possible
+All English words which are not nouns are keywords, especially prepositions and pronouns.
+Solve the block problem ruby style with end keywords: do blah done
+  def done_words
+    ['done','end','okay','ok','OK','O.K.','}','alright','that\'s it',..]
+  end
+
+Allow optional special characters to increase readability
+
+Design the language for brevity but still allow longer formulations
+Example:
+``
+To beep
+	Print 0xa
+End
+``
+
+Vs
+``
+Here is how to make a beep:
+  Print the ascii character seven to the system output
+Okay finish the beep definition
+``
+
 * Future *
 ----------
 Even in the beginning we are not just trying to bring AppleScript to our environments, but to have a better syntax from the very start.
@@ -91,11 +120,13 @@ Our engine should be smart enough to semantically match "I clip my hand" against
 
 * Execution *
 -------------
-These seem like many steps to be done! The complexity of the task demanded that we first introduced these features in an existing language: Ruby. This dust in fact appear like a feasible intermediate step.
+These seem like many steps to be done! The complexity of the task demanded that we first introduced these features in an existing language: Ruby
+
 To summarize the requested features:
 A personnel and general object graph with attached methods.
 A semantic event system, with a simple syntax to connect with listeners: once(<enent>) do <block> end
-
+Ruby's extendable objects and classes provide the perfect playground for English script
+However one must not be tempted to rely on rubies runtime too heavily early on, because it would make it difficult later to compile the script to JVM byte code. (Appropriate equivalent to the method_missing hook in java: proxies? But hard link functions on compile time whenever possible!)
 
 * Difficulties *
 ----------------

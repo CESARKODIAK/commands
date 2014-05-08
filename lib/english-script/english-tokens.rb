@@ -134,6 +134,8 @@ module EnglishParserTokens #< MethodInterception
     ["like", "y'know", "so", "actually", "literally", "basically", "right", "I'm tellin' ya",
             "you know what I mean?","ehm","uh","er" ]
   end
+  # danger: so,like,right!!
+  
 #Classifiers==#measure word="litre","cups","kernels","ears","bushels",
 
   # nicer, sweeter, ....
