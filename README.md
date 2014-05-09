@@ -1,7 +1,7 @@
 # ENGLISH SCRIPT
 
-THIS IS JUST THE DATABASE OF MODULES
-------------------------------------
+THIS IS JUST THE BACKEND DATABASE 
+---------------------------------
 For the actual [ENGLISH SCRIPT](https://github.com/pannous/english-script) language please go [here](https://github.com/pannous/english-script): https://github.com/pannous/english-script
 
 This is English as a programming language.
