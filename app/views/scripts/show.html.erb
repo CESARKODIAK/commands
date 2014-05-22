@@ -1,7 +1,4 @@
-<style type="text/css">
 
-</style>
-<p id="notice"><%= notice %></p>
 
 <!--update-->
 <form id="form" action="/scripts/<%= @script.id rescue "" %>" method="post">
@@ -15,7 +12,7 @@
       <td width="600px">
         <input name="script[name]" id="name" value="<%= @script.name rescue "" %>"/><br/>
 
-        <textarea name="script[text]" id="text" class="text"><%= @text %></textarea>
+        <textarea name="script[text]" id="text" class="text" rows=20 cols=60><%= @text %></textarea>
         <br/><b><input class="run" type="submit" value="RUN!"/></b><br/>
       </td>
       <td>
@@ -31,7 +28,9 @@
   </table>
   <br/>
   <br/>
+
   <b class="blink">
+    <p id="notice"><%= notice %></p>
     <%= @result %>
   </b>
   <script>

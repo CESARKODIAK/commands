@@ -1,17 +1,16 @@
 <form id="form" method="post">
-  <img src="English script.png" height=50/>
+  <!--<img src="English script.png" height=50/>-->
   <table>
     <tr>
       <td>
         <!--rows=20 cols=100 -->
-        <textarea name="text" id="text" class="text"><%= @text %></textarea>
+        <textarea name="text" id="text" class="text" rows=20 cols=60><%= @text %></textarea>
 
       </td>
       <td>
 
         <svg id="svg"
              xmlns="http://www.w3.org/2000/svg"
-             xmlns:xlink="http://www.w3.org/1999/xlink"
              width="300" height="200">
           <circle cx="100" cy="50" r="40" stroke="black" stroke-width="2" fill="red" id="circle"/>
           <circle r="40" stroke="black" stroke-width="2" fill="red" id="circle"/>
