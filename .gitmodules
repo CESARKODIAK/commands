@@ -1,0 +1,3 @@
+[submodule "lib/english-script"]
+	path = lib/english-script
+	url = git@github.com:pannous/english-script.git

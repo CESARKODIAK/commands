@@ -7,8 +7,8 @@ class Script < ActiveRecord::Base
     @text=text
     require "context"
     context=Context.new value: Value.new(value: @text)
-    require_dependency "english-script/power-parser.rb"
-    require_dependency "english-script/english-parser.rb"
+    require_dependency "english-script/core/power-parser.rb"
+    require_dependency "english-script/core/english-parser.rb"
     begin
       parser=EnglishParser.new
       @interpretation=parser.parse @text
