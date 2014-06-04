@@ -1,0 +1,37 @@
+<h1>Listing commands</h1>
+
+<table>
+  <tr>
+    <th>Context</th>
+    <th>Description</th>
+    <th>Pattern</th>
+    <th>Action</th>
+    <th>Type</th>
+    <th>Examples</th>
+    <th>User</th>
+    <th>Parent</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @commands.each do |command| %>
+  <tr>
+    <td><%= command.context_id %></td>
+    <td><%= command.description %></td>
+    <td><%= command.pattern %></td>
+    <td><%= command.action %></td>
+    <td><%= command.type_id %></td>
+    <td><%= command.examples %></td>
+    <td><%= command.user_id %></td>
+    <td><%= command.parent_id %></td>
+    <td><%= link_to 'Show', command %></td>
+    <td><%= link_to 'Edit', edit_command_path(command) %></td>
+    <td><%= link_to 'Destroy', command, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Command', new_command_path %>
