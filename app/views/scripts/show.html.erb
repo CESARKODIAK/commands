@@ -12,8 +12,11 @@
       <td width="600px">
         <input name="script[name]" id="name" value="<%= @script.name rescue "" %>"/><br/>
 
-        <textarea name="script[text]" id="text" class="text" rows=20 cols=60><%= @text %></textarea>
+        <textarea name="script[text]" id="text" class="text" rows=15 cols=40
+                  onkeypress="if(event.keyCode == 13 && !event.shiftKey){event.preventDefault();this.form.submit();}"
+                  onkeyup="if(event.keyCode == 27)history.back();"><%= @text %></textarea>
         <br/><b><input class="run" type="submit" value="RUN!"/></b><br/>
+        <script>document.getElementById('text').focus();</script>
       </td>
       <td>
         <svg id="svg" xmlns="http://www.w3.org/2000/svg" width="300" height="200">
@@ -27,18 +30,20 @@
     </tr>
   </table>
   <br/>
-  <br/>
 
-  <b class="blink">
-    <p id="notice"><%= notice %></p>
-    <%= @result %>
+  <b class="blink result">
+      RESULT: <%= @result %>
   </b>
+  <p id="notice" class="blink"><%= notice %></p>
   <script>
       blinks(4, 1);
       <%= @javascript %>
   </script>
+    <br/>
+    <br/>
 </form>
 <%= render 'compact', header: "examples" %>
 <% @scripts=@versions #hack  %>
 <%= render 'compact', header: "versions" %>
 <%= link_to 'Destroy orphaned versions', '/scripts/destroy_orphaned_versions/'+@script.id rescue ""%>
+

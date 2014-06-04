@@ -4,8 +4,10 @@
     <tr>
       <td>
         <!--rows=20 cols=100 -->
-        <textarea name="text" id="text" class="text" rows=20 cols=60><%= @text %></textarea>
-
+        <textarea name="text" id="text" class="text" rows=20 cols=60
+                  onkeypress="if(event.keyCode == 13 && !event.shiftKey){event.preventDefault();this.form.submit();}"
+        ><%= @text %></textarea>
+        <script>document.getElementById('text').focus();</script>
       </td>
       <td>
 
@@ -22,13 +24,16 @@
     </tr>
   </table>
   <br/>
-  <b class="blink">
-    <%= @result %>
+  <b class="blink" style="background: greenyellow;border: 1px groove #000b66;padding: 5px">
+    RESULT: <%= @result %>
   </b>
+  <br/>
+  <br/>
   <script>
       //      tee();
       blinks(4, 1);
-      $('#text').keydown(function (event) {
+      function $(id){document.getElementById(id)}
+      $('text').keydown(function (event) {
           if ((event.ctrlKey || event.metaKey) && event.keyCode == 13) {
               $('#form').submit();
           }
@@ -72,4 +77,4 @@
     });
 </script>
 
-<%= render 'scripts/compact' %>
+<%#= render 'scripts/compact' %>

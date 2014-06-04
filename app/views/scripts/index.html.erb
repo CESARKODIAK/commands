@@ -16,7 +16,7 @@
       <% @clazz= (@clazz=='even'  ?  'odd':'even' ) %>
       <tr class="<%= @clazz %>">
         <td><%= script.name %></td>
-        <td><%= script.text %></td>
+        <td class="nolink black"><%= link_to script.text, script, class: "nolink black"%></td>
         <td><%= script.description %></td>
         <td><%= script.user_id %></td>
         <td><%= script.current_id %></td>

@@ -1,6 +1,8 @@
 #ActionController::Routing::Routes.draw do |map|
   EnglishScript::Application.routes.draw do
 
+  resources :commands
+
   resources :scripts
 
   resources :variables
