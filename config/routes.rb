@@ -11,8 +11,8 @@
   resources :functions
 
 
-  match '/sandbox' => 'sandbox#index'
-    match '/' => 'sandbox#index'
+    get '/sandbox' => 'sandbox#index'
+    get '/' => 'sandbox#index'
     #match '/script' => 'sandbox#index'
 
 
