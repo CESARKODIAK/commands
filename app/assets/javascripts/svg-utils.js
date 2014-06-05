@@ -1,3 +1,5 @@
+var $=function (id){document.getElementById(id)}
+
 function tee(){
 //    alert("hoo")
 
@@ -36,7 +38,7 @@ svg.appendChild(obj);
 }
 
 
-function blinks(number,hide) {
+var blinks=function (number,hide) {
 //    number=number||0;
 //    hide=hide||1;
     number--;
@@ -51,3 +53,8 @@ function blinks(number,hide) {
     }
     setTimeout("blinks("+number+","+hide+")",600);
 }
+
+window.onload =(function() {
+//    document.getElementById('text').keydown(specialKeys);
+    blinks(4, 1);
+});

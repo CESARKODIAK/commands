@@ -51,8 +51,14 @@
 
 
   get '/sandbox' => 'sandbox#index'
-  get '/' => 'sandbox#index'
-  #match '/script' => 'sandbox#index'
+  match('/' => 'sandbox#index', :via=> [:get, :post] ) #, :via => [:get, :post]
+  # match '/' => 'sandbox#index'
+  # match '/' => 'sandbox#index', :via => :get
+  # get '/' => 'sandbox#index'
+  # post '/' => 'sandbox#index'
+  # match '/post' => 'sandbox#index', :via => :post
+  # match '/post' => 'sandbox#index', :via => :post
+  # match 'run'  => 'scripts#run', :via => :post
 
   resources :scripts
   match 'run'  => 'scripts#run', :via => :post

@@ -1,15 +1,3 @@
 #id{}
 .class{}
 
-.run {
-    height: 30px;width: 100px;background-color: #006400;color: #fffaf0;
-}
-
-#name {
-    width: 50%;
-}
-
-#editor {
-    /*padding-top: 10px;*/
-    margin-top: 40px;
-}
