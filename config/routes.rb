@@ -3,7 +3,6 @@
 
   resources :commands
 
-  resources :scripts
 
   resources :variables
 
@@ -62,7 +61,14 @@
   match 'run'  => 'Scripts#run', :via => :post
   match 'run/:id'  => 'Scripts#run', :via => :post
   match 'save_and_run/:id'  => 'Scripts#save_and_run', :via => :post
+
+
+  # resources :scripts
+  connect 'scripts/:action/:id'
+  connect 'scripts/:action/:id.:format'
+
   #connect 'scripts/:id', :controller => 'scripts', :action => 'run',:method => "post"
+
   # Sample of regular route:
   #   connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
