@@ -1,20 +1,14 @@
 #ActionController::Routing::Routes.draw do |map|
   EnglishScript::Application.routes.draw do
 
+    # The priority is based upon order of creation: first created -> highest priority.
   resources :commands
-
 
   resources :variables
 
   resources :parameters
 
   resources :functions
-
-
-    get '/sandbox' => 'sandbox#index'
-    get '/' => 'sandbox#index'
-    #match '/script' => 'sandbox#index'
-
 
     resources :functions
 
@@ -55,19 +49,24 @@
 
   resources :statements
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  match 'run'  => 'Scripts#run', :via => :post
-  match 'run/:id'  => 'Scripts#run', :via => :post
-  match 'save_and_run/:id'  => 'Scripts#save_and_run', :via => :post
 
+  get '/sandbox' => 'sandbox#index'
+  get '/' => 'sandbox#index'
+  #match '/script' => 'sandbox#index'
 
   resources :scripts
+  match 'run'  => 'scripts#run', :via => :post
+  match 'run/:id'  => 'scripts#run', :via => :post
+  match 'save_and_run/:id'  => 'scripts#save_and_run', :via => :post
+
+
   # connect 'scripts/:action/:id'
   # connect 'scripts/:action/:id.:format'
   match '/scripts/destroy_orphaned_versions/' => 'scripts#destroy_orphaned_versions'
   match '/scripts/destroy_orphaned_versions/:id' => 'scripts#destroy_orphaned_versions'
 
   #connect 'scripts/:id', :controller => 'scripts', :action => 'run',:method => "post"
+
 
   # Sample of regular route:
   #   connect 'products/:id', :controller => 'catalog', :action => 'view'
