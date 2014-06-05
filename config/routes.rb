@@ -62,8 +62,8 @@
 
   # connect 'scripts/:action/:id'
   # connect 'scripts/:action/:id.:format'
-  match '/scripts/destroy_orphaned_versions/' => 'scripts#destroy_orphaned_versions'
-  match '/scripts/destroy_orphaned_versions/:id' => 'scripts#destroy_orphaned_versions'
+  get '/scripts/destroy_orphaned_versions/' => 'scripts#destroy_orphaned_versions'
+  get '/scripts/destroy_orphaned_versions/:id' => 'scripts#destroy_orphaned_versions'
 
   #connect 'scripts/:id', :controller => 'scripts', :action => 'run',:method => "post"
 
