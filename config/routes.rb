@@ -10,8 +10,6 @@
 
   resources :functions
 
-  match '/scripts/destroy_orphaned_versions/' => 'Scripts#destroy_orphaned_versions'
-  match '/scripts/destroy_orphaned_versions/:id' => 'Scripts#destroy_orphaned_versions'
 
   match '/sandbox' => 'sandbox#index'
     match '/' => 'sandbox#index'
@@ -63,9 +61,11 @@
   match 'save_and_run/:id'  => 'Scripts#save_and_run', :via => :post
 
 
-  # resources :scripts
-  connect 'scripts/:action/:id'
-  connect 'scripts/:action/:id.:format'
+  resources :scripts
+  # connect 'scripts/:action/:id'
+  # connect 'scripts/:action/:id.:format'
+  match '/scripts/destroy_orphaned_versions/' => 'scripts#destroy_orphaned_versions'
+  match '/scripts/destroy_orphaned_versions/:id' => 'scripts#destroy_orphaned_versions'
 
   #connect 'scripts/:id', :controller => 'scripts', :action => 'run',:method => "post"
 
