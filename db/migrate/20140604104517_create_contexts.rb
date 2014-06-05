@@ -6,6 +6,6 @@ class CreateContexts < ActiveRecord::Migration
       t.text :description
 
       t.timestamps
-    end
+    end rescue nil
   end
 end

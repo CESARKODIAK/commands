@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221161350) do
+ActiveRecord::Schema.define(:version => 20140604104517) do
 
   create_table "_nodes_old_20121215", :force => true do |t|
     t.string  "name",       :limit => 200
@@ -41,6 +41,19 @@ ActiveRecord::Schema.define(:version => 20121221161350) do
     t.string "user",     :limit => 150
     t.string "password", :limit => 150
     t.string "deleted",  :limit => 1
+  end
+
+  create_table "commands", :force => true do |t|
+    t.integer  "context_id"
+    t.text     "description"
+    t.string   "pattern"
+    t.text     "action"
+    t.integer  "type_id"
+    t.text     "examples"
+    t.integer  "user_id"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "concepts", :force => true do |t|
