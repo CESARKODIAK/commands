@@ -11,49 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140604104517) do
+ActiveRecord::Schema.define(:version => 20140606161350) do
 
-  create_table "_nodes_old_20121215", :force => true do |t|
-    t.string  "name",       :limit => 200
-    t.text    "type"
-    t.string  "deleted",    :limit => 1
-    t.boolean "valid"
-    t.integer "version"
-    t.integer "user_id"
-    t.integer "parent_id"
-    t.integer "kind_id",                   :default => 1
-    t.integer "context_id",                :default => 103, :null => false
-  end
-
-  create_table "_s2_old_20121215", :force => true do |t|
-    t.integer "context_id",   :limit => 8, :default => 103, :null => false
-    t.integer "subject_id",   :limit => 8
-    t.integer "predicate_id", :limit => 8
-    t.integer "object_id",    :limit => 8
-    t.integer "user_id",                   :default => 0,   :null => false
-    t.integer "modifier_id",  :limit => 8
-    t.integer "inserted"
-    t.string  "deleted",      :limit => 1
-  end
+  # create_table "_nodes_old_20121215", :force => true do |t|
+  #   t.string  "name",       :limit => 200
+  #   t.text    "type"
+  #   t.string  "deleted",    :limit => 1
+  #   t.boolean "valid"
+  #   t.integer "version"
+  #   t.integer "user_id"
+  #   t.integer "parent_id"
+  #   t.integer "kind_id",                   :default => 1
+  #   t.integer "context_id",                :default => 103, :null => false
+  # end
+  #
+  # create_table "_s2_old_20121215", :force => true do |t|
+  #   t.integer "context_id",   :limit => 8, :default => 103, :null => false
+  #   t.integer "subject_id",   :limit => 8
+  #   t.integer "predicate_id", :limit => 8
+  #   t.integer "object_id",    :limit => 8
+  #   t.integer "user_id",                   :default => 0,   :null => false
+  #   t.integer "modifier_id",  :limit => 8
+  #   t.integer "inserted"
+  #   t.string  "deleted",      :limit => 1
+  # end
 
   create_table "accounts", :force => true do |t|
     t.string "account",  :limit => 150
     t.string "user",     :limit => 150
     t.string "password", :limit => 150
     t.string "deleted",  :limit => 1
-  end
-
-  create_table "commands", :force => true do |t|
-    t.integer  "context_id"
-    t.text     "description"
-    t.string   "pattern"
-    t.text     "action"
-    t.integer  "type_id"
-    t.text     "examples"
-    t.integer  "user_id"
-    t.integer  "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "concepts", :force => true do |t|
